@@ -1,0 +1,18 @@
+lang.name = Lang Tests
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Tests
+linker.link(test_values.lang)
+linker.link(test_texts.lang)
+linker.link(test_multiline_texts.lang)
+linker.link(test_vars.lang)
+linker.link(test_comments.lang)
+linker.link(test_functions.lang)
+linker.link(test_formats.lang)
+linker.link(test_conditions.lang)
+linker.link(test_operations.lang)
+
+# Results
+func.langTestPrintResults()

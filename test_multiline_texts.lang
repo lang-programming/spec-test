@@ -1,0 +1,102 @@
+lang.name = Lang Tests (Multiline Texts)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Tests
+func.langTestUnit(Multiline Texts)
+{
+	func.langTestSubUnit(Empty Text)
+	
+	func.langTestAssertStrictEquals({{{}}}, \e)
+}
+{
+	func.langTestSubUnit(Text with length 1)
+	
+	func.langTestAssertStrictEquals({{{a}}}, a\e)
+	func.langTestAssertStrictEquals({{{0}}}, 0\e)
+	func.langTestAssertStrictEquals({{{.}}}, .\e)
+	func.langTestAssertStrictEquals({{{;}}}, ;\e)
+}
+{
+	func.langTestSubUnit(Multiline Text)
+	
+	func.langTestAssertStrictEquals({{{abc}}}, abc)
+	func.langTestAssertStrictEquals(\\{{{abc}}}, \\abc)
+	func.langTestAssertStrictEquals(\\\\{{{abc}}}, \\\\abc)
+	func.langTestAssertStrictEquals(\\\\\\{{{abc}}}, \\\\\\abc)
+}
+{
+	func.langTestSubUnit(No Multiline Text)
+	
+	func.langTestAssertStrictEquals(\{{{abc}}}, \{\{\{abc\}\}\})
+	func.langTestAssertStrictEquals(\\\{{{abc}}}, \\\{\{\{abc\}\}\})
+	func.langTestAssertStrictEquals(\\\\\{{{abc}}}, \\\\\{\{\{abc\}\}\})
+	func.langTestAssertStrictEquals(\\\\\\\{{{abc}}}, \\\\\\\{\{\{abc\}\}\})
+}
+{
+	func.langTestSubUnit(Backslashes in multiline Text)
+	
+	func.langTestAssertStrictEquals({{{\}}}, \\\e)
+	func.langTestAssertStrictEquals({{{\\}}}, \\\\)
+	func.langTestAssertStrictEquals({{{\\\}}}, \\\\\\)
+	func.langTestAssertStrictEquals({{{abc\}}}, abc\\)
+	func.langTestAssertStrictEquals({{{abc\\}}}, abc\\\\)
+	func.langTestAssertStrictEquals({{{abc\\\}}}, abc\\\\\\)
+	func.langTestAssertStrictEquals({{{\abc}}}, \\abc)
+	func.langTestAssertStrictEquals({{{\\abc}}}, \\\\abc)
+	func.langTestAssertStrictEquals({{{\\\abc}}}, \\\\\\abc)
+	func.langTestAssertStrictEquals({{{\abc\}}}, \\abc\\)
+	func.langTestAssertStrictEquals({{{\\abc\\}}}, \\\\abc\\\\)
+	func.langTestAssertStrictEquals({{{\\\abc\\\}}}, \\\\\\abc\\\\\\)
+}
+{
+	func.langTestSubUnit(\# in multiline Text)
+	
+	func.langTestAssertStrictEquals({{{#}}}, \#\e)
+	func.langTestAssertStrictEquals({{{##}}}, \#\#)
+	func.langTestAssertStrictEquals({{{\##}}}, \\\#\#)
+	func.langTestAssertStrictEquals({{{##\}}}, \#\#\\)
+	func.langTestAssertStrictEquals({{{#\#}}}, \#\\\#)
+	func.langTestAssertStrictEquals({{{\#\#\}}}, \\\#\\\#\\)
+}
+{
+	func.langTestSubUnit(Multiple lines in multiline Text)
+	
+	func.langTestAssertStrictEquals({{{
+}}}, \n\e)
+	func.langTestAssertStrictEquals({{{
+
+}}}, \n\n)
+	func.langTestAssertStrictEquals({{{
+
+
+}}}, \n\n\n)
+	func.langTestAssertStrictEquals({{{
+	
+	
+	}}}, \n\t\n\t\n\t\e)
+}
+{
+	func.langTestSubUnit(Line continuation sequence in multiline Text)
+	
+	func.langTestAssertStrictEquals({{{\
+}}}, \\\n)
+	func.langTestAssertStrictEquals({{{\\
+}}}, \\\\\n)
+	func.langTestAssertStrictEquals({{{\\\
+}}}, \\\\\\\n)
+	func.langTestAssertStrictEquals({{{\
+\}}}, \\\n\\)
+	func.langTestAssertStrictEquals({{{abc\
+def}}}, abc\\\ndef)
+}
+{
+	func.langTestSubUnit(No execution in multiline Text)
+	
+	func.langTestAssertStrictEquals({{{$a = 1}}}, \$a \= 1)
+	func.langTestAssertStrictEquals({{{func.langTestAssertFail(Code was executed inside multiline Text)}}}, func\.langTestAssertFail(Code was executed inside multiline Text))
+	func.langTestAssertStrictEquals({{{con.if(1)
+func.langTestAssertFail(Code was executed inside multiline Text)
+con.endif}}}, con\.if(1)\nfunc\.langTestAssertFail(Code was executed inside multiline Text)\ncon\.endif)
+}

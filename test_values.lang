@@ -1,0 +1,300 @@
+lang.name = Lang Tests (Values)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+$void = func.freeAllVars()
+$test = 0
+$ptr = $[test]
+fp.test = () -> return
+fp.test2 = () -> return
+
+lang.errorOutput = 0 # Temporary disable error output
+
+fp.println = func.println
+
+lang.errorOutput = 1 # Reenable error output
+
+# Tests
+func.langTestUnit(Values)
+{
+	func.langTestSubUnit(NULL)
+	
+	func.langTestAssertNull(null)
+}
+{
+	func.langTestSubUnit(NULL [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(null, $void)
+	func.langTestAssertStrictNotEquals(null, 0)
+	func.langTestAssertStrictNotEquals(null, a)
+	func.langTestAssertStrictNotEquals(null, text)
+	func.langTestAssertStrictNotEquals(null, 2.3)
+	func.langTestAssertStrictNotEquals(null, func.arrayOf())
+	func.langTestAssertStrictNotEquals(null, func.println)
+	func.langTestAssertStrictNotEquals(null, fp.println)
+	func.langTestAssertStrictNotEquals(null, $[void])
+}
+{
+	func.langTestSubUnit(VOID)
+	
+	func.langTestAssertVoid($void)
+}
+{
+	func.langTestSubUnit(VOID [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals($void, null)
+	func.langTestAssertStrictNotEquals($void, 0)
+	func.langTestAssertStrictNotEquals($void, a)
+	func.langTestAssertStrictNotEquals($void, text)
+	func.langTestAssertStrictNotEquals($void, 2.3)
+	func.langTestAssertStrictNotEquals($void, func.arrayOf())
+	func.langTestAssertStrictNotEquals($void, func.println)
+	func.langTestAssertStrictNotEquals($void, fp.println)
+	func.langTestAssertStrictNotEquals($void, $[void])
+}
+{
+	func.langTestSubUnit(TEXT [Strict equals])
+	
+	func.langTestAssertStrictEquals(abc, abc)
+}
+{
+	func.langTestSubUnit(TEXT [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(abc, $void)
+	func.langTestAssertStrictNotEquals(abc, null)
+	func.langTestAssertStrictNotEquals(abc, 0)
+	func.langTestAssertStrictNotEquals(abc, a)
+	func.langTestAssertStrictNotEquals(abc, 2.3)
+	func.langTestAssertStrictNotEquals(abc, func.arrayOf())
+	func.langTestAssertStrictNotEquals(abc, func.println)
+	func.langTestAssertStrictNotEquals(abc, fp.println)
+	func.langTestAssertStrictNotEquals(abc, $[void])
+}
+{
+	func.langTestSubUnit(INT [Strict equals])
+	
+	func.langTestAssertStrictEquals(-2, -2)
+}
+{
+	func.langTestSubUnit(INT [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(-2, $void)
+	func.langTestAssertStrictNotEquals(-2, null)
+	func.langTestAssertStrictNotEquals(-2, abc)
+	func.langTestAssertStrictNotEquals(-2, a)
+	func.langTestAssertStrictNotEquals(-2, func.toLong(-2))
+	func.langTestAssertStrictNotEquals(-2, -2.)
+	func.langTestAssertStrictNotEquals(-2, func.arrayOf())
+	func.langTestAssertStrictNotEquals(-2, func.println)
+	func.langTestAssertStrictNotEquals(-2, fp.println)
+	func.langTestAssertStrictNotEquals(-2, $[void])
+}
+{
+	func.langTestSubUnit(LONG [Strict equals])
+	
+	func.langTestAssertStrictEquals(func.toLong(-2), func.toLong(-2))
+	func.langTestAssertStrictEquals(-9223372036854775, -9223372036854775)
+}
+{
+	func.langTestSubUnit(LONG [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(func.toLong(-2), $void)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), null)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), abc)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), a)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), -2)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), -2.)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), func.arrayOf())
+	func.langTestAssertStrictNotEquals(func.toLong(-2), func.println)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), fp.println)
+	func.langTestAssertStrictNotEquals(func.toLong(-2), $[void])
+}
+{
+	func.langTestSubUnit(FLOAT [Strict equals])
+	
+	func.langTestAssertStrictEquals(-2., -2.)
+	func.langTestAssertStrictEquals(-2., func.toFloat(-2))
+}
+{
+	func.langTestSubUnit(FLOAT [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(-2., $void)
+	func.langTestAssertStrictNotEquals(-2., null)
+	func.langTestAssertStrictNotEquals(-2., abc)
+	func.langTestAssertStrictNotEquals(-2., a)
+	func.langTestAssertStrictNotEquals(-2., func.toLong(-2))
+	func.langTestAssertStrictNotEquals(-2., -2)
+	func.langTestAssertStrictNotEquals(-2., func.arrayOf())
+	func.langTestAssertStrictNotEquals(-2., func.println)
+	func.langTestAssertStrictNotEquals(-2., fp.println)
+	func.langTestAssertStrictNotEquals(-2., $[void])
+}
+{
+	func.langTestSubUnit(DOUBLE [Strict equals])
+	
+	func.langTestAssertStrictEquals(func.toDouble(-2.), func.toDouble(-2.))
+	func.langTestAssertStrictEquals(func.toDouble(-2.), func.toDouble(-2))
+}
+{
+	func.langTestSubUnit(DOUBLE [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), $void)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), null)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), abc)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), a)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), -2)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), -2.)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), func.arrayOf())
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), func.println)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), fp.println)
+	func.langTestAssertStrictNotEquals(func.toDouble(-2.), $[void])
+}
+{
+	func.langTestSubUnit(ARRAY [Empty, Strict equals])
+	
+	func.langTestAssertStrictEquals(func.arrayOf(), func.arrayOf())
+	func.langTestAssertStrictEquals(func.arrayOf(), func.arrayMake(0))
+}
+{
+	func.langTestSubUnit(ARRAY [Empty, Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(func.arrayOf(), $void)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), null)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), abc)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), a)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), -2)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), -2.)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), func.arrayOf(1, 2, 3))
+	func.langTestAssertStrictNotEquals(func.arrayOf(), func.arrayOf(1, 2, 3, a, b, c))
+	func.langTestAssertStrictNotEquals(func.arrayOf(), func.println)
+	func.langTestAssertStrictNotEquals(func.arrayOf(), $[void])
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), $void)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), null)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), abc)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), a)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), -2)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), -2.)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), func.arrayOf(1, 2, 3))
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), func.arrayOf(1, 2, 3, a, b, c))
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), func.println)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), fp.println)
+	func.langTestAssertStrictNotEquals(func.arrayMake(0), $[void])
+}
+{
+	func.langTestSubUnit(ARRAY [Not empty, Single Data Type, Strict equals])
+	
+	func.langTestAssertStrictEquals(func.arrayOf(1, 2, 3), func.arrayOf(1, 2, 3))
+	func.langTestAssertStrictEquals(func.arrayOf(a, b, c), func.arrayOf(a, b, c))
+	func.langTestAssertStrictEquals(func.arrayOf(null, null), func.arrayOf(null, null))
+}
+{
+	func.langTestSubUnit(ARRAY [Not empty, Single Data Type, Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), func.arrayOf(3, 2, 1))
+	func.langTestAssertStrictNotEquals(func.arrayOf(a, b, c), func.arrayOf(c, b, a))
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), $void)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), null)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), abc)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), a)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), func.arrayOf(1\e, 2\e, 3\e))
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), -2)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), -2.)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), func.arrayOf())
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), func.arrayOf(1, 2, 3, a, b, c))
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), func.println)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), fp.println)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3), $[void])
+}
+{
+	func.langTestSubUnit(ARRAY [Not empty, Multiple Data Type, Strict equals])
+	
+	func.langTestAssertStrictEquals(func.arrayOf(1, 2, 3, a, b, c), func.arrayOf(1, 2, 3, a, b, c))
+}
+{
+	func.langTestSubUnit(ARRAY [Not empty, Multiple Data Type, Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), $void)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), null)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), abc)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), a)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), -2)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), -2.)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), func.arrayOf())
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), func.arrayOf(1, 2, 3))
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), func.println)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), fp.println)
+	func.langTestAssertStrictNotEquals(func.arrayOf(1, 2, 3, a, b, c), $[void])
+}
+{
+	func.langTestSubUnit(VAR_POINTER [Strict equals])
+	
+	func.langTestAssertStrictEquals($[void], $[void])
+}
+{
+	func.langTestSubUnit(VAR_POINTER [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals($[void], $void)
+	func.langTestAssertStrictNotEquals($[void], null)
+	func.langTestAssertStrictNotEquals($[void], abc)
+	func.langTestAssertStrictNotEquals($[void], a)
+	func.langTestAssertStrictNotEquals($[void], -2)
+	func.langTestAssertStrictNotEquals($[void], -2.)
+	func.langTestAssertStrictNotEquals($[void], func.arrayOf(1, 2, 3))
+	func.langTestAssertStrictNotEquals($[void], func.arrayOf(1, 2, 3, a, b, c))
+	func.langTestAssertStrictNotEquals($[void], func.println)
+	func.langTestAssertStrictNotEquals($[void], fp.println)
+	func.langTestAssertStrictNotEquals($[void], $[test])
+}
+{
+	func.langTestSubUnit(VAR_POINTER [Dereferencing & Referencing, Strict equals])
+	
+	func.langTestAssertStrictEquals($ptr, $[test])
+	func.langTestAssertStrictEquals($*[void], $void)
+	func.langTestAssertStrictEquals($*[test], $test)
+	func.langTestAssertStrictEquals($*ptr, $test)
+	func.langTestAssertStrictEquals($*[ptr], $[test])
+	func.langTestAssertStrictEquals($**[test], $**ptr)
+	func.langTestAssertStrictEquals($**[[void]], $void)
+	func.langTestAssertStrictEquals($**[[test]], $test)
+	func.langTestAssertStrictEquals($**[ptr], $test)
+	func.langTestAssertStrictEquals($**[ptr], $**[[test]])
+	func.langTestAssertStrictEquals($**[[[void]]], $[void])
+	func.langTestAssertStrictEquals($**[[[test]]], $[test])
+	func.langTestAssertStrictEquals($**[[ptr]], $ptr)
+	func.langTestAssertStrictEquals($**[[ptr]], $[test])
+	func.langTestAssertNull($**[void])
+	func.langTestAssertNull($**[test])
+	func.langTestAssertNull($**ptr)
+}
+{
+	func.langTestSubUnit(VAR_POINTER [Dereferencing & Referencing, Strict not equals])
+	
+	func.langTestAssertStrictNotEquals($ptr, $test)
+	func.langTestAssertStrictNotEquals($*[void], $[void])
+	func.langTestAssertStrictNotEquals($*[test], $[test])
+	func.langTestAssertStrictNotEquals($*ptr, $[test])
+}
+{
+	func.langTestSubUnit(FUNCTION_POINTER [Strict equals])
+	
+	func.langTestAssertStrictEquals(fp.test, fp.test)
+	func.langTestAssertStrictEquals(fp.test, fp.test2)
+	func.langTestAssertStrictEquals(func.println, func.println)
+	func.langTestAssertStrictEquals(fp.println, func.println)
+}
+{
+	func.langTestSubUnit(FUNCTION_POINTER [Strict not equals])
+	
+	func.langTestAssertStrictNotEquals(fp.test, $void)
+	func.langTestAssertStrictNotEquals(fp.test, null)
+	func.langTestAssertStrictNotEquals(fp.test, abc)
+	func.langTestAssertStrictNotEquals(fp.test, a)
+	func.langTestAssertStrictNotEquals(fp.test, func.toLong(-2))
+	func.langTestAssertStrictNotEquals(fp.test, -2)
+	func.langTestAssertStrictNotEquals(fp.test, func.arrayOf())
+	func.langTestAssertStrictNotEquals(fp.test, func.println)
+	func.langTestAssertStrictNotEquals(fp.test, fp.println)
+	func.langTestAssertStrictNotEquals(fp.test, $[void])
+}

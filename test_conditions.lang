@@ -1,0 +1,130 @@
+lang.name = Lang Tests (Conditions)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+$void = func.freeAllVars()
+fp.null = null
+fp.empty = () -> {
+}
+fp.anonymGen = () -> return () -> return
+fp.ret = ($a) -> return $a
+&null = null
+&empty = func.arrayOf()
+$errNoErr = $LANG_ERROR_NO_ERROR
+$errErr = $LANG_ERROR_DIV_BY_ZERO
+
+# Tests
+func.langTestUnit(Conditions)
+{
+	func.langTestSubUnit(Data type [False])
+	
+	func.langTestAssertStrictEquals(parser.con(\e), 0)
+	func.langTestAssertStrictEquals(parser.con({{{}}}), 0)
+	func.langTestAssertStrictEquals(parser.con(\0), 0)
+	func.langTestAssertStrictEquals(parser.con(0), 0)
+	func.langTestAssertStrictEquals(parser.con(func.toLong(0)), 0)
+	func.langTestAssertStrictEquals(parser.con(0.), 0)
+	func.langTestAssertStrictEquals(parser.con(-0.), 0)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(0.)), 0)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(-0.)), 0)
+	func.langTestAssertStrictEquals(parser.con(&empty), 0)
+	func.langTestAssertStrictEquals(parser.con(func.arrayMake(0)), 0)
+	func.langTestAssertStrictEquals(parser.con(&null), 0)
+	func.langTestAssertStrictEquals(parser.con(fp.null), 0)
+	func.langTestAssertStrictEquals(parser.con(fp.ret()), 0)
+	func.langTestAssertStrictEquals(parser.con(fp.ret(0)), 0)
+	func.langTestAssertStrictEquals(parser.con(null), 0)
+	func.langTestAssertStrictEquals(parser.con($void), 0)
+	func.langTestAssertStrictEquals(parser.con($errNoErr), 0)
+}
+{
+	func.langTestSubUnit(Data type [True, TEXT])
+	
+	func.langTestAssertStrictEquals(parser.con({{{a}}}), 1)
+	func.langTestAssertStrictEquals(parser.con({{{-}}}), 1)
+	func.langTestAssertStrictEquals(parser.con({{{\}}}), 1)
+	func.langTestAssertStrictEquals(parser.con({{{0}}}), 1)
+	func.langTestAssertStrictEquals(parser.con(text), 1)
+	func.langTestAssertStrictEquals(parser.con(0.0.0), 1)
+	func.langTestAssertStrictEquals(parser.con(ABCDEF), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, CHAR])
+	
+	func.langTestAssertStrictEquals(parser.con(\t), 1)
+	func.langTestAssertStrictEquals(parser.con(\s), 1)
+	func.langTestAssertStrictEquals(parser.con(\,), 1)
+	func.langTestAssertStrictEquals(parser.con(\\), 1)
+	func.langTestAssertStrictEquals(parser.con(@), 1)
+	func.langTestAssertStrictEquals(parser.con(x), 1)
+	func.langTestAssertStrictEquals(parser.con(µ), 1)
+	func.langTestAssertStrictEquals(parser.con(\$), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, INT])
+	
+	func.langTestAssertStrictEquals(parser.con(1), 1)
+	func.langTestAssertStrictEquals(parser.con(42), 1)
+	func.langTestAssertStrictEquals(parser.con(-1), 1)
+	func.langTestAssertStrictEquals(parser.con(-42), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, LONG])
+	
+	func.langTestAssertStrictEquals(parser.con(func.toLong(1)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toLong(42)), 1)
+	func.langTestAssertStrictEquals(parser.con(9223372036854775), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toLong(-1)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toLong(-42)), 1)
+	func.langTestAssertStrictEquals(parser.con(-9223372036854775), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, FLOAT])
+	
+	func.langTestAssertStrictEquals(parser.con(.0000001), 1)
+	func.langTestAssertStrictEquals(parser.con(.1), 1)
+	func.langTestAssertStrictEquals(parser.con(1.), 1)
+	func.langTestAssertStrictEquals(parser.con(42.), 1)
+	func.langTestAssertStrictEquals(parser.con(20000000000000000000000000000000), 1)
+	func.langTestAssertStrictEquals(parser.con(-.0000001), 1)
+	func.langTestAssertStrictEquals(parser.con(-.1), 1)
+	func.langTestAssertStrictEquals(parser.con(-1.), 1)
+	func.langTestAssertStrictEquals(parser.con(-42.), 1)
+	func.langTestAssertStrictEquals(parser.con(-20000000000000000000000000000000), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, DOUBLE])
+	
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(.0000001)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(.1)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(1.)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(42.)), 1)
+	func.langTestAssertStrictEquals(parser.con(20000000000000000000000000000000000000000), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(-.0000001)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(-.1)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(-1.)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.toDouble(-42.)), 1)
+	func.langTestAssertStrictEquals(parser.con(-20000000000000000000000000000000000000000), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, ARRAY])
+	
+	func.langTestAssertStrictEquals(parser.con(func.arrayOf(null)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayOf($void)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayOf(null, null)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayOf(1, 2, 3)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayOf(abcdef, a)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayMake(1)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayMake(2)), 1)
+	func.langTestAssertStrictEquals(parser.con(func.arrayMake(42)), 1)
+}
+{
+	func.langTestSubUnit(Data type [True, FUNCTION POINTER])
+	
+	func.langTestAssertStrictEquals(parser.con(fp.empty), 1)
+	func.langTestAssertStrictEquals(parser.con(fp.anonymGen()), 1)
+	func.langTestAssertStrictEquals(parser.con(fp.ret(1)), 1)
+	func.langTestAssertStrictEquals(parser.con(fp.ret(42)), 1)
+}

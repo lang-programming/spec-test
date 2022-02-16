@@ -1,0 +1,37 @@
+lang.name = Lang Tests (Comments)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Tests
+func.langTestUnit(Comments)
+{
+	func.langTestSubUnit(Comment)
+	
+	$v = #
+	func.langTestAssertNull($v)
+	
+	$v = \\#
+	func.langTestAssertStrictEquals($v, \\)
+	
+	$v = \\\\#
+	func.langTestAssertStrictEquals($v, {{{\\}}})
+	
+	$v = \\\\\\#
+	func.langTestAssertStrictEquals($v, {{{\\\}}})
+}
+{
+	func.langTestSubUnit(No Comment)
+	
+	$v = \#
+	func.langTestAssertStrictEquals($v, \#)
+	
+	$v = \\\#
+	func.langTestAssertStrictEquals($v, {{{\#}}})
+	
+	$v = \\\\\#
+	func.langTestAssertStrictEquals($v, {{{\\#}}})
+	
+	$v = \\\\\\\#
+	func.langTestAssertStrictEquals($v, {{{\\\#}}})
+}
