@@ -61,6 +61,20 @@ func.langTestUnit(Multiline Texts)
 	func.langTestAssertStrictEquals({{{\#\#\}}}, \\\#\\\#\\)
 }
 {
+	func.langTestSubUnit(\\{ and \\} in multiline Text)
+	
+	func.langTestAssertStrictEquals({{{\{}}}, \\{)
+	func.langTestAssertStrictEquals({{{\{\e}}}, \\{\\e)
+	func.langTestAssertStrictEquals({{{\{\{\e}}}, \\{\\{\\e)
+	func.langTestAssertStrictEquals({{{\e\{\e}}}, \\e\\{\\e)
+	func.langTestAssertStrictEquals({{{\{\{}}}, \\{\\{)
+	func.langTestAssertStrictEquals({{{\}}}}, \\})
+	func.langTestAssertStrictEquals({{{\}\e}}}, \\}\\e)
+	func.langTestAssertStrictEquals({{{\}\}\e}}}, \\}\\}\\e)
+	func.langTestAssertStrictEquals({{{\e\}\e}}}, \\e\\}\\e)
+	func.langTestAssertStrictEquals({{{\}\}}}}, \\}\\})
+}
+{
 	func.langTestSubUnit(Multiple lines in multiline Text)
 	
 	func.langTestAssertStrictEquals({{{
