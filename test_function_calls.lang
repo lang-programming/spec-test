@@ -130,3 +130,122 @@ func.langTestUnit(Function Calls)
 	func.langTestAssertStrictEquals(fp.getParamC(	pa	,	pb	,	pc	,	pd	), {{{pc}}})
 	func.langTestAssertStrictEquals(fp.getParamD(	pa	,	pb	,	pc	,	pd	), {{{pd}}})
 }
+{
+	func.langTestSubUnit(Function pointer call [Whitespaces, Between two arguments, Int values])
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1,2,3,4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1,2,3,4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1,2,3,4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1,2,3,4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1, 2, 3, 4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1, 2, 3, 4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1, 2, 3, 4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1, 2, 3, 4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1,	2,	3,	4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1,	2,	3,	4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1,	2,	3,	4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1,	2,	3,	4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1 ,2 ,3 ,4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1 ,2 ,3 ,4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1 ,2 ,3 ,4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1 ,2 ,3 ,4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1	,2	,3	,4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1	,2	,3	,4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1	,2	,3	,4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1	,2	,3	,4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1 , 2 , 3 , 4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1 , 2 , 3 , 4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1 , 2 , 3 , 4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1 , 2 , 3 , 4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1	,	2	,	3	,	4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1	,	2	,	3	,	4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1	,	2	,	3	,	4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1	,	2	,	3	,	4), 4)
+}
+{
+	func.langTestSubUnit(Function pointer call [Whitespaces, Before first argument and behind last argument, Int values])
+	
+	func.langTestAssertStrictEquals(fp.getParamA( 1,2,3,4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB( 1,2,3,4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC( 1,2,3,4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD( 1,2,3,4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(	1,2,3,4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(	1,2,3,4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(	1,2,3,4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(	1,2,3,4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1,2,3,4 ), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1,2,3,4 ), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1,2,3,4 ), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1,2,3,4 ), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1,2,3,4	), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1,2,3,4	), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1,2,3,4	), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1,2,3,4	), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA( 1,2,3,4 ), 1)
+	func.langTestAssertStrictEquals(fp.getParamB( 1,2,3,4 ), 2)
+	func.langTestAssertStrictEquals(fp.getParamC( 1,2,3,4 ), 3)
+	func.langTestAssertStrictEquals(fp.getParamD( 1,2,3,4 ), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(	1,2,3,4	), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(	1,2,3,4	), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(	1,2,3,4	), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(	1,2,3,4	), 4)
+}
+{
+	func.langTestSubUnit(Function pointer call [Whitespaces, Between two arguments and before first argument and behind last argument, Int values])
+	
+	func.langTestAssertStrictEquals(fp.getParamA( 1, 2, 3, 4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB( 1, 2, 3, 4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC( 1, 2, 3, 4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD( 1, 2, 3, 4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1, 2, 3, 4 ), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1, 2, 3, 4 ), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1, 2, 3, 4 ), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1, 2, 3, 4 ), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA( 1, 2, 3, 4 ), 1)
+	func.langTestAssertStrictEquals(fp.getParamB( 1, 2, 3, 4 ), 2)
+	func.langTestAssertStrictEquals(fp.getParamC( 1, 2, 3, 4 ), 3)
+	func.langTestAssertStrictEquals(fp.getParamD( 1, 2, 3, 4 ), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA( 1,	2,	3,	4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB( 1,	2,	3,	4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC( 1,	2,	3,	4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD( 1,	2,	3,	4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(	1,	2,	3,	4), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(	1,	2,	3,	4), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(	1,	2,	3,	4), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(	1,	2,	3,	4), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1,	2,	3,	4 ), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1,	2,	3,	4 ), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1,	2,	3,	4 ), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1,	2,	3,	4 ), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(1,	2,	3,	4	), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(1,	2,	3,	4	), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(1,	2,	3,	4	), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(1,	2,	3,	4	), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA( 1	,	2	,	3	,	4 ), 1)
+	func.langTestAssertStrictEquals(fp.getParamB( 1	,	2	,	3	,	4 ), 2)
+	func.langTestAssertStrictEquals(fp.getParamC( 1	,	2	,	3	,	4 ), 3)
+	func.langTestAssertStrictEquals(fp.getParamD( 1	,	2	,	3	,	4 ), 4)
+	
+	func.langTestAssertStrictEquals(fp.getParamA(	1	,	2	,	3	,	4	), 1)
+	func.langTestAssertStrictEquals(fp.getParamB(	1	,	2	,	3	,	4	), 2)
+	func.langTestAssertStrictEquals(fp.getParamC(	1	,	2	,	3	,	4	), 3)
+	func.langTestAssertStrictEquals(fp.getParamD(	1	,	2	,	3	,	4	), 4)
+}
