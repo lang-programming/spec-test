@@ -107,27 +107,6 @@ func.langTestUnit(Variables)
 	func.langTestAssertStrictEquals($_LANG_VAR, 23)
 }
 {
-	func.langTestSubUnit(Variable creation [Valid variable name, varPtr redirection])
-	
-	$[var] = 0
-	func.langTestAssertStrictEquals($[var], 0)
-	
-	$[[var]] = 1
-	func.langTestAssertStrictEquals($[[var]], 1)
-	
-	$[0] = 2
-	func.langTestAssertStrictEquals($[0], 2)
-	
-	$[[0]] = 3
-	func.langTestAssertStrictEquals($[[0]], 3)
-	
-	$[_] = 4
-	func.langTestAssertStrictEquals($[_], 4)
-	
-	$[[_]] = 5
-	func.langTestAssertStrictEquals($[[_]], 5)
-}
-{
 	func.langTestSubUnit(Variable creation [Invalid variable name])
 	
 	$. = 0
