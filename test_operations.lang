@@ -4,6 +4,8 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Preparation
+$void = func.freeAllVars()
+fp.ret = ($a) -> return $a
 $n1 = -1
 $n2 = -2
 $n3 = -3
@@ -11,6 +13,16 @@ $n4 = -4
 
 # Tests
 func.langTestUnit(Operations)
+{
+	func.langTestSubUnit(Empty statements)
+	
+	func.langTestAssertStrictEquals(parser.op(), $void)
+	func.langTestAssertStrictEquals(parser.op(\!), $void)
+	func.langTestAssertStrictEquals(parser.op(\!\!), $void)
+	func.langTestAssertStrictEquals(parser.op(fp.ret()), $void)
+	func.langTestAssertStrictEquals(parser.op(fp.ret(\!)), $void)
+	func.langTestAssertStrictEquals(parser.op(fp.ret(\!\!)), $void)
+}
 {
 	func.langTestSubUnit(Associtivity [POW operator])
 	
