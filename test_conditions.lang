@@ -20,9 +20,9 @@ func.langTestUnit(Conditions)
 {
 	func.langTestSubUnit(Data type [False])
 	
-	func.langTestAssertStrictEquals(parser.con(), 0)
-	func.langTestAssertStrictEquals(parser.con(\!), 0)
-	func.langTestAssertStrictEquals(parser.con(\!\!), 0)
+	func.langTestAssertStrictEquals(parser.con(), $void)
+	func.langTestAssertStrictEquals(parser.con(\!), $void)
+	func.langTestAssertStrictEquals(parser.con(\!\!), $void)
 	func.langTestAssertStrictEquals(parser.con(\e), 0)
 	func.langTestAssertStrictEquals(parser.con({{{}}}), 0)
 	func.langTestAssertStrictEquals(parser.con(\0), 0)
