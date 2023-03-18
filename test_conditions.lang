@@ -14,6 +14,9 @@ fp.ret = ($a) -> return $a
 &empty = func.arrayOf()
 $errNoErr = $LANG_ERROR_NO_ERROR
 $errErr = $LANG_ERROR_DIV_BY_ZERO
+&EmptyStructDef = {
+}
+&emptyStructIns = fn.structOf(&EmptyStructDef)
 
 # Tests
 func.langTestUnit(Conditions)
@@ -43,6 +46,8 @@ func.langTestUnit(Conditions)
 	func.langTestAssertStrictEquals(parser.con(null), 0)
 	func.langTestAssertStrictEquals(parser.con($void), 0)
 	func.langTestAssertStrictEquals(parser.con($errNoErr), 0)
+	func.langTestAssertStrictEquals(parser.con(&EmptyStructDef), 0)
+	func.langTestAssertStrictEquals(parser.con(&emptyStructIns), 0)
 }
 {
 	func.langTestSubUnit(Data type [True, TEXT])
