@@ -7,35 +7,36 @@ lang.test = 1
 # ...
 
 # Tests
+fn.testUnit(Functions)
 {
-	func.langTestSubUnit(Lang functions [func.isLangVersionNewer])
+	fn.testSubUnit(Lang functions [func.isLangVersionNewer])
 	
-	func.langTestAssertStrictEquals(func.isLangVersionNewer(), 0)
+	fn.testAssertStrictEquals(func.isLangVersionNewer(), 0)
 }
 {
-	func.langTestSubUnit(Lang functions [func.isLangVersionOlder])
+	fn.testSubUnit(Lang functions [func.isLangVersionOlder])
 	
-	func.langTestAssertStrictEquals(func.isLangVersionOlder(), 0)
+	fn.testAssertStrictEquals(func.isLangVersionOlder(), 0)
 }
 {
-	func.langTestSubUnit(System functions [func.sleep])
+	fn.testSubUnit(System functions [func.sleep])
 	
 	$t1 = func.currentTimeMillis()
 	func.sleep(5)
 	$t2 = func.currentTimeMillis()
 	$td $= $t2 - $t1
 	
-	func.langTestAssertGreaterThanOrEquals($td, 5)
-	func.langTestAssertLessThan($td, 8)
+	fn.testAssertGreaterThanOrEquals($td, 5)
+	fn.testAssertLessThan($td, 8)
 }
 {
-	func.langTestSubUnit(Error functions [func.currentTimeMillis])
+	fn.testSubUnit(Error functions [func.currentTimeMillis])
 	
 	$t1 = func.currentTimeMillis()
 	
-	func.langTestAssertStrictEquals(func.typeOf($t1), $LANG_TYPE_LONG) # TODO replace type check with lang test function
+	fn.testAssertStrictEquals(func.typeOf($t1), $LANG_TYPE_LONG) # TODO replace type check with lang test function
 	
 	$t2 = func.currentTimeMillis()
 	
-	func.langTestAssertLessThanOrEquals($t1, $t2)
+	fn.testAssertLessThanOrEquals($t1, $t2)
 }

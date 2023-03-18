@@ -16,4 +16,4 @@ linker.link(test_conditions.lang)
 linker.link(test_operations.lang)
 
 # Results
-func.langTestPrintResults()
+fn.testPrintResults()

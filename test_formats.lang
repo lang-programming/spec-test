@@ -12,145 +12,145 @@ null = nul
 $null
 
 # Tests
-func.langTestUnit(Formats)
+fn.testUnit(Formats)
 {
-	func.langTestSubUnit(Without format sequences)
+	fn.testSubUnit(Without format sequences)
 	
-	func.langTestAssertStrictEquals(func.format(abc), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(def), {{{def}}})
-	func.langTestAssertStrictEquals(func.format(10), {{{10}}})
-	func.langTestAssertStrictEquals(func.format(-10), {{{-10}}})
-	func.langTestAssertStrictEquals(func.format($null), {{{null}}})
+	fn.testAssertStrictEquals(func.format(abc), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(def), {{{def}}})
+	fn.testAssertStrictEquals(func.format(10), {{{10}}})
+	fn.testAssertStrictEquals(func.format(-10), {{{-10}}})
+	fn.testAssertStrictEquals(func.format($null), {{{null}}})
 }
 {
-	func.langTestSubUnit(Basic format squences)
+	fn.testSubUnit(Basic format squences)
 	
-	func.langTestAssertEquals(func.format(%%), {{{%}}})
-	func.langTestAssertEquals(func.format(%%%%), %%)
+	fn.testAssertEquals(func.format(%%), {{{%}}})
+	fn.testAssertEquals(func.format(%%%%), %%)
 }
 {
-	func.langTestSubUnit(Text format squences [No size])
+	fn.testSubUnit(Text format squences [No size])
 	
-	func.langTestAssertStrictEquals(func.format(%s, abc), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%s, def), {{{def}}})
-	func.langTestAssertStrictEquals(func.format(%s, 10), {{{10}}})
-	func.langTestAssertStrictEquals(func.format(%s, -10), {{{-10}}})
-	func.langTestAssertStrictEquals(func.format(%s, $null), {{{null}}})
+	fn.testAssertStrictEquals(func.format(%s, abc), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%s, def), {{{def}}})
+	fn.testAssertStrictEquals(func.format(%s, 10), {{{10}}})
+	fn.testAssertStrictEquals(func.format(%s, -10), {{{-10}}})
+	fn.testAssertStrictEquals(func.format(%s, $null), {{{null}}})
 }
 {
-	func.langTestSubUnit(Text format squences [Size])
+	fn.testSubUnit(Text format squences [Size])
 	
-	func.langTestAssertStrictEquals(func.format(%5s, abc), {{{  abc}}})
-	func.langTestAssertStrictEquals(func.format(%5s, def), {{{  def}}})
-	func.langTestAssertStrictEquals(func.format(%5s, 10), {{{   10}}})
-	func.langTestAssertStrictEquals(func.format(%5s, -10), {{{  -10}}})
-	func.langTestAssertStrictEquals(func.format(%5s, $null), {{{ null}}})
+	fn.testAssertStrictEquals(func.format(%5s, abc), {{{  abc}}})
+	fn.testAssertStrictEquals(func.format(%5s, def), {{{  def}}})
+	fn.testAssertStrictEquals(func.format(%5s, 10), {{{   10}}})
+	fn.testAssertStrictEquals(func.format(%5s, -10), {{{  -10}}})
+	fn.testAssertStrictEquals(func.format(%5s, $null), {{{ null}}})
 }
 {
-	func.langTestSubUnit(Text format squences [Size, Too long text])
+	fn.testSubUnit(Text format squences [Size, Too long text])
 	
-	func.langTestAssertStrictEquals(func.format(%1s, abc), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%1s, def), {{{def}}})
-	func.langTestAssertStrictEquals(func.format(%1s, 10), {{{10}}})
-	func.langTestAssertStrictEquals(func.format(%1s, -10), {{{-10}}})
-	func.langTestAssertStrictEquals(func.format(%1s, $null), {{{null}}})
+	fn.testAssertStrictEquals(func.format(%1s, abc), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%1s, def), {{{def}}})
+	fn.testAssertStrictEquals(func.format(%1s, 10), {{{10}}})
+	fn.testAssertStrictEquals(func.format(%1s, -10), {{{-10}}})
+	fn.testAssertStrictEquals(func.format(%1s, $null), {{{null}}})
 }
 {
-	func.langTestSubUnit(Text format squences [Size, Exact size match])
+	fn.testSubUnit(Text format squences [Size, Exact size match])
 	
-	func.langTestAssertStrictEquals(func.format(%3s, abc), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%3s, def), {{{def}}})
-	func.langTestAssertStrictEquals(func.format(%2s, 10), {{{10}}})
-	func.langTestAssertStrictEquals(func.format(%3s, -10), {{{-10}}})
-	func.langTestAssertStrictEquals(func.format(%4s, $null), {{{null}}})
+	fn.testAssertStrictEquals(func.format(%3s, abc), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%3s, def), {{{def}}})
+	fn.testAssertStrictEquals(func.format(%2s, 10), {{{10}}})
+	fn.testAssertStrictEquals(func.format(%3s, -10), {{{-10}}})
+	fn.testAssertStrictEquals(func.format(%4s, $null), {{{null}}})
 }
 {
-	func.langTestSubUnit(Text format squences [Size, Left justify])
+	fn.testSubUnit(Text format squences [Size, Left justify])
 	
-	func.langTestAssertStrictEquals(func.format(%-5s, abc), {{{abc  }}})
-	func.langTestAssertStrictEquals(func.format(%-5s, def), {{{def  }}})
-	func.langTestAssertStrictEquals(func.format(%-5s, 10), {{{10   }}})
-	func.langTestAssertStrictEquals(func.format(%-5s, -10), {{{-10  }}})
-	func.langTestAssertStrictEquals(func.format(%-5s, $null), {{{null }}})
+	fn.testAssertStrictEquals(func.format(%-5s, abc), {{{abc  }}})
+	fn.testAssertStrictEquals(func.format(%-5s, def), {{{def  }}})
+	fn.testAssertStrictEquals(func.format(%-5s, 10), {{{10   }}})
+	fn.testAssertStrictEquals(func.format(%-5s, -10), {{{-10  }}})
+	fn.testAssertStrictEquals(func.format(%-5s, $null), {{{null }}})
 }
 {
-	func.langTestSubUnit(Text format squences [Size, Too long text, Left justify])
+	fn.testSubUnit(Text format squences [Size, Too long text, Left justify])
 	
-	func.langTestAssertStrictEquals(func.format(%-1s, abc), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%-1s, def), {{{def}}})
-	func.langTestAssertStrictEquals(func.format(%-1s, 10), {{{10}}})
-	func.langTestAssertStrictEquals(func.format(%-1s, -10), {{{-10}}})
-	func.langTestAssertStrictEquals(func.format(%-1s, $null), {{{null}}})
+	fn.testAssertStrictEquals(func.format(%-1s, abc), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%-1s, def), {{{def}}})
+	fn.testAssertStrictEquals(func.format(%-1s, 10), {{{10}}})
+	fn.testAssertStrictEquals(func.format(%-1s, -10), {{{-10}}})
+	fn.testAssertStrictEquals(func.format(%-1s, $null), {{{null}}})
 }
 {
-	func.langTestSubUnit(Text format squences [Size, Exact size match, Left justify])
+	fn.testSubUnit(Text format squences [Size, Exact size match, Left justify])
 	
-	func.langTestAssertStrictEquals(func.format(%-3s, abc), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%-3s, def), {{{def}}})
-	func.langTestAssertStrictEquals(func.format(%-2s, 10), {{{10}}})
-	func.langTestAssertStrictEquals(func.format(%-3s, -10), {{{-10}}})
-	func.langTestAssertStrictEquals(func.format(%-4s, $null), {{{null}}})
+	fn.testAssertStrictEquals(func.format(%-3s, abc), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%-3s, def), {{{def}}})
+	fn.testAssertStrictEquals(func.format(%-2s, 10), {{{10}}})
+	fn.testAssertStrictEquals(func.format(%-3s, -10), {{{-10}}})
+	fn.testAssertStrictEquals(func.format(%-4s, $null), {{{null}}})
 }
 {
-	func.langTestSubUnit(Translation format squences [No size])
+	fn.testSubUnit(Translation format squences [No size])
 	
-	func.langTestAssertStrictEquals(func.format(%t, abc), {{{test}}})
-	func.langTestAssertStrictEquals(func.format(%t, def), {{{20}}})
-	func.langTestAssertStrictEquals(func.format(%t, 10), {{{txt2}}})
-	func.langTestAssertStrictEquals(func.format(%t, -10), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%t, $null), {{{nul}}})
+	fn.testAssertStrictEquals(func.format(%t, abc), {{{test}}})
+	fn.testAssertStrictEquals(func.format(%t, def), {{{20}}})
+	fn.testAssertStrictEquals(func.format(%t, 10), {{{txt2}}})
+	fn.testAssertStrictEquals(func.format(%t, -10), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%t, $null), {{{nul}}})
 }
 {
-	func.langTestSubUnit(Translation format squences [Size])
+	fn.testSubUnit(Translation format squences [Size])
 	
-	func.langTestAssertStrictEquals(func.format(%5t, abc), {{{ test}}})
-	func.langTestAssertStrictEquals(func.format(%5t, def), {{{   20}}})
-	func.langTestAssertStrictEquals(func.format(%5t, 10), {{{ txt2}}})
-	func.langTestAssertStrictEquals(func.format(%5t, -10), {{{  abc}}})
-	func.langTestAssertStrictEquals(func.format(%5t, $null), {{{  nul}}})
+	fn.testAssertStrictEquals(func.format(%5t, abc), {{{ test}}})
+	fn.testAssertStrictEquals(func.format(%5t, def), {{{   20}}})
+	fn.testAssertStrictEquals(func.format(%5t, 10), {{{ txt2}}})
+	fn.testAssertStrictEquals(func.format(%5t, -10), {{{  abc}}})
+	fn.testAssertStrictEquals(func.format(%5t, $null), {{{  nul}}})
 }
 {
-	func.langTestSubUnit(Translation format squences [Size, Too long text])
+	fn.testSubUnit(Translation format squences [Size, Too long text])
 	
-	func.langTestAssertStrictEquals(func.format(%1t, abc), {{{test}}})
-	func.langTestAssertStrictEquals(func.format(%1t, def), {{{20}}})
-	func.langTestAssertStrictEquals(func.format(%1t, 10), {{{txt2}}})
-	func.langTestAssertStrictEquals(func.format(%1t, -10), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%1t, $null), {{{nul}}})
+	fn.testAssertStrictEquals(func.format(%1t, abc), {{{test}}})
+	fn.testAssertStrictEquals(func.format(%1t, def), {{{20}}})
+	fn.testAssertStrictEquals(func.format(%1t, 10), {{{txt2}}})
+	fn.testAssertStrictEquals(func.format(%1t, -10), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%1t, $null), {{{nul}}})
 }
 {
-	func.langTestSubUnit(Translation format squences [Size, Exact size match])
+	fn.testSubUnit(Translation format squences [Size, Exact size match])
 	
-	func.langTestAssertStrictEquals(func.format(%4t, abc), {{{test}}})
-	func.langTestAssertStrictEquals(func.format(%2t, def), {{{20}}})
-	func.langTestAssertStrictEquals(func.format(%4t, 10), {{{txt2}}})
-	func.langTestAssertStrictEquals(func.format(%3t, -10), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%3t, $null), {{{nul}}})
+	fn.testAssertStrictEquals(func.format(%4t, abc), {{{test}}})
+	fn.testAssertStrictEquals(func.format(%2t, def), {{{20}}})
+	fn.testAssertStrictEquals(func.format(%4t, 10), {{{txt2}}})
+	fn.testAssertStrictEquals(func.format(%3t, -10), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%3t, $null), {{{nul}}})
 }
 {
-	func.langTestSubUnit(Translation format squences [Size, Left justify])
+	fn.testSubUnit(Translation format squences [Size, Left justify])
 	
-	func.langTestAssertStrictEquals(func.format(%-5t, abc), {{{test }}})
-	func.langTestAssertStrictEquals(func.format(%-5t, def), {{{20   }}})
-	func.langTestAssertStrictEquals(func.format(%-5t, 10), {{{txt2 }}})
-	func.langTestAssertStrictEquals(func.format(%-5t, -10), {{{abc  }}})
-	func.langTestAssertStrictEquals(func.format(%-5t, $null), {{{nul  }}})
+	fn.testAssertStrictEquals(func.format(%-5t, abc), {{{test }}})
+	fn.testAssertStrictEquals(func.format(%-5t, def), {{{20   }}})
+	fn.testAssertStrictEquals(func.format(%-5t, 10), {{{txt2 }}})
+	fn.testAssertStrictEquals(func.format(%-5t, -10), {{{abc  }}})
+	fn.testAssertStrictEquals(func.format(%-5t, $null), {{{nul  }}})
 }
 {
-	func.langTestSubUnit(Translation format squences [Size, Too long text, Left justify])
+	fn.testSubUnit(Translation format squences [Size, Too long text, Left justify])
 	
-	func.langTestAssertStrictEquals(func.format(%-1t, abc), {{{test}}})
-	func.langTestAssertStrictEquals(func.format(%-1t, def), {{{20}}})
-	func.langTestAssertStrictEquals(func.format(%-1t, 10), {{{txt2}}})
-	func.langTestAssertStrictEquals(func.format(%-1t, -10), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%-1t, $null), {{{nul}}})
+	fn.testAssertStrictEquals(func.format(%-1t, abc), {{{test}}})
+	fn.testAssertStrictEquals(func.format(%-1t, def), {{{20}}})
+	fn.testAssertStrictEquals(func.format(%-1t, 10), {{{txt2}}})
+	fn.testAssertStrictEquals(func.format(%-1t, -10), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%-1t, $null), {{{nul}}})
 }
 {
-	func.langTestSubUnit(Translation format squences [Size, Exact size match, Left justify])
+	fn.testSubUnit(Translation format squences [Size, Exact size match, Left justify])
 	
-	func.langTestAssertStrictEquals(func.format(%-4t, abc), {{{test}}})
-	func.langTestAssertStrictEquals(func.format(%-2t, def), {{{20}}})
-	func.langTestAssertStrictEquals(func.format(%-4t, 10), {{{txt2}}})
-	func.langTestAssertStrictEquals(func.format(%-3t, -10), {{{abc}}})
-	func.langTestAssertStrictEquals(func.format(%-3t, $null), {{{nul}}})
+	fn.testAssertStrictEquals(func.format(%-4t, abc), {{{test}}})
+	fn.testAssertStrictEquals(func.format(%-2t, def), {{{20}}})
+	fn.testAssertStrictEquals(func.format(%-4t, 10), {{{txt2}}})
+	fn.testAssertStrictEquals(func.format(%-3t, -10), {{{abc}}})
+	fn.testAssertStrictEquals(func.format(%-3t, $null), {{{nul}}})
 }

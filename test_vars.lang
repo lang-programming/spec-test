@@ -7,236 +7,236 @@ lang.test = 1
 # ...
 
 # Tests
-func.langTestUnit(Variables)
+fn.testUnit(Variables)
 {
-	func.langTestSubUnit(Variable creation [Undefined])
+	fn.testSubUnit(Variable creation [Undefined])
 	
-	func.langTestAssertStrictEquals($undefined, {{{$undefined}}})
+	fn.testAssertStrictEquals($undefined, {{{$undefined}}})
 }
 {
-	func.langTestSubUnit(Variable creation [Empty])
+	fn.testSubUnit(Variable creation [Empty])
 	
 	$new
-	func.langTestAssertNull($new)
+	fn.testAssertNull($new)
 	
 	$empty =
-	func.langTestAssertNull($empty)
+	fn.testAssertNull($empty)
 }
 {
-	func.langTestSubUnit(Variable creation [Not empty])
+	fn.testSubUnit(Variable creation [Not empty])
 	
 	$num = 42
-	func.langTestAssertStrictEquals($num, 42)
+	fn.testAssertStrictEquals($num, 42)
 	
 	$emptyText = \e
-	func.langTestAssertStrictEquals($emptyText, \e)
+	fn.testAssertStrictEquals($emptyText, \e)
 }
 {
-	func.langTestSubUnit(Variable creation [Valid variable name])
+	fn.testSubUnit(Variable creation [Valid variable name])
 	
 	$var = 0
-	func.langTestAssertStrictEquals($var, 0)
+	fn.testAssertStrictEquals($var, 0)
 	
 	$var_test = 1
-	func.langTestAssertStrictEquals($var_test, 1)
+	fn.testAssertStrictEquals($var_test, 1)
 	
 	$varTest = 2
-	func.langTestAssertStrictEquals($varTest, 2)
+	fn.testAssertStrictEquals($varTest, 2)
 	
 	$VAR_TEST = 3
-	func.langTestAssertStrictEquals($VAR_TEST, 3)
+	fn.testAssertStrictEquals($VAR_TEST, 3)
 	
 	$VAR___TEST = 4
-	func.langTestAssertStrictEquals($VAR___TEST, 4)
+	fn.testAssertStrictEquals($VAR___TEST, 4)
 	
 	$VARTEST = 5
-	func.langTestAssertStrictEquals($VARTEST, 5)
+	fn.testAssertStrictEquals($VARTEST, 5)
 	
 	$_VARTEST = 6
-	func.langTestAssertStrictEquals($_VARTEST, 6)
+	fn.testAssertStrictEquals($_VARTEST, 6)
 	
 	$VARTEST_ = 7
-	func.langTestAssertStrictEquals($VARTEST_, 7)
+	fn.testAssertStrictEquals($VARTEST_, 7)
 	
 	$_VARTEST_ = 8
-	func.langTestAssertStrictEquals($_VARTEST_, 8)
+	fn.testAssertStrictEquals($_VARTEST_, 8)
 	
 	$var1 = 9
-	func.langTestAssertStrictEquals($var1, 9)
+	fn.testAssertStrictEquals($var1, 9)
 	
 	$1var = 10
-	func.langTestAssertStrictEquals($1var, 10)
+	fn.testAssertStrictEquals($1var, 10)
 	
 	$1var1 = 11
-	func.langTestAssertStrictEquals($1var1, 11)
+	fn.testAssertStrictEquals($1var1, 11)
 	
 	$9var0 = 12
-	func.langTestAssertStrictEquals($9var0, 12)
+	fn.testAssertStrictEquals($9var0, 12)
 	
 	$0 = 13
-	func.langTestAssertStrictEquals($0, 13)
+	fn.testAssertStrictEquals($0, 13)
 	
 	$19 = 14
-	func.langTestAssertStrictEquals($19, 14)
+	fn.testAssertStrictEquals($19, 14)
 	
 	$_ = 15
-	func.langTestAssertStrictEquals($_, 15)
+	fn.testAssertStrictEquals($_, 15)
 	
 	$__ = 16
-	func.langTestAssertStrictEquals($__, 16)
+	fn.testAssertStrictEquals($__, 16)
 	
 	$___ = 17
-	func.langTestAssertStrictEquals($___, 17)
+	fn.testAssertStrictEquals($___, 17)
 	
 	$_0_ = 18
-	func.langTestAssertStrictEquals($_0_, 18)
+	fn.testAssertStrictEquals($_0_, 18)
 	
 	$0_0 = 19
-	func.langTestAssertStrictEquals($0_0, 19)
+	fn.testAssertStrictEquals($0_0, 19)
 	
 	$LANG = 20
-	func.langTestAssertStrictEquals($LANG, 20)
+	fn.testAssertStrictEquals($LANG, 20)
 	
 	$_LANG = 21
-	func.langTestAssertStrictEquals($_LANG, 21)
+	fn.testAssertStrictEquals($_LANG, 21)
 	
 	$_LANG_ = 22
-	func.langTestAssertStrictEquals($_LANG_, 22)
+	fn.testAssertStrictEquals($_LANG_, 22)
 	
 	$_LANG_VAR = 23
-	func.langTestAssertStrictEquals($_LANG_VAR, 23)
+	fn.testAssertStrictEquals($_LANG_VAR, 23)
 }
 {
-	func.langTestSubUnit(Variable creation [Invalid variable name])
+	fn.testSubUnit(Variable creation [Invalid variable name])
 	
 	$. = 0
-	func.langTestAssertStrictNotEquals($., 0)
+	fn.testAssertStrictNotEquals($., 0)
 	
 	$.. = 1
-	func.langTestAssertStrictNotEquals($.., 1)
+	fn.testAssertStrictNotEquals($.., 1)
 	
 	$... = 2
-	func.langTestAssertStrictNotEquals($..., 2)
+	fn.testAssertStrictNotEquals($..., 2)
 	
 	$- = 3
-	func.langTestAssertStrictNotEquals($-, 3)
+	fn.testAssertStrictNotEquals($-, 3)
 	
 	$-- = 4
-	func.langTestAssertStrictNotEquals($--, 4)
+	fn.testAssertStrictNotEquals($--, 4)
 	
 	$--- = 5
-	func.langTestAssertStrictNotEquals($---, 5)
+	fn.testAssertStrictNotEquals($---, 5)
 	
 	$+ = 6
-	func.langTestAssertStrictNotEquals($+, 6)
+	fn.testAssertStrictNotEquals($+, 6)
 	
 	$/ = 7
-	func.langTestAssertStrictNotEquals($/, 7)
+	fn.testAssertStrictNotEquals($/, 7)
 	
 	$& = 8
-	func.langTestAssertStrictNotEquals($&, 8)
+	fn.testAssertStrictNotEquals($&, 8)
 	
 	$µ = 9
-	func.langTestAssertStrictNotEquals($µ, 9)
+	fn.testAssertStrictNotEquals($µ, 9)
 	
 	$• = 10
-	func.langTestAssertStrictNotEquals($•, 10)
+	fn.testAssertStrictNotEquals($•, 10)
 }
 {
-	func.langTestSubUnit(Variable creation [Invalid variable name, varPtr redirection])
+	fn.testSubUnit(Variable creation [Invalid variable name, varPtr redirection])
 	lang.errorOutput = 0
 	
 	$[[var] = 0
-	func.langTestAssertStrictNotEquals($[[var], 0)
+	fn.testAssertStrictNotEquals($[[var], 0)
 	
 	$[var]] = 1
-	func.langTestAssertStrictNotEquals($[var]], 1)
+	fn.testAssertStrictNotEquals($[var]], 1)
 	
 	$[] = 2
-	func.langTestAssertStrictNotEquals($[], 2)
+	fn.testAssertStrictNotEquals($[], 2)
 	
 	$[var = 3
-	func.langTestAssertStrictNotEquals($[var, 3)
+	fn.testAssertStrictNotEquals($[var, 3)
 	
 	$var] = 4
-	func.langTestAssertStrictNotEquals($var], 4)
+	fn.testAssertStrictNotEquals($var], 4)
 	
 	$[var]] = 5
-	func.langTestAssertStrictNotEquals($[var]], 5)
+	fn.testAssertStrictNotEquals($[var]], 5)
 	
 	$[[] = 6
-	func.langTestAssertStrictNotEquals($[[], 6)
+	fn.testAssertStrictNotEquals($[[], 6)
 	
 	$[]] = 7
-	func.langTestAssertStrictNotEquals($[]], 7)
+	fn.testAssertStrictNotEquals($[]], 7)
 	
 	$[LANG_] = 8
-	func.langTestAssertStrictNotEquals($[LANG_], 8)
+	fn.testAssertStrictNotEquals($[LANG_], 8)
 	
 	$[[LANG_]] = 9
-	func.langTestAssertStrictNotEquals($[[LANG_]], 9)
+	fn.testAssertStrictNotEquals($[[LANG_]], 9)
 	
 	lang.errorOutput = 1
 }
 {
-	func.langTestSubUnit(Variable creation [Invalid variable name, \$LANG_VARs])
+	fn.testSubUnit(Variable creation [Invalid variable name, \$LANG_VARs])
 	lang.errorOutput = 0
 	
 	$LANG_ = 0
-	func.langTestAssertStrictNotEquals($LANG_, 0)
+	fn.testAssertStrictNotEquals($LANG_, 0)
 	
 	$LANG_ERROR = 1
-	func.langTestAssertStrictNotEquals($LANG_ERROR, 1)
+	fn.testAssertStrictNotEquals($LANG_ERROR, 1)
 	
 	$LANG____ = 2
-	func.langTestAssertStrictNotEquals($LANG____, 2)
+	fn.testAssertStrictNotEquals($LANG____, 2)
 	
 	lang.errorOutput = 1
 }
 {
-	func.langTestSubUnit(Variable setting)
+	fn.testSubUnit(Variable setting)
 	
 	$var1 = test
-	func.langTestAssertStrictEquals($var1, test)
+	fn.testAssertStrictEquals($var1, test)
 	
 	$var1 = 42
-	func.langTestAssertStrictEquals($var1, 42)
+	fn.testAssertStrictEquals($var1, 42)
 	
 	$var1 = func.toLong(42)
-	func.langTestAssertStrictEquals($var1, func.toLong(42))
+	fn.testAssertStrictEquals($var1, func.toLong(42))
 	
 	$var1 = null
-	func.langTestAssertNull($var1)
+	fn.testAssertNull($var1)
 	
 	$var1 = func.arrayOf(1, 2, 3)
-	func.langTestAssertStrictEquals($var1, func.arrayOf(1, 2, 3))
+	fn.testAssertStrictEquals($var1, func.arrayOf(1, 2, 3))
 	
 	$var1
-	func.langTestAssertNull($var1)
+	fn.testAssertNull($var1)
 	
 	$var1 = TESTING-42
-	func.langTestAssertStrictEquals($var1, TESTING-42)
+	fn.testAssertStrictEquals($var1, TESTING-42)
 	
 	$var1 = $var1
-	func.langTestAssertStrictEquals($var1, TESTING-42)
+	fn.testAssertStrictEquals($var1, TESTING-42)
 }
 {
-	func.langTestSubUnit(Variable copying)
+	fn.testSubUnit(Variable copying)
 	
 	$var1 = test
 	$var2 = 123
 	
 	$var3 = $var1
 	$var4 = $var2
-	func.langTestAssertStrictEquals($var3, test)
-	func.langTestAssertStrictEquals($var3, $var1)
-	func.langTestAssertStrictEquals($var4, 123)
-	func.langTestAssertStrictEquals($var4, $var2)
+	fn.testAssertStrictEquals($var3, test)
+	fn.testAssertStrictEquals($var3, $var1)
+	fn.testAssertStrictEquals($var4, 123)
+	fn.testAssertStrictEquals($var4, $var2)
 	
 	$var3 = 42
 	$var4 = DEF
-	func.langTestAssertStrictNotEquals($var3, $var1)
-	func.langTestAssertStrictNotEquals($var1, 42)
-	func.langTestAssertStrictNotEquals($var4, $var2)
-	func.langTestAssertStrictNotEquals($var2, DEF)
+	fn.testAssertStrictNotEquals($var3, $var1)
+	fn.testAssertStrictNotEquals($var1, 42)
+	fn.testAssertStrictNotEquals($var4, $var2)
+	fn.testAssertStrictNotEquals($var2, DEF)
 }

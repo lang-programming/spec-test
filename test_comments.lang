@@ -4,34 +4,34 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Tests
-func.langTestUnit(Comments)
+fn.testUnit(Comments)
 {
-	func.langTestSubUnit(Comment)
+	fn.testSubUnit(Comment)
 	
 	$v = #
-	func.langTestAssertNull($v)
+	fn.testAssertNull($v)
 	
 	$v = \\#
-	func.langTestAssertStrictEquals($v, \\)
+	fn.testAssertStrictEquals($v, \\)
 	
 	$v = \\\\#
-	func.langTestAssertStrictEquals($v, {{{\\}}})
+	fn.testAssertStrictEquals($v, {{{\\}}})
 	
 	$v = \\\\\\#
-	func.langTestAssertStrictEquals($v, {{{\\\}}})
+	fn.testAssertStrictEquals($v, {{{\\\}}})
 }
 {
-	func.langTestSubUnit(No Comment)
+	fn.testSubUnit(No Comment)
 	
 	$v = \#
-	func.langTestAssertStrictEquals($v, \#)
+	fn.testAssertStrictEquals($v, \#)
 	
 	$v = \\\#
-	func.langTestAssertStrictEquals($v, {{{\#}}})
+	fn.testAssertStrictEquals($v, {{{\#}}})
 	
 	$v = \\\\\#
-	func.langTestAssertStrictEquals($v, {{{\\#}}})
+	fn.testAssertStrictEquals($v, {{{\\#}}})
 	
 	$v = \\\\\\\#
-	func.langTestAssertStrictEquals($v, {{{\\\#}}})
+	fn.testAssertStrictEquals($v, {{{\\\#}}})
 }
