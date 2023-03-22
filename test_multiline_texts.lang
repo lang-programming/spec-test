@@ -109,6 +109,7 @@ def}}}, abc\\\ndef)
 	fn.testSubUnit(No execution in multiline Text)
 	
 	fn.testAssertStrictEquals({{{$a = 1}}}, \$a \= 1)
+	fn.testAssertStrictEquals({{{$a = 1}}}, \$a = 1)
 	fn.testAssertStrictEquals({{{func.testAssertFail(Code was executed inside multiline Text)}}}, func\.testAssertFail(Code was executed inside multiline Text))
 	fn.testAssertStrictEquals({{{con.if(1)
 func.testAssertFail(Code was executed inside multiline Text)
