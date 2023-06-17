@@ -13,6 +13,7 @@ linker.link(test_function_calls.lang)
 linker.link(test_functions.lang)
 linker.link(test_formats.lang)
 linker.link(test_conditions.lang)
+linker.link(test_operators.lang)
 linker.link(test_operations.lang)
 
 # Results

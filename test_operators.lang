@@ -1,0 +1,233 @@
+lang.name = Lang Tests (Operators)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+$void = func.freeAllVars()
+$byteBuffer = fn.byteBufferOf(2, 4, 255, 8, 127)
+$arr = fn.arrayOf(test, abc, null, 42, 42.f, 42L)
+$list = fn.listOf(test, abc, null, 42, 42.f, 42L)
+$text = This is a test text value
+$char = \t
+$TestStruct = {
+	$x
+	$y
+}
+$testStructVal = $TestStruct(42.f, 8L)
+$EmptyStruct = {
+}
+$emptyStructVal = $EmptyStruct()
+$i = 2
+$l = 2L
+$f = 2.f
+$d = 2
+$e = $LANG_ERROR_INVALID_ARGUMENTS
+$ptr = $[i]
+fp.f = () -> \!
+$null = null
+$type = $LANG_TYPE_INT
+
+# Tests
+fn.testUnit(Operators)
+{
+	fn.testSubUnit(LEN operator [No error])
+	
+	fn.testAssertStrictEquals(parser.op(@$byteBuffer), 5)
+	fn.testAssertStrictEquals(fn.len($byteBuffer), 5)
+	
+	fn.testAssertStrictEquals(parser.op(@fn.byteBufferOf()), 0)
+	fn.testAssertStrictEquals(fn.len(fn.byteBufferOf()), 0)
+	
+	fn.testAssertStrictEquals(parser.op(@fn.byteBufferCreate(24)), 24)
+	fn.testAssertStrictEquals(fn.len(fn.byteBufferCreate(24)), 24)
+	
+	fn.testAssertStrictEquals(parser.op(@$arr), 6)
+	fn.testAssertStrictEquals(fn.len($arr), 6)
+	
+	fn.testAssertStrictEquals(parser.op(@fn.arrayOf()), 0)
+	fn.testAssertStrictEquals(fn.len(fn.arrayOf()), 0)
+	
+	fn.testAssertStrictEquals(parser.op(@fn.arrayCreate(24)), 24)
+	fn.testAssertStrictEquals(fn.len(fn.arrayCreate(24)), 24)
+	
+	fn.testAssertStrictEquals(parser.op(@$list), 6)
+	fn.testAssertStrictEquals(fn.len($list), 6)
+	
+	fn.testAssertStrictEquals(parser.op(@fn.listOf()), 0)
+	fn.testAssertStrictEquals(fn.len(fn.listOf()), 0)
+	
+	fn.testAssertStrictEquals(parser.op(@$text), 25)
+	fn.testAssertStrictEquals(fn.len($text), 25)
+	
+	fn.testAssertStrictEquals(parser.op(@\e), 0)
+	fn.testAssertStrictEquals(fn.len(\e), 0)
+	
+	fn.testAssertStrictEquals(parser.op(@$char), 1)
+	fn.testAssertStrictEquals(fn.len($char), 1)
+	
+	fn.testAssertStrictEquals(parser.op(@$TestStruct), 2)
+	fn.testAssertStrictEquals(fn.len($TestStruct), 2)
+	
+	fn.testAssertStrictEquals(parser.op(@$EmptyStruct), 0)
+	fn.testAssertStrictEquals(fn.len($EmptyStruct), 0)
+	
+	fn.testAssertStrictEquals(parser.op(@$testStructVal), 2)
+	fn.testAssertStrictEquals(fn.len($testStructVal), 2)
+	
+	fn.testAssertStrictEquals(parser.op(@$emptyStructVal), 0)
+	fn.testAssertStrictEquals(fn.len($emptyStructVal), 0)
+}
+nontry{
+	fn.testSubUnit(LEN operator [Error])
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$void)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($void)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$i)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($i)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$l)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($l)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$f)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($f)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$d)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($d)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$e)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($e)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$ptr)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($ptr)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@fp.f)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len(fp.f)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$null)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($null)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		parser.op(@$type)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+	try {
+		lang.errorOutput = 0
+		fn.len($type)
+		lang.errorOutput = 1
+	}finally {
+		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
+	}
+}
