@@ -21,9 +21,10 @@ $emptyStructVal = $EmptyStruct()
 $i = 2
 $l = 2L
 $f = 2.f
-$d = 2
+$d = 2.
 $e = $LANG_ERROR_INVALID_ARGUMENTS
-$ptr = $[i]
+$x = test-for-ptr
+$ptr = $[x]
 fp.f = () -> \!
 $null = null
 $type = $LANG_TYPE_INT
@@ -230,4 +231,204 @@ nontry{
 	}finally {
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
+}
+{
+	fn.testSubUnit(DEEP_COPY operator [No error])
+	
+	fn.testAssertStrictEquals(parser.op(^$void), $void)
+	fn.testAssertStrictEquals(fn.deepCopy($void), $void)
+	fn.testAssertStrictEquals(parser.op(^$void), fn.randChoice())
+	fn.testAssertStrictEquals(fn.deepCopy($void), fn.randChoice())
+	
+	
+	$byteBufferCopyOp $= ^$byteBuffer
+	$byteBufferCopyFunc = fn.deepCopy($byteBuffer)
+	
+	fn.testAssertStrictEquals($byteBufferCopyOp, $byteBuffer)
+	fn.testAssertStrictEquals($byteBufferCopyFunc, $byteBuffer)
+	
+	parser.op(fn.testAssertStrictEquals($byteBufferCopyOp[2], $byteBuffer[2]))
+	parser.op(fn.testAssertStrictEquals($byteBufferCopyFunc[2], $byteBuffer[2]))
+	
+	parser.op(fn.testAssertStrictEquals($byteBufferCopyOp[2], -1))
+	parser.op(fn.testAssertStrictEquals($byteBufferCopyFunc[2], -1))
+	
+	parser.op(fn.testAssertStrictEquals($byteBuffer[2], -1))
+	
+	$byteBufferCopyOp[2] ::= 42
+	$byteBufferCopyFunc[2] ::= 43
+	
+	parser.op(fn.testAssertStrictEquals($byteBufferCopyOp[2], 42))
+	parser.op(fn.testAssertStrictEquals($byteBufferCopyFunc[2], 43))
+	
+	parser.op(fn.testAssertStrictEquals($byteBuffer[2], -1))
+	
+	
+	$arrCopyOp $= ^$arr
+	$arrCopyFunc = fn.deepCopy($arr)
+	
+	fn.testAssertStrictEquals($arrCopyOp, $arr)
+	fn.testAssertStrictEquals($arrCopyFunc, $arr)
+	
+	parser.op(fn.testAssertStrictEquals($arrCopyOp[1], $arr[1]))
+	parser.op(fn.testAssertStrictEquals($arrCopyFunc[1], $arr[1]))
+	
+	parser.op(fn.testAssertStrictEquals($arrCopyOp[1], abc))
+	parser.op(fn.testAssertStrictEquals($arrCopyFunc[1], abc))
+	
+	parser.op(fn.testAssertStrictEquals($arr[1], abc))
+	
+	$arrCopyOp[1] ::= 42
+	$arrCopyFunc[1] ::= 43
+	
+	parser.op(fn.testAssertStrictEquals($arrCopyOp[1], 42))
+	parser.op(fn.testAssertStrictEquals($arrCopyFunc[1], 43))
+	
+	parser.op(fn.testAssertStrictEquals($arr[1], abc))
+	
+	
+	$listCopyOp $= ^$list
+	$listCopyFunc = fn.deepCopy($list)
+	
+	fn.testAssertStrictEquals($listCopyOp, $list)
+	fn.testAssertStrictEquals($listCopyFunc, $list)
+	
+	parser.op(fn.testAssertStrictEquals($listCopyOp[1], $list[1]))
+	parser.op(fn.testAssertStrictEquals($listCopyFunc[1], $list[1]))
+	
+	parser.op(fn.testAssertStrictEquals($listCopyOp[1], abc))
+	parser.op(fn.testAssertStrictEquals($listCopyFunc[1], abc))
+	
+	parser.op(fn.testAssertStrictEquals($list[1], abc))
+	
+	
+	$listCopyOp[1] ::= 42
+	$listCopyFunc[1] ::= 43
+	
+	parser.op(fn.testAssertStrictEquals($listCopyOp[1], 42))
+	parser.op(fn.testAssertStrictEquals($listCopyFunc[1], 43))
+	
+	parser.op(fn.testAssertStrictEquals($list[1], abc))
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$text), $text)
+	fn.testAssertStrictEquals(fn.deepCopy($text), $text)
+	fn.testAssertStrictEquals(parser.op(^$text), This is a test text value)
+	fn.testAssertStrictEquals(fn.deepCopy($text), This is a test text value)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$char), $char)
+	fn.testAssertStrictEquals(fn.deepCopy($char), $char)
+	fn.testAssertStrictEquals(parser.op(^$char), \t)
+	fn.testAssertStrictEquals(fn.deepCopy($char), \t)
+	
+	
+	$TestStructLocal = {
+		$x
+		$y
+	}
+	fn.testAssertStrictEquals(parser.op(^$TestStruct), $TestStruct)
+	fn.testAssertStrictEquals(fn.deepCopy($TestStruct), $TestStruct)
+	fn.testAssertStrictEquals(parser.op(^$TestStruct), $TestStructLocal)
+	fn.testAssertStrictEquals(fn.deepCopy($TestStruct), $TestStructLocal)
+	
+	
+	$testStructValCopyOp $= ^$testStructVal
+	$testStructValCopyFunc = fn.deepCopy($testStructVal)
+	
+	
+	$testStructValLocal = $TestStruct(42.f, 8L)
+	$testStructLocalValLocal = $TestStructLocal(42.f, 8L)
+	fn.testAssertStrictEquals($testStructValCopyOp, $testStructVal)
+	fn.testAssertStrictEquals($testStructValCopyFunc, $testStructVal)
+	fn.testAssertStrictEquals($testStructValCopyOp, $testStructValLocal)
+	fn.testAssertStrictEquals($testStructValCopyFunc, $testStructValLocal)
+	fn.testAssertStrictEquals($testStructValCopyOp, $testStructLocalValLocal)
+	fn.testAssertStrictEquals($testStructValCopyFunc, $testStructLocalValLocal)
+	
+	parser.op(fn.testAssertStrictEquals($testStructValCopyOp::$x, $testStructVal::$x))
+	parser.op(fn.testAssertStrictEquals($testStructValCopyFunc::$x, $testStructVal::$x))
+	
+	parser.op(fn.testAssertStrictEquals($testStructValCopyOp::$x, 42.f))
+	parser.op(fn.testAssertStrictEquals($testStructValCopyFunc::$x, 42.f))
+	
+	parser.op(fn.testAssertStrictEquals($testStructVal::$x, 42.f))
+	
+	$testStructValCopyOp::$x ::= abc-test
+	$testStructValCopyFunc::$x ::= abc-test2
+	
+	parser.op(fn.testAssertStrictEquals($testStructValCopyOp::$x, {{{abc-test}}}))
+	parser.op(fn.testAssertStrictEquals($testStructValCopyFunc::$x, {{{abc-test2}}}))
+	
+	parser.op(fn.testAssertStrictEquals($testStructVal::$x, 42.f))
+
+	
+	fn.testAssertStrictEquals(parser.op(^$i), $i)
+	fn.testAssertStrictEquals(fn.deepCopy($i), $i)
+	fn.testAssertStrictEquals(parser.op(^$i), 2)
+	fn.testAssertStrictEquals(fn.deepCopy($i), 2)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$l), $l)
+	fn.testAssertStrictEquals(fn.deepCopy($l), $l)
+	fn.testAssertStrictEquals(parser.op(^$l), 2L)
+	fn.testAssertStrictEquals(fn.deepCopy($l), 2L)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$f), $f)
+	fn.testAssertStrictEquals(fn.deepCopy($f), $f)
+	fn.testAssertStrictEquals(parser.op(^$f), 2.f)
+	fn.testAssertStrictEquals(fn.deepCopy($f), 2.f)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$d), $d)
+	fn.testAssertStrictEquals(fn.deepCopy($d), $d)
+	fn.testAssertStrictEquals(parser.op(^$d), 2.)
+	fn.testAssertStrictEquals(fn.deepCopy($d), 2.)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$e), $e)
+	fn.testAssertStrictEquals(fn.deepCopy($e), $e)
+	fn.testAssertStrictEquals(parser.op(^$e), $LANG_ERROR_INVALID_ARGUMENTS)
+	fn.testAssertStrictEquals(fn.deepCopy($e), $LANG_ERROR_INVALID_ARGUMENTS)
+	
+	
+	$ptrCopyOp $= ^$ptr
+	$ptrCopyFunc = fn.deepCopy($ptr)
+	
+	fn.testAssertStrictEquals($ptrCopyOp, $ptr)
+	fn.testAssertStrictEquals($ptrCopyFunc, $ptr)
+	
+	fn.testAssertStrictEquals($*ptrCopyOp, $*ptr)
+	fn.testAssertStrictEquals($*ptrCopyFunc, $*ptr)
+	
+	fn.testAssertStrictEquals($*ptrCopyOp, test-for-ptr)
+	fn.testAssertStrictEquals($*ptrCopyFunc, test-for-ptr)
+	
+	fn.testAssertStrictEquals($*ptr, test-for-ptr)
+	
+	
+	$*ptrCopyOp = test-for-ptr-42
+	$*ptrCopyFunc = test-for-ptr-43
+	
+	fn.testAssertStrictEquals($*ptrCopyOp, test-for-ptr-43)
+	fn.testAssertStrictEquals($*ptrCopyFunc, test-for-ptr-43)
+	
+	fn.testAssertStrictEquals($*ptr, test-for-ptr-43)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^fp.f), fp.f)
+	fn.testAssertStrictEquals(fn.deepCopy(fp.f), fp.f)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$null), $null)
+	fn.testAssertStrictEquals(fn.deepCopy($null), $null)
+	fn.testAssertStrictEquals(parser.op(^$null), null)
+	fn.testAssertStrictEquals(fn.deepCopy($null), null)
+	
+	
+	fn.testAssertStrictEquals(parser.op(^$type), $type)
+	fn.testAssertStrictEquals(fn.deepCopy($type), $type)
+	fn.testAssertStrictEquals(parser.op(^$type), $LANG_TYPE_INT)
+	fn.testAssertStrictEquals(fn.deepCopy($type), $LANG_TYPE_INT)
 }
