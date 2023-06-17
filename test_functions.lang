@@ -30,7 +30,7 @@ fn.testUnit(Functions)
 	fn.testAssertLessThan($td, 8)
 }
 {
-	fn.testSubUnit(Error functions [func.currentTimeMillis])
+	fn.testSubUnit(System functions [func.currentTimeMillis])
 	
 	$t1 = func.currentTimeMillis()
 	
