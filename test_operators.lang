@@ -85,150 +85,150 @@ nontry{
 	try {
 		lang.errorOutput = 0
 		parser.op(@$void)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($void)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$i)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($i)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$l)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($l)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$f)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($f)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$d)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($d)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$e)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($e)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$ptr)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($ptr)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@fp.f)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len(fp.f)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$null)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($null)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	
 	try {
 		lang.errorOutput = 0
 		parser.op(@$type)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 	try {
 		lang.errorOutput = 0
 		fn.len($type)
-		lang.errorOutput = 1
 	}finally {
+		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_INVALID_ARGUMENTS)
 	}
 }

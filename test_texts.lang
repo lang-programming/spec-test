@@ -37,7 +37,7 @@ fn.testUnit(Texts)
 }
 {
 	fn.testSubUnit(Escape sequences [Other characters])
-	lang.errorOutput = -1
+	lang.errorOutput = -1 # Temporary disable warnings
 	
 	fn.testAssertStrictEquals(\", func.toChar(34))
 	fn.testAssertStrictEquals(\%, func.toChar(37))
@@ -72,7 +72,7 @@ fn.testUnit(Texts)
 	fn.testAssertStrictEquals(\|, func.toChar(124))
 	fn.testAssertStrictEquals(\~, func.toChar(126))
 	
-	lang.errorOutput = 1
+	lang.errorOutput = 1 # Re-enable warnings
 }
 {
 	fn.testSubUnit(Escape sequences [Forced node split])

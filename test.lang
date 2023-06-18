@@ -3,6 +3,8 @@ lang.version = v1.0.0
 
 lang.test = 1
 
+lang.errorOutput = 1 # Enable errors and warnings
+
 # Tests
 linker.link(test_values.lang)
 linker.link(test_texts.lang)

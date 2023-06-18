@@ -10,11 +10,11 @@ $ptr = $[test]
 fp.test = () -> return
 fp.test2 = () -> return
 
-lang.errorOutput = 0 # Temporary disable error output
+lang.errorOutput = -1 # Temporary disable warnings
 
 fp.println = func.println
 
-lang.errorOutput = 1 # Reenable error output
+lang.errorOutput = 1 # Re-enable warnings
 
 # Tests
 fn.testUnit(Values)
