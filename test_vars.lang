@@ -143,8 +143,11 @@ fn.testUnit(Variables)
 	fn.testAssertStrictNotEquals($•, 10)
 }
 {
-	fn.testSubUnit(Variable creation [Invalid variable name, varPtr redirection])
+	fn.testSubUnit(Variable creation [Invalid variable name, removed varPtr redirection])
 	lang.errorOutput = 0
+	
+	$[var] = 2
+	fn.testAssertStrictNotEquals($[var], 2)
 	
 	$[[var] = 0
 	fn.testAssertStrictNotEquals($[[var], 0)
