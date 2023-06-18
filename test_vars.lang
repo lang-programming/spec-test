@@ -215,7 +215,7 @@ nontry{
 	fn.testAssertStrictNotEquals($[[LANG_]], 9)
 	fn.testAssertTranslationValueEquals({{{$[[LANG_]]}}}, {{{9}}})
 }
-{
+nontry{
 	fn.testSubUnit(Variable creation [Invalid variable name, \$LANG_VARs])
 	
 	try {
