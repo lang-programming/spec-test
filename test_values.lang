@@ -73,6 +73,25 @@ fn.testUnit(Values)
 	fn.testAssertStrictNotEquals(abc, $[void])
 }
 {
+	fn.testSubUnit(CHAR [Strict equals])
+	
+	fn.testAssertStrictEquals(\t, \t)
+	fn.testAssertStrictEquals(e, fn.char(e))
+}
+{
+	fn.testSubUnit(CHAR [Strict not equals])
+	
+	fn.testAssertStrictNotEquals(e, $void)
+	fn.testAssertStrictNotEquals(e, null)
+	fn.testAssertStrictNotEquals(e, 0)
+	fn.testAssertStrictNotEquals(e, abc)
+	fn.testAssertStrictNotEquals(e, 2.3)
+	fn.testAssertStrictNotEquals(e, func.arrayOf())
+	fn.testAssertStrictNotEquals(e, func.println)
+	fn.testAssertStrictNotEquals(e, fp.println)
+	fn.testAssertStrictNotEquals(e, $[void])
+}
+{
 	fn.testSubUnit(INT [Strict equals])
 	
 	fn.testAssertStrictEquals(-2, -2)
