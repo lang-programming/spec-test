@@ -6,11 +6,11 @@ lang.test = 1
 lang.errorOutput = 1 # Enable errors and warnings
 
 # Tests
-linker.link(functions/test_functions.lang)
 linker.link(test_comments.lang)
 linker.link(test_conditions.lang)
 linker.link(test_formats.lang)
 linker.link(test_function_calls.lang)
+linker.link(functions/test_functions.lang)
 linker.link(test_multiline_texts.lang)
 linker.link(test_operations.lang)
 linker.link(test_operators.lang)
