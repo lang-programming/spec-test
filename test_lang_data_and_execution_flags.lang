@@ -18,6 +18,30 @@ nontry{
 		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_NO_ERROR)
 	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.00.00
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_NO_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v01.00.00
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_NO_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.000.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_NO_ERROR)
+	}
 }
 nontry{
 	fn.testSubUnit(lang.version - Older version)
@@ -32,6 +56,22 @@ nontry{
 }
 nontry{
 	fn.testSubUnit(lang.version - Newer version)
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.0.99
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.99.99
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
 	
 	try {
 		lang.errorOutput = 0
@@ -78,6 +118,14 @@ nontry{
 	
 	try {
 		lang.errorOutput = 0
+		lang.version = y1.0.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
 		lang.version = v100
 	}finally {
 		lang.errorOutput = 1
@@ -111,6 +159,126 @@ nontry{
 	try {
 		lang.errorOutput = 0
 		lang.version = va.b.c
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.b.c
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.0.c
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.b.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v-1.0.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.0.-99
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v-1.-99.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.-99.1
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.99.-99
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.-0.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.0.- 0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.0.-0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.--0.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v0.0.2147483648
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v0,0,0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v0.0.100,000
 	}finally {
 		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
