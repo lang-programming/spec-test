@@ -7,8 +7,75 @@ lang.test = 1
 # ...
 
 # Tests
-{
-	fn.testSubUnit(Lang functions [func.isLangVersionOlder])
+nontry{
+	fn.testSubUnit(Lang functions [func.isLangVersionOlder] - Invalid argument count)
+	
+	try {
+		lang.errorOutput = 0
+		func.isLangVersionOlder(x)
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+	}
+	try {
+		lang.errorOutput = 0
+		func.isLangVersionOlder(x, y)
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+	}
+	try {
+		lang.errorOutput = 0
+		func.isLangVersionOlder(x, y, z)
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+	}
+}
+nontry{
+	fn.testSubUnit(Lang functions [func.isLangVersionOlder] - Invalid lang version)
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = xyz
+	}finally {
+		lang.errorOutput = 1
+		fn.resetErrno()
+	}
+	try {
+		lang.errorOutput = 0
+		func.isLangVersionOlder()
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+}
+nontry{
+	fn.testSubUnit(Lang functions [func.isLangVersionOlder] - Older Lang file version)
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v0.99.99
+	}finally {
+		lang.errorOutput = 1
+		fn.resetErrno()
+	}
 	
 	fn.testAssertStrictEquals(func.isLangVersionOlder(), 0)
 }
+nontry{
+	fn.testSubUnit(Lang functions [func.isLangVersionOlder] - Newer Lang file version)
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v99.99.99
+	}finally {
+		lang.errorOutput = 1
+		fn.resetErrno()
+	}
+	
+	fn.testAssertStrictEquals(func.isLangVersionOlder(), 1)
+}
+
+# Reset
+lang.version = v1.0.0
