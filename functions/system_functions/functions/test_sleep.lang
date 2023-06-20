@@ -1,0 +1,20 @@
+lang.name = Lang Tests (System functions [func.sleep])
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+# ...
+
+# Tests
+{
+	fn.testSubUnit(System functions [func.sleep])
+	
+	$t1 = func.currentTimeMillis()
+	func.sleep(5)
+	$t2 = func.currentTimeMillis()
+	$td $= $t2 - $t1
+	
+	fn.testAssertGreaterThanOrEquals($td, 5)
+	fn.testAssertLessThan($td, 8)
+}

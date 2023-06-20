@@ -1,0 +1,11 @@
+lang.name = Lang Tests (Lang Functions)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+fn.testUnit(Lang Functions)
+
+# Tests
+linker.link(functions/test_is_lang_version_newer.lang)
+linker.link(functions/test_is_lang_version_older.lang)

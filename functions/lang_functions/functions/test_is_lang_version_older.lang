@@ -1,0 +1,14 @@
+lang.name = Lang Tests (Lang Functions [func.isLangVersionOlder])
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+# ...
+
+# Tests
+{
+	fn.testSubUnit(Lang functions [func.isLangVersionOlder])
+	
+	fn.testAssertStrictEquals(func.isLangVersionOlder(), 0)
+}
