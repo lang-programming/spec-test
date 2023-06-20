@@ -46,7 +46,71 @@ nontry{
 	
 	try {
 		lang.errorOutput = 0
+		lang.version = \e
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
 		lang.version = xyz
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = 1.0.0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v100
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v1.00
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v..
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = v..0
+	}finally {
+		lang.errorOutput = 1
+		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
+	}
+	
+	try {
+		lang.errorOutput = 0
+		lang.version = va.b.c
 	}finally {
 		lang.errorOutput = 1
 		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
