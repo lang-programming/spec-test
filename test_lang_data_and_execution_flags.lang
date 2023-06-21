@@ -8,7 +8,7 @@ lang.test = 1
 
 # Tests
 fn.testUnit(Lang Data & Execution Flags)
-nontry{
+nontry {
 	fn.testSubUnit(lang.version - Current version)
 	
 	try {
@@ -43,7 +43,7 @@ nontry{
 		fn.testAssertError($LANG_ERROR_NO_ERROR)
 	}
 }
-nontry{
+nontry {
 	fn.testSubUnit(lang.version - Older version)
 	
 	try {
@@ -54,7 +54,7 @@ nontry{
 		fn.testAssertError($LANG_ERROR_LANG_VER_WARNING)
 	}
 }
-nontry{
+nontry {
 	fn.testSubUnit(lang.version - Newer version)
 	
 	try {
@@ -81,7 +81,7 @@ nontry{
 		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
 	}
 }
-nontry{
+nontry {
 	fn.testSubUnit(lang.version - Invalid version format)
 	
 	try {
@@ -284,7 +284,7 @@ nontry{
 		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
 	}
 }
-nontry{
+nontry {
 	fn.testSubUnit(lang.version - null-Node [Forced node split])
 	
 	try {

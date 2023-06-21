@@ -7,7 +7,7 @@ lang.test = 1
 # ...
 
 # Tests
-nontry{
+nontry {
 	fn.testSubUnit(Lang functions [func.sleep] - Invalid argument count)
 	
 	try {

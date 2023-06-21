@@ -7,7 +7,7 @@ lang.test = 1
 # ...
 
 # Tests
-nontry{
+nontry {
 	fn.testSubUnit(Lang functions [func.isLangVersionNewer] - Invalid argument count)
 	
 	try {
@@ -32,7 +32,7 @@ nontry{
 		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
 	}
 }
-nontry{
+nontry {
 	fn.testSubUnit(Lang functions [func.isLangVersionNewer] - Invalid lang version)
 	
 	try {
@@ -50,7 +50,7 @@ nontry{
 		fn.testAssertError($LANG_ERROR_LANG_VER_ERROR)
 	}
 }
-nontry{
+nontry {
 	fn.testSubUnit(Lang functions [func.isLangVersionNewer] - Older Lang file version)
 	
 	try {
@@ -63,7 +63,7 @@ nontry{
 	
 	fn.testAssertStrictEquals(func.isLangVersionNewer(), 1)
 }
-nontry{
+nontry {
 	fn.testSubUnit(Lang functions [func.isLangVersionNewer] - Newer Lang file version)
 	
 	try {

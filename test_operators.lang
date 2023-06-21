@@ -79,7 +79,7 @@ fn.testUnit(Operators)
 	fn.testAssertStrictEquals(parser.op(@$emptyStructVal), 0)
 	fn.testAssertStrictEquals(fn.len($emptyStructVal), 0)
 }
-nontry{
+nontry {
 	fn.testSubUnit(LEN operator [Error])
 	
 	try {
