@@ -1,2 +1,2 @@
 # spec-test
-The offical lang test unit test files for checking compliance with the lang standard.
+The offical Lang test unit test files for checking compliance with the Lang standard.

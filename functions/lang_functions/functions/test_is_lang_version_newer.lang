@@ -33,7 +33,7 @@ nontry {
 	}
 }
 nontry {
-	fn.testSubUnit(Lang functions [func.isLangVersionNewer] - Invalid lang version)
+	fn.testSubUnit(Lang functions [func.isLangVersionNewer] - Invalid Lang version)
 	
 	try {
 		lang.errorOutput = 0
