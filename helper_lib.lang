@@ -1,0 +1,236 @@
+lang.name = Helper Lib for Tests
+lang.version = v1.0.0
+
+class &TrackedOperations {
+	+static:$executionSteps
+
+	+static:fp.resetTracking = () -> {
+		&TrackedOperations::$executionSteps $= listOf()
+	}
+
+	-static:fp.trackedPrintMapper = ($arr) -> {
+		return parser.op($arr[0] ||| \( ||| fn.join({{{, }}}, $arr[1]) ||| {{{) => }}} ||| $arr[2])
+	}
+
+	+static:fp.printExecutionSteps = () -> {
+		fn.println(Steps:\n\t\-\sparser.op(fn.join(\n\t\-\s, fn.listMapToNew(&TrackedOperations::$executionSteps, &TrackedOperations::fp.trackedPrintMapper))))
+	}
+
+	-$value
+
+	+construct = ($value) -> {
+		::$value $= $value
+	}
+
+	+mp.get = () -> {
+		return parser.op(::$value)
+	}
+
+	+op:len = () -> {
+		$res $= fn.len(::$value)
+		&TrackedOperations::$executionSteps += [LEN, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:deepCopy = () -> {
+		$res $= fn.deepCopy(::$value)
+		&TrackedOperations::$executionSteps += [DEEP_COPY, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:inc = () -> {
+		$res $= fn.inc(::$value)
+		&TrackedOperations::$executionSteps += [INC, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:dec = () -> {
+		$res $= fn.dec(::$value)
+		&TrackedOperations::$executionSteps += [DEC, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:pos = () -> {
+		$res $= fn.pos(::$value)
+		&TrackedOperations::$executionSteps += [POS, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:inv = () -> {
+		$res $= fn.inv(::$value)
+		&TrackedOperations::$executionSteps += [INV, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:not = () -> {
+		$res $= fn.not(::$value)
+		&TrackedOperations::$executionSteps += [NOT, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:abs = () -> {
+		$res $= fn.abs(::$value)
+		&TrackedOperations::$executionSteps += [ABS, [::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:concat = ($op{OBJECT}) -> {
+		$res $= fn.concat(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [CONCAT, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:add = ($op{OBJECT}) -> {
+		$res $= fn.add(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [ADD, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:sub = ($op{OBJECT}) -> {
+		$res $= fn.sub(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [SUB, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:mul = ($op{OBJECT}) -> {
+		$res $= fn.mul(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [MUL, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:pow = ($op{OBJECT}) -> {
+		$res $= fn.pow(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [POW, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:div = ($op{OBJECT}) -> {
+		$res $= fn.div(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [DIV, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:truncDiv = ($op{OBJECT}) -> {
+		$res $= fn.truncDiv(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [TRUNC_DIV, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:floorDiv = ($op{OBJECT}) -> {
+		$res $= fn.floorDiv(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [FLOOR_DIV, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:ceilDiv = ($op{OBJECT}) -> {
+		$res $= fn.ceilDiv(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [CEIL_DIV, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:mod = ($op{OBJECT}) -> {
+		$res $= fn.mod(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [MOD, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:and = ($op{OBJECT}) -> {
+		$res $= fn.and(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [AND, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:or = ($op{OBJECT}) -> {
+		$res $= fn.or(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [OR, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:xor = ($op{OBJECT}) -> {
+		$res $= fn.xor(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [XOR, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:lshift = ($op{OBJECT}) -> {
+		$res $= fn.lshift(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [LSHIFT, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:rshift = ($op{OBJECT}) -> {
+		$res $= fn.rshift(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [RSHIFT, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:rzshift = ($op{OBJECT}) -> {
+		$res $= fn.rzshift(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [RZSHIFT, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:getItem = ($op{OBJECT}) -> {
+		$res $= fn.getItem(::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [GET_ITEM, [::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+op:setItem = ($index{OBJECT}, $op{OBJECT}) -> {
+		$res $= fn.setItem(::$value, $index::$value, $op::$value)
+		&TrackedOperations::$executionSteps += [SET_ITEM, [::$value, $index::$value, $op::$value], $res]
+
+		return &TrackedOperations($res)
+	}
+
+	+to:text = () -> {
+		return parser.op(text(::$value))
+	}
+}
+
+fp.tracked = ($x) -> return &TrackedOperations($x)
+fp.getTracking = () -> return parser.op(&TrackedOperations::$executionSteps)
+fp.resetTracking $= &TrackedOperations::fp.resetTracking
+fp.printTracking $= &TrackedOperations::fp.printExecutionSteps
+
+fp.testAssertOperationExecution = ($result, $executionSteps, $expectedResult, $expectedExecutionSteps) -> {
+    fn.testAssertStrictEquals(parser.op($result::get()), $expectedResult, Invalid operation end result)
+
+    fn.testAssertStrictEquals(parser.op(@$executionSteps), parser.op(@$expectedExecutionSteps), Operation has invalid execution step count)
+    $i
+    repeat($[i], @$expectedExecutionSteps) {
+        fn.testAssertStrictEquals(parser.op($executionSteps[$i][0]), parser.op($expectedExecutionSteps[$i][0]), Invalid operator at Execution Step parser.op(+|$i))
+
+        $j
+        repeat($[j], @$expectedExecutionSteps[$i][1]) {
+            fn.testAssertStrictEquals(parser.op($executionSteps[$i][1][$j]), parser.op($expectedExecutionSteps[$i][1][$j]), Invalid operand for Operand parser.op(+|$j) at Execution Step parser.op(+|$i))
+        }
+
+        fn.testAssertStrictEquals(parser.op($executionSteps[$i][2]), parser.op($expectedExecutionSteps[$i][2]), Invalid result at Execution Step parser.op(+|$i))
+    }
+}

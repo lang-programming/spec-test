@@ -4,7 +4,7 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Preparation
-$void = func.freeAllVars()
+$void = func.randChoice()
 $byteBuffer = fn.byteBufferOf(2, 4, 255, 8, 127)
 $arr = fn.arrayOf(test, abc, null, 42, 42.f, 42L)
 $list = fn.listOf(test, abc, null, 42, 42.f, 42L)

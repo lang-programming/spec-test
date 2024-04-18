@@ -1,0 +1,88 @@
+lang.name = Lang Tests (Operator Execution)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Load helper library
+linker.bindLibrary(helper_lib.lang)
+
+# Preparation
+$2 $= tracked(2)
+$3 $= tracked(3)
+$5 $= tracked(5)
+
+$abcd $= tracked(abcd)
+
+# Tests
+fn.testUnit(Operator Execution)
+{
+	fn.testSubUnit(Operator Execution '-2 ** +|5')
+
+    fp.resetTracking()
+
+    $result $= -$2 ** +|$5
+    $executionSteps $= getTracking()
+
+    $expectedResult = -64
+    $expectedExecutionSteps $= [\
+        [INC, [5], 6],\
+        [POW, [2, 6], 64],\
+        [INV, [64], -64]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '5 / 2 + 3 * -5')
+
+    fp.resetTracking()
+
+    $result $= $5 / $2 + $3 * -$5
+    $executionSteps $= getTracking()
+
+    $expectedResult = -12.5
+    $expectedExecutionSteps $= [\
+        [DIV, [5, 2], 2.5],\
+        [INV, [5], -5],\
+        [MUL, [3, -5], -15],\
+        [ADD, [2.5, -15], -12.5]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '^-3 ** @abcd')
+
+    fp.resetTracking()
+
+    $result $= ^-$3 ** @$abcd
+    $executionSteps $= getTracking()
+
+    $expectedResult = -81
+    $expectedExecutionSteps $= [\
+        [LEN, [abcd], 4],\
+        [POW, [3, 4], 81],\
+        [INV, [81], -81],\
+        [DEEP_COPY, [-81], -81]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '-^3 ** @abcd')
+
+    fp.resetTracking()
+
+    $result $= -^$3 ** @$abcd
+    $executionSteps $= getTracking()
+
+    $expectedResult = -81
+    $expectedExecutionSteps $= [\
+        [DEEP_COPY, [3], 3],\
+        [LEN, [abcd], 4],\
+        [POW, [3, 4], 81],\
+        [INV, [81], -81]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}

@@ -4,7 +4,7 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Preparation
-$void = func.freeAllVars()
+$void = func.randChoice()
 fp.null = null
 fp.empty = () -> {
 }
