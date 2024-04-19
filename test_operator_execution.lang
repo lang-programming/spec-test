@@ -9,7 +9,16 @@ linker.bindLibrary(helper_lib.lang)
 # Preparation
 $2 $= tracked(2)
 $3 $= tracked(3)
+$4 $= tracked(4)
 $5 $= tracked(5)
+$6 $= tracked(6)
+$7 $= tracked(7)
+$8 $= tracked(8)
+$61 $= tracked(61)
+
+$d125f $= tracked(.125f)
+
+$2d $= tracked(2.)
 
 $abcd $= tracked(abcd)
 
@@ -82,6 +91,27 @@ fn.testUnit(Operator Execution)
         [LEN, [abcd], 4],\
         [POW, [3, 4], 81],\
         [INV, [81], -81]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '63 % 7 // 4 ^/ 5 / .125f * 6 + (8 - 2.)')
+
+    fp.resetTracking()
+
+    $result $= $61 % $7 // $4 ^/ $5 / $d125f * $6 + ($8 - $2d)
+    $executionSteps $= getTracking()
+
+    $expectedResult = 54.
+    $expectedExecutionSteps $= [\
+        [MOD, [61, 7], 5],\
+        [FLOOR_DIV, [5, 4], 1],\
+        [CEIL_DIV, [1, 5], 1],\
+        [DIV, [1, .125f], 8.f],\
+        [MUL, [8.f, 6], 48.f],\
+        [SUB, [8, 2.], 6.],\
+        [ADD, [48.f, 6.], 54.]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
