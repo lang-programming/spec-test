@@ -7,6 +7,8 @@ lang.test = 1
 linker.bindLibrary(helper_lib.lang)
 
 # Preparation
+$0 $= tracked(0)
+$1 $= tracked(1)
 $2 $= tracked(2)
 $3 $= tracked(3)
 $4 $= tracked(4)
@@ -14,6 +16,7 @@ $5 $= tracked(5)
 $6 $= tracked(6)
 $7 $= tracked(7)
 $8 $= tracked(8)
+$10 $= tracked(10)
 $61 $= tracked(61)
 
 $d125f $= tracked(.125f)
@@ -21,6 +24,8 @@ $d125f $= tracked(.125f)
 $2d $= tracked(2.)
 
 $abcd $= tracked(abcd)
+$test $= tracked(test)
+$xyz $= tracked(xyz)
 
 # Tests
 fn.testUnit(Operator Execution)
@@ -112,6 +117,42 @@ fn.testUnit(Operator Execution)
         [MUL, [8.f, 6], 48.f],\
         [SUB, [8, 2.], 6.],\
         [ADD, [48.f, 6.], 54.]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '(-((4 + 3 ||| xyz)[1] ||| test))[0][3 ** 0 - 1] + 4 ** 2 ** 3 - (2 - 4 << 3 >>> 6 >> 10) | 3 ^ 5 & 2 - 1 * 4')
+
+    fp.resetTracking()
+
+    $result $= (-(($4 + $3 ||| $xyz)[$1] ||| $test))[$0][$3 ** $0 - $1] + $4 ** $2 ** $3 - ($2 - $4 << $3 >>> $6 >> $10) | $3 ^ $5 & $2 - $1 * $4
+    $executionSteps $= getTracking()
+
+    $expectedResult = 119
+    $expectedExecutionSteps $= [\
+        [ADD, [4, 3], 7],\
+        [CONCAT, [7, {{{xyz}}}], {{{7xyz}}}],\
+        [GET_ITEM, [{{{7xyz}}}, 1], fn.char(x)],\
+        [CONCAT, [fn.char(x), {{{test}}}], {{{xtest}}}],\
+        [INV, [{{{xtest}}}], {{{tsetx}}}],\
+        [GET_ITEM, [{{{tsetx}}}, 0], fn.char(t)],\
+        [POW, [3, 0], 1],\
+        [SUB, [1, 1], 0],\
+        [GET_ITEM, [fn.char(t), 0], fn.char(t)],\
+        [POW, [2, 3], 8],\
+        [POW, [4, 8], 65536],\
+        [ADD, [fn.char(t), 65536], 65652],\
+        [SUB, [2, 4], -2],\
+        [LSHIFT, [-2, 3], -16],\
+        [RZSHIFT, [-16, 6], 67108863],\
+        [RSHIFT, [67108863, 10], 65535],\
+        [SUB, [65652, 65535], 117],\
+        [MUL, [1, 4], 4],\
+        [SUB, [2, 4], -2],\
+        [AND, [5, -2], 4],\
+        [XOR, [3, 4], 7],\
+        [OR, [117, 7], 119]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
