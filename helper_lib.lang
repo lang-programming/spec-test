@@ -212,6 +212,18 @@ class &TrackedOperations {
 		return parser.op(::tracked($res))
 	}
 
+	+op:isEquals = ($operand) -> {
+	    return parser.op(::$value == $operand)
+	}
+
+	+op:r-isEquals = ($operand) -> {
+	    return parser.op($operand == ::$value)
+	}
+
+	+op:isStrictEquals = ($operand{OBJECT}) -> {
+	    return parser.op($operand::getClass() === &TrackedOperations && ::$value === $operand::$value)
+	}
+
 	+to:text = () -> {
 		return parser.op(text(::$value))
 	}
