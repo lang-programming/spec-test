@@ -27,6 +27,8 @@ $abcd $= tracked(abcd)
 $test $= tracked(test)
 $xyz $= tracked(xyz)
 
+$arrEmpty $= tracked([])
+
 # Tests
 fn.testUnit(Operator Execution)
 {
@@ -153,6 +155,37 @@ fn.testUnit(Operator Execution)
         [AND, [5, -2], 4],\
         [XOR, [3, 4], 7],\
         [OR, [117, 7], 119]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '([1 * 8, -2, 3 ** 2] ||| [4 + 1, 5 + 0])[@[1, 2 * -1, 3] - @[]] + @[[], [] + 2 + 5 + []]')
+
+    fp.resetTracking()
+
+    $result $= (tracked([$1 * $8, -$2, $3 ** $2]) ||| tracked([$4 + $1, $5 + $0]))[@tracked([$1, $2 * -$1, $3]) - @$arrEmpty] + @tracked([$arrEmpty, $arrEmpty + $2 + $5 + $arrEmpty])
+    $executionSteps $= getTracking()
+
+    $expectedResult = 7
+    $expectedExecutionSteps $= [\
+        [MUL, [1, 8], 8],\
+        [INV, [2], -2],\
+        [POW, [3, 2], 9],\
+        [ADD, [4, 1], 5],\
+        [ADD, [5, 0], 5],\
+        [CONCAT, [[tracked(8), tracked(-2), tracked(9)], [tracked(5), tracked(5)]], [tracked(8), tracked(-2), tracked(9), tracked(5), tracked(5)]],\
+        [INV, [1], -1],\
+        [MUL, [2, -1], -2],\
+        [LEN, [[tracked(1), tracked(-2), tracked(3)]], 3],\
+        [LEN, [[]], 0],\
+        [SUB, [3, 0], 3],\
+        [GET_ITEM, [[tracked(8), tracked(-2), tracked(9), tracked(5), tracked(5)], 3], tracked(5)],\
+        [ADD, [[], 2], [2]],\
+        [ADD, [[2], 5], [2, 5]],\
+        [ADD, [[2, 5], []], [2, 5, []]],\
+        [LEN, [[tracked([]), tracked([2, 5, []])]], 2],\
+        [ADD, [5, 2], 7]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
