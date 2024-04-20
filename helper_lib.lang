@@ -225,7 +225,7 @@ class &TrackedOperations {
 	}
 
 	+to:text = () -> {
-		return parser.op(text(::$value))
+		return parser.op({{{tracked(}}} ||| text(::$value) ||| {{{)}}})
 	}
 }
 
