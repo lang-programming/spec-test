@@ -231,7 +231,7 @@ fn.testUnit(Operator Execution)
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
 }
 {
-	fn.testSubUnit(Operator Execution '1 - 2 ** 0  || 4 ** 3 || 5 - 6')
+	fn.testSubUnit(Operator Execution '1 - 2 ** 0 || 4 ** 3 || 5 - 6')
 
     fp.resetTracking()
 
@@ -248,7 +248,7 @@ fn.testUnit(Operator Execution)
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
 }
 {
-	fn.testSubUnit(Operator Execution '1 - 2 ** 0  && 4 ** 3 && 5 - 6')
+	fn.testSubUnit(Operator Execution '1 - 2 ** 0 && 4 ** 3 && 5 - 6')
 
     fp.resetTracking()
 
