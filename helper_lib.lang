@@ -227,6 +227,10 @@ class &TrackedOperations {
 	+to:text = () -> {
 		return parser.op({{{tracked(}}} ||| text(::$value) ||| {{{)}}})
 	}
+
+	+to:bool = () -> {
+	    return parser.op(bool(::$value))
+	}
 }
 
 fp.tracked $= &TrackedOperations::fp.tracked
