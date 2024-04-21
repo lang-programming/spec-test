@@ -230,3 +230,36 @@ fn.testUnit(Operator Execution)
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
 }
+{
+	fn.testSubUnit(Operator Execution '1 - 2 ** 0  || 4 ** 3 || 5 - 6')
+
+    fp.resetTracking()
+
+    $result $= tracked($1 - $2 ** $0 || $4 ** $3 || $5 - $6)
+    $executionSteps $= getTracking()
+
+    $expectedResult = 1
+    $expectedExecutionSteps $= [\
+        [POW, [2, 0], 1],\
+        [SUB, [1, 1], 0],\
+        [POW, [4, 3], 64]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '1 - 2 ** 0  && 4 ** 3 && 5 - 6')
+
+    fp.resetTracking()
+
+    $result $= tracked($1 - $2 ** $0 && $4 ** $3 && $5 - $6)
+    $executionSteps $= getTracking()
+
+    $expectedResult = 0
+    $expectedExecutionSteps $= [\
+        [POW, [2, 0], 1],\
+        [SUB, [1, 1], 0]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
