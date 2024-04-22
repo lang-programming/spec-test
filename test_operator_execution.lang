@@ -19,10 +19,13 @@ $6 $= tracked(6)
 $7 $= tracked(7)
 $8 $= tracked(8)
 $10 $= tracked(10)
+$16 $= tracked(16)
+$42 $= tracked(42)
 $61 $= tracked(61)
 
 $d125f $= tracked(.125f)
 
+$d5 $= tracked(.5)
 $1d6 $= tracked(1.6)
 $3d8 $= tracked(3.8)
 
@@ -288,6 +291,23 @@ fn.testUnit(Operator Execution)
         [MUL, [1.6, complex(0., 1.)], complex(0., 1.6)],\
         [SUB, [complex(4., -1.4), complex(0., 1.6)], complex(4., -3.)],\
         [ABS, [complex(4., -3.)], 5.]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '{{{Test with format (%05.3f, %2d) - %s}}} % [10 / 3, 42, &Maybe(16 ** .5)]')
+
+    fp.resetTracking()
+
+    $result $= tracked({{{Test with format (%05.3f, %2d) - %s}}}) % tracked([$10 / $3, $42, &Maybe(($16 ** $d5)::get())])
+    $executionSteps $= getTracking()
+
+    $expectedResult = {{{Test with format (3.333, 42) - just(4.0)}}}
+    $expectedExecutionSteps $= [\
+        [DIV, [10, 3], 3.3333333333333335],\
+        [POW, [16, .5], 4.],\
+        [MOD, [{{{Test with format (%05.3f, %2d) - %s}}}, [tracked(3.3333333333333335), tracked(42), &Maybe(4.0)]], {{{Test with format (3.333, 42) - just(4.0)}}}]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
