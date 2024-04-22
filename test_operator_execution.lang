@@ -23,7 +23,14 @@ $61 $= tracked(61)
 
 $d125f $= tracked(.125f)
 
+$1d6 $= tracked(1.6)
+$3d8 $= tracked(3.8)
+
 $2d $= tracked(2.)
+
+$comp0c1 $= tracked(complex(0, 1))
+$comp2c4 $= tracked(complex(2, 4))
+$comp3c4 $= tracked(complex(3, 4))
 
 $abcd $= tracked(abcd)
 $test $= tracked(test)
@@ -259,6 +266,28 @@ fn.testUnit(Operator Execution)
     $expectedExecutionSteps $= [\
         [POW, [2, 0], 1],\
         [SUB, [1, 1], 0]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution 'abs(((2 + complex(0, 1)) - complex(3, 4) * complex(0, 1)) / complex(2, 4) + 3.8 - 1.6 * complex(0, 1))')
+
+    fp.resetTracking()
+
+    $result $= abs((($2 + $comp0c1) - $comp3c4 * $comp0c1) / $comp2c4 + $3d8 - $1d6 * $comp0c1)
+    $executionSteps $= getTracking()
+
+    $expectedResult = 5.
+    $expectedExecutionSteps $= [\
+        [ADD, [2, complex(0., 1.)], complex(2., 1.)],\
+        [MUL, [complex(3., 4.), complex(0., 1.)], complex(-4., 3.)],\
+        [SUB, [complex(2., 1.), complex(-4., 3.)], complex(6., -2.)],\
+        [DIV, [complex(6., -2.), complex(2., 4.)], complex(.2, -1.4)],\
+        [ADD, [complex(.2, -1.4), 3.8], complex(4., -1.4)],\
+        [MUL, [1.6, complex(0., 1.)], complex(0., 1.6)],\
+        [SUB, [complex(4., -1.4), complex(0., 1.6)], complex(4., -3.)],\
+        [ABS, [complex(4., -3.)], 5.]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
