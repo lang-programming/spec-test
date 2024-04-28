@@ -41,6 +41,12 @@ $xyz $= tracked(xyz)
 
 $arrEmpty $= tracked([])
 
+$fnInt $= tracked(fn.int)
+$fnInc $= tracked(fn.inc)
+$fnSqrt $= tracked(fn.sqrt)
+$fnCombI $= tracked(fn.combI)
+$fnCombK $= tracked(fn.combK)
+
 # Tests
 fn.testUnit(Operator Execution)
 {
@@ -308,6 +314,33 @@ fn.testUnit(Operator Execution)
         [DIV, [10, 3], 3.3333333333333335],\
         [POW, [16, .5], 4.],\
         [MOD, [{{{Test with format (%05.3f, %2d) - %s}}}, [tracked(3.3333333333333335), tracked(42), &Maybe(4.0)]], {{{Test with format (3.333, 42) - just(4.0)}}}]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '{{{fn.int(fn.sqrt(fn.combK(fn.combI, fn.combK)(3 * 7 - 5 ** 2) ** fn.inc(fn.inc(fn.inc(-1))))) >> 2}}}')
+
+    fp.resetTracking()
+
+    $result $= $fnInt($fnSqrt($fnCombK($fnCombI, $fnCombK)($3 * $7 - $5 ** $2) ** $fnInc($fnInc($fnInc(-$1))))) >> $2
+    $executionSteps $= getTracking()
+
+    $expectedResult = 1
+    $expectedExecutionSteps $= [\
+        [CALL, [fn.combK, [fn.combI, fn.combK]], fn.combI],\
+        [MUL, [3, 7], 21],\
+        [POW, [5, 2], 25],\
+        [SUB, [21, 25], -4],\
+        [CALL, [fn.combI, [-4]], -4],\
+        [INV, [1], -1],\
+        [CALL, [fn.inc, [-1]], 0],\
+        [CALL, [fn.inc, [0]], 1],\
+        [CALL, [fn.inc, [1]], 2],\
+        [POW, [-4, 2], 16],\
+        [CALL, [fn.sqrt, [16]], 4.],\
+        [CALL, [fn.int, [4.]], 4],\
+        [RSHIFT, [4, 2], 1]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
