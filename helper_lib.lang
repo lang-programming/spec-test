@@ -212,6 +212,20 @@ class &TrackedOperations {
 		return parser.op(::tracked($res))
 	}
 
+	+op:call = (&args...) -> {
+	    if(!fn.arrayAllMatch(&args, fn.combC2(fn.isInstanceOf, &TrackedOperations))) {
+	        throw fn.withErrorMessage($LANG_ERROR_INVALID_ARGUMENTS, All arguments must be of type \&TrackedOperations)
+	    }
+
+	    fp.mapper = ($ele) -> return parser.op($ele::$value)
+	    &args = fn.arrayMapToNew(&args, fp.mapper)
+
+		$res = fn.call(parser.op(::$value), &args...)
+		&TrackedOperations::$executionSteps += [CALL, [::$value, &args], $res]
+
+		return parser.op(::tracked($res))
+	}
+
 	+op:isEquals = ($operand) -> {
 	    return parser.op(::$value == $operand)
 	}
