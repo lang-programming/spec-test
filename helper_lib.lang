@@ -220,10 +220,12 @@ class &TrackedOperations {
 	    fp.mapper = ($ele) -> return parser.op($ele::$value)
 	    &args = fn.arrayMapToNew(&args, fp.mapper)
 
-		$res = fn.call(parser.op(::$value), &args...)
-		&TrackedOperations::$executionSteps += [CALL, [::$value, &args], $res]
+	    &callArgs $= [::$value] ||| &args
+	    $res = fn.call(&callArgs...)
 
-		return parser.op(::tracked($res))
+	    &TrackedOperations::$executionSteps += [CALL, [::$value, &args], $res]
+
+	    return parser.op(::tracked($res))
 	}
 
 	+op:isEquals = ($operand) -> {
