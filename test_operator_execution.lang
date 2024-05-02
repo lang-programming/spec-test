@@ -20,6 +20,7 @@ $7 $= tracked(7)
 $8 $= tracked(8)
 $10 $= tracked(10)
 $16 $= tracked(16)
+$21 $= tracked(21)
 $42 $= tracked(42)
 $61 $= tracked(61)
 
@@ -41,11 +42,15 @@ $xyz $= tracked(xyz)
 
 $arrEmpty $= tracked([])
 
-$fnInt $= tracked(fn.int)
-$fnInc $= tracked(fn.inc)
-$fnSqrt $= tracked(fn.sqrt)
+$fnAdd $= tracked(fn.add)
+$fnArgCnt1 $= tracked(fn.argCnt1)
 $fnCombI $= tracked(fn.combI)
 $fnCombK $= tracked(fn.combK)
+$fnCombW2 $= tracked(fn.combW2)
+$fnDec $= tracked(fn.dec)
+$fnInc $= tracked(fn.inc)
+$fnInt $= tracked(fn.int)
+$fnSqrt $= tracked(fn.sqrt)
 
 # Tests
 fn.testUnit(Operator Execution)
@@ -341,6 +346,50 @@ fn.testUnit(Operator Execution)
         [CALL, [fn.sqrt, [16]], 4.],\
         [CALL, [fn.int, [4.]], 4],\
         [RSHIFT, [4, 2], 1]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '{{{fn.combK()(fn.combK)(fn.combI)(3 * 7)(42) + (fn.inc ** 4)(-5)}}}')
+
+    fp.resetTracking()
+
+    $result $= $fnCombK()($fnCombK)($fnCombI)($3 * $7)($42) + ($fnInc ** $4)(-$5)
+    $executionSteps $= getTracking()
+
+    $expectedResult = 20
+    $expectedExecutionSteps $= [\
+        [CALL, [fn.combK, []], fn.combK],\
+        [CALL, [fn.combK, [fn.combK]], fn.combK(fn.combK)],\
+        [CALL, [fn.combK(fn.combK), [fn.combI]], fn.combK],\
+        [MUL, [3, 7], 21],\
+        [CALL, [fn.combK, [21]], fn.combK(21)],\
+        [CALL, [fn.combK(21), [42]], 21],\
+        [POW, [fn.inc, 4], fn.inc ** 4],\
+        [INV, [5], -5],\
+        [CALL, [fn.inc ** 4, [-5]], -1],\
+        [ADD, [21, -1], 20]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+	fn.testSubUnit(Operator Execution '{{{(fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5) ||| fn.dec)(21)}}}')
+
+    fp.resetTracking()
+
+    $result $= ($fnCombW2($fnAdd) ||| $fnArgCnt1($fnInc ** $5) ||| $fnDec)($21)
+    $executionSteps $= getTracking()
+
+    $expectedResult = 46
+    $expectedExecutionSteps $= [\
+        [CALL, [fn.combW2, [fn.add]], fn.combW2(fn.add)],\
+        [POW, [fn.inc, 5], fn.inc ** 5],\
+        [CALL, [fn.argCnt1, [fn.inc ** 5]], fn.argCnt1(fn.inc ** 5)],\
+        [CONCAT, [fn.combW2(fn.add), fn.argCnt1(fn.inc ** 5)], fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5)],\
+        [CONCAT, [fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5), fn.dec], (fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5)) ||| fn.dec],\
+        [CALL, [(fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5)) ||| fn.dec, [21]], 46]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
