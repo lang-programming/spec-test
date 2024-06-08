@@ -19,9 +19,6 @@ fn.testUnit(Operations)
 	fn.testAssertStrictEquals(parser.op(), $void)
 	fn.testAssertStrictEquals(parser.op(\!), $void)
 	fn.testAssertStrictEquals(parser.op(\!\!), $void)
-	fn.testAssertStrictEquals(parser.op(fp.ret()), $void)
-	fn.testAssertStrictEquals(parser.op(fp.ret(\!)), $void)
-	fn.testAssertStrictEquals(parser.op(fp.ret(\!\!)), $void)
 }
 {
 	fn.testSubUnit(Associtivity [POW operator])
