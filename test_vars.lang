@@ -176,7 +176,7 @@ nontry {
 		$[[var] = 0
 	}finally {
 		lang.errorOutput = 1
-		fn.testAssertError($LANG_ERROR_BRACKET_MISMATCH)
+		fn.testAssertError($LANG_ERROR_INVALID_AST_NODE)
 	}
 	
 	$[var]] = 1
