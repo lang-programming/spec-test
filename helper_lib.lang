@@ -212,6 +212,27 @@ class &TrackedOperations {
 		return parser.op(::tracked($res))
 	}
 
+	+op:iter = () -> {
+		$res $= fn.iter(::$value)
+		&TrackedOperations::$executionSteps += [ITER, [::$value], $res]
+
+		return parser.op(::tracked($res))
+	}
+
+	+op:hasNext = () -> {
+		$res $= fn.hasNext(::$value)
+		&TrackedOperations::$executionSteps += [HAS_NEXT, [::$value], $res]
+
+		return parser.op(::tracked($res))
+	}
+
+	+op:next = () -> {
+		$res $= fn.next(::$value)
+		&TrackedOperations::$executionSteps += [NEXT, [::$value], $res]
+
+		return parser.op(::tracked($res))
+	}
+
 	+op:call = (&args...) -> {
 	    if(!fn.arrayAllMatch(&args, fn.combC2(fn.isInstanceOf, &TrackedOperations))) {
 	        throw fn.withErrorMessage($LANG_ERROR_INVALID_ARGUMENTS, All arguments must be of type \&TrackedOperations)
