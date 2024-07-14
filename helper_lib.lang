@@ -279,7 +279,7 @@ fp.getTracking = () -> return parser.op(&TrackedOperations::$executionSteps)
 fp.resetTracking $= &TrackedOperations::fp.resetTracking
 fp.printTracking $= &TrackedOperations::fp.printExecutionSteps
 
-fp.testAssertOperationExecution = ($result, $executionSteps, $expectedResult, $expectedExecutionSteps) -> {
+function testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps) {
     fn.testAssertStrictEquals(parser.op($result::get()), $expectedResult, Invalid operation end result)
 
     fn.testAssertStrictEquals(parser.op(@$executionSteps), parser.op(@$expectedExecutionSteps), Operation has invalid execution step count)
@@ -294,4 +294,38 @@ fp.testAssertOperationExecution = ($result, $executionSteps, $expectedResult, $e
 
         fn.testAssertStrictEquals(parser.op($executionSteps[$i][2]), parser.op($expectedExecutionSteps[$i][2]), Invalid result at Execution Step parser.op(+|$i))
     }
+}
+
+## @param $n: If != -1 the test will only test the first n values and will fail if there are not at least n values
+function testAssertIterator($iterable, $expectedValues{ARRAY}, $n{INT}) {
+    $i = 0
+
+    $iter = fn.iter($iterable)
+
+    while(fn.hasNext($iter)) {
+        if($i == $n) {
+            con.break
+        }
+
+        if(@$expectedValues <= $i) {
+            parser.op(fn.testAssertFail("Too many values: There should be " + @$expectedValues + " values!"))
+
+            return
+        }
+
+        parser.op(fn.testAssertStrictEquals(fn.next($iter), $expectedValues[$i], "Invalid value at iteration " + ($i + 1) + "!"))
+
+        $i += 1
+    }
+
+    if($n >= 0) {
+        parser.op(fn.testAssertGreaterThanOrEquals($i, $n, "Invalid value count: There must be at least " + $n + " values!"))
+    }else {
+        parser.op(fn.testAssertStrictEquals($i, @$expectedValues, "Not enough values: There should be " + @$expectedValues + " values!"))
+        parser.op(fn.testAssertStrictEquals(fn.hasNext($iter), 0, "Too many values: There should be " + @$expectedValues + " values!"))
+    }
+}
+
+function overload testAssertIterator($iterable, $expectedValues{ARRAY}) {
+    fp.testAssertIterator($iterable, $expectedValues, -1)
 }
