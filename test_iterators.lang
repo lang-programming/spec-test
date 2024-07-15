@@ -1,0 +1,65 @@
+lang.name = Lang Tests (Iterators)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Load helper library
+linker.bindLibrary(helper_lib.lang)
+
+# Preparation
+$array $= [1, 2, 3, 4]
+$text $= "ABC"
+
+class &LoopingIterator {
+    -final:$value{ARRAY}
+    -$index{INT}
+
+    +construct = ($value{ARRAY}):{VOID} -> {
+        ::$value $= $value
+        ::$index $= 0
+    }
+    +op:iter = ():{OBJECT} -> {
+        return &this
+    }
+
+    +op:hasNext = ():{INT} -> {
+        return 1
+    }
+
+    +op:next = () -> {
+        if(::$index >= @::$value) {
+            ::$index $= 0
+        }
+
+        $value
+        if(::$value ~~ $LANG_TYPE_STRUCT) {
+            $members $= fn.structGetMemberNames(::$value)
+            if(fn.structIsDefinition(::$value)) {
+                $value $= $members[::$index]
+            }else {
+                $member $= $members[::$index]
+                $value $= &Pair($member, ::$value[$member])
+            }
+        }else {
+            $value $= ::$value[::$index]
+        }
+
+        ::$index += 1
+
+        return $value
+    }
+}
+
+# Tests
+fn.testUnit(Iterators)
+{
+    fn.testSubUnit("&BasicIterator")
+
+    parser.op(fp.testAssertIterator($array, [1, 2, 3, 4]))
+    parser.op(fp.testAssertIterator($text, [A, B, C]))
+}
+{
+    fn.testSubUnit("Custom infinite looping iterator")
+
+    parser.op(fp.testAssertIterator(&LoopingIterator([1, 2, 3]), [1, 2, 3, 1, 2, 3, 1], 7))
+}
