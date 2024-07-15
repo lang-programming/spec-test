@@ -4,5 +4,6 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Tests
+linker.link(array_functions/test_array_functions.lang)
 linker.link(lang_functions/test_lang_functions.lang)
 linker.link(system_functions/test_system_functions.lang)

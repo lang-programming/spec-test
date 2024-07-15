@@ -1,0 +1,10 @@
+lang.name = Lang Tests (Array Functions)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+fn.testUnit(Array Functions)
+
+# Tests
+linker.link(functions/test_array_permutations_iterator.lang)

@@ -1,0 +1,97 @@
+lang.name = Lang Tests (Array Functions [func.arrayPermutationsIterator])
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Load helper library
+linker.bindLibrary(../../../helper_lib.lang)
+
+# Preparation
+$arr1 $= [1, 2, 3]
+$arr2 $= [1, 1, 2]
+$arr3 $= [a, b, c, d, e, f]
+
+# Tests
+{
+    fn.testSubUnit(Array functions [func.arrayPermutationsIterator] - Array argument only)
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr1), [\
+        [1, 2, 3],\
+        [1, 3, 2],\
+        [2, 1, 3],\
+        [2, 3, 1],\
+        [3, 1, 2],\
+        [3, 2, 1]\
+    ]))
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr2), [\
+        [1, 1, 2],\
+        [1, 2, 1],\
+        [1, 1, 2],\
+        [1, 2, 1],\
+        [2, 1, 1],\
+        [2, 1, 1]\
+    ]))
+}
+{
+    fn.testSubUnit(Array functions [func.arrayPermutationsIterator] - Array and r arguments)
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr1, 3), [\
+        [1, 2, 3],\
+        [1, 3, 2],\
+        [2, 1, 3],\
+        [2, 3, 1],\
+        [3, 1, 2],\
+        [3, 2, 1]\
+    ]))
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr1, 2), [\
+        [1, 2],\
+        [1, 3],\
+        [2, 1],\
+        [2, 3],\
+        [3, 1],\
+        [3, 2]\
+    ]))
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr1, 1), [\
+        [1],\
+        [2],\
+        [3]\
+    ]))
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr1, 0), []))
+
+    parser.op(fp.testAssertIterator(fn.arrayPermutationsIterator($arr3, 2), [\
+        [a, b],\
+        [a, c],\
+        [a, d],\
+        [a, e],\
+        [a, f],\
+        [b, a],\
+        [b, c],\
+        [b, d],\
+        [b, e],\
+        [b, f],\
+        [c, a],\
+        [c, b],\
+        [c, d],\
+        [c, e],\
+        [c, f],\
+        [d, a],\
+        [d, b],\
+        [d, c],\
+        [d, e],\
+        [d, f],\
+        [e, a],\
+        [e, b],\
+        [e, c],\
+        [e, d],\
+        [e, f],\
+        [f, a],\
+        [f, b],\
+        [f, c],\
+        [f, d],\
+        [f, e]\
+    ]))
+}
