@@ -10,6 +10,16 @@ linker.bindLibrary(helper_lib.lang)
 $array $= [1, 2, 3, 4]
 $text $= "ABC"
 
+struct &Data {
+    $a
+    $b
+    $c
+    $d
+    $e
+}
+
+$data $= &Data(1, "test", [0, 1], "val", 4.2f)
+
 class &LoopingIterator {
     -final:$value{ARRAY}
     -$index{INT}
@@ -57,6 +67,8 @@ fn.testUnit(Iterators)
 
     parser.op(fp.testAssertIterator($array, [1, 2, 3, 4]))
     parser.op(fp.testAssertIterator($text, [A, B, C]))
+    parser.op(fp.testAssertIterator(&Data, ["$a", "$b", "$c", "$d", "$e"]))
+    parser.op(fp.testAssertIterator($data, [&Pair("$a", 1), &Pair("$b", "test"), &Pair("$c", [0, 1]), &Pair("$d", "val"), &Pair("$e", 4.2f)]))
 }
 {
     fn.testSubUnit("Custom infinite looping iterator")
