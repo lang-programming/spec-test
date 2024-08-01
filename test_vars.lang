@@ -254,8 +254,8 @@ nontry {
 	$var1 = 42
 	fn.testAssertStrictEquals($var1, 42)
 	
-	$var1 = func.toLong(42)
-	fn.testAssertStrictEquals($var1, func.toLong(42))
+	$var1 = 42L
+	fn.testAssertStrictEquals($var1, 42L)
 	
 	$var1 = null
 	fn.testAssertNull($var1)
