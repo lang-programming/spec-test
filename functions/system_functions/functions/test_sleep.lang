@@ -8,38 +8,38 @@ lang.test = 1
 
 # Tests
 nontry {
-	fn.testSubUnit(Lang functions [func.sleep] - Invalid argument count)
-	
-	try {
-		lang.errorOutput = 0
-		func.sleep()
-	}finally {
-		lang.errorOutput = 1
-		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
-	}
-	try {
-		lang.errorOutput = 0
-		func.sleep(x, y)
-	}finally {
-		lang.errorOutput = 1
-		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
-	}
-	try {
-		lang.errorOutput = 0
-		func.sleep(x, y, z)
-	}finally {
-		lang.errorOutput = 1
-		fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
-	}
+    fn.testSubUnit(Lang functions [func.sleep] - Invalid argument count)
+    
+    try {
+        lang.errorOutput = 0
+        func.sleep()
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.sleep(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.sleep(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
 }
 {
-	fn.testSubUnit(System functions [func.sleep])
-	
-	$t1 = func.currentTimeMillis()
-	func.sleep(5)
-	$t2 = func.currentTimeMillis()
-	$td $= $t2 - $t1
-	
-	fn.testAssertGreaterThanOrEquals($td, 5)
-	fn.testAssertLessThan($td, 8)
+    fn.testSubUnit(System functions [func.sleep])
+    
+    $t1 = func.currentTimeMillis()
+    func.sleep(5)
+    $t2 = func.currentTimeMillis()
+    $td $= $t2 - $t1
+    
+    fn.testAssertGreaterThanOrEquals($td, 5)
+    fn.testAssertLessThan($td, 8)
 }

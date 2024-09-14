@@ -8,13 +8,13 @@ lang.test = 1
 
 # Tests
 {
-	fn.testSubUnit(System functions [func.currentTimeMillis])
-	
-	$t1 = func.currentTimeMillis()
-	
-	fn.testAssertTypeEquals($t1, $LANG_TYPE_LONG)
-	
-	$t2 = func.currentTimeMillis()
-	
-	fn.testAssertLessThanOrEquals($t1, $t2)
+    fn.testSubUnit(System functions [func.currentTimeMillis])
+    
+    $t1 = func.currentTimeMillis()
+    
+    fn.testAssertTypeEquals($t1, $LANG_TYPE_LONG)
+    
+    $t2 = func.currentTimeMillis()
+    
+    fn.testAssertLessThanOrEquals($t1, $t2)
 }

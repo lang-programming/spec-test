@@ -6,116 +6,116 @@ lang.test = 1
 # Tests
 fn.testUnit(Multiline Texts)
 {
-	fn.testSubUnit(Empty Text)
-	
-	fn.testAssertStrictEquals({{{}}}, \e)
+    fn.testSubUnit(Empty Text)
+    
+    fn.testAssertStrictEquals({{{}}}, \e)
 }
 {
-	fn.testSubUnit(Text with length 1)
-	
-	fn.testAssertStrictEquals({{{a}}}, a\e)
-	fn.testAssertStrictEquals({{{0}}}, 0\e)
-	fn.testAssertStrictEquals({{{.}}}, .\e)
-	fn.testAssertStrictEquals({{{;}}}, ;\e)
+    fn.testSubUnit(Text with length 1)
+    
+    fn.testAssertStrictEquals({{{a}}}, a\e)
+    fn.testAssertStrictEquals({{{0}}}, 0\e)
+    fn.testAssertStrictEquals({{{.}}}, .\e)
+    fn.testAssertStrictEquals({{{;}}}, ;\e)
 }
 {
-	fn.testSubUnit(Multiline Text)
-	
-	fn.testAssertStrictEquals({{{abc}}}, abc)
-	fn.testAssertStrictEquals(\\{{{abc}}}, \\abc)
-	fn.testAssertStrictEquals(\\\\{{{abc}}}, \\\\abc)
-	fn.testAssertStrictEquals(\\\\\\{{{abc}}}, \\\\\\abc)
+    fn.testSubUnit(Multiline Text)
+    
+    fn.testAssertStrictEquals({{{abc}}}, abc)
+    fn.testAssertStrictEquals(\\{{{abc}}}, \\abc)
+    fn.testAssertStrictEquals(\\\\{{{abc}}}, \\\\abc)
+    fn.testAssertStrictEquals(\\\\\\{{{abc}}}, \\\\\\abc)
 }
 {
-	fn.testSubUnit(No Multiline Text)
-	
-	fn.testAssertStrictEquals(\{{{abc}}}, \{\{\{abc\}\}\})
-	fn.testAssertStrictEquals(\\\{{{abc}}}, \\\{\{\{abc\}\}\})
-	fn.testAssertStrictEquals(\\\\\{{{abc}}}, \\\\\{\{\{abc\}\}\})
-	fn.testAssertStrictEquals(\\\\\\\{{{abc}}}, \\\\\\\{\{\{abc\}\}\})
+    fn.testSubUnit(No Multiline Text)
+    
+    fn.testAssertStrictEquals(\{{{abc}}}, \{\{\{abc\}\}\})
+    fn.testAssertStrictEquals(\\\{{{abc}}}, \\\{\{\{abc\}\}\})
+    fn.testAssertStrictEquals(\\\\\{{{abc}}}, \\\\\{\{\{abc\}\}\})
+    fn.testAssertStrictEquals(\\\\\\\{{{abc}}}, \\\\\\\{\{\{abc\}\}\})
 }
 {
-	fn.testSubUnit(Backslashes in multiline Text)
-	
-	fn.testAssertStrictEquals({{{\}}}, \\\e)
-	fn.testAssertStrictEquals({{{\\}}}, \\\\)
-	fn.testAssertStrictEquals({{{\\\}}}, \\\\\\)
-	fn.testAssertStrictEquals({{{abc\}}}, abc\\)
-	fn.testAssertStrictEquals({{{abc\\}}}, abc\\\\)
-	fn.testAssertStrictEquals({{{abc\\\}}}, abc\\\\\\)
-	fn.testAssertStrictEquals({{{\abc}}}, \\abc)
-	fn.testAssertStrictEquals({{{\\abc}}}, \\\\abc)
-	fn.testAssertStrictEquals({{{\\\abc}}}, \\\\\\abc)
-	fn.testAssertStrictEquals({{{\abc\}}}, \\abc\\)
-	fn.testAssertStrictEquals({{{\\abc\\}}}, \\\\abc\\\\)
-	fn.testAssertStrictEquals({{{\\\abc\\\}}}, \\\\\\abc\\\\\\)
+    fn.testSubUnit(Backslashes in multiline Text)
+    
+    fn.testAssertStrictEquals({{{\}}}, \\\e)
+    fn.testAssertStrictEquals({{{\\}}}, \\\\)
+    fn.testAssertStrictEquals({{{\\\}}}, \\\\\\)
+    fn.testAssertStrictEquals({{{abc\}}}, abc\\)
+    fn.testAssertStrictEquals({{{abc\\}}}, abc\\\\)
+    fn.testAssertStrictEquals({{{abc\\\}}}, abc\\\\\\)
+    fn.testAssertStrictEquals({{{\abc}}}, \\abc)
+    fn.testAssertStrictEquals({{{\\abc}}}, \\\\abc)
+    fn.testAssertStrictEquals({{{\\\abc}}}, \\\\\\abc)
+    fn.testAssertStrictEquals({{{\abc\}}}, \\abc\\)
+    fn.testAssertStrictEquals({{{\\abc\\}}}, \\\\abc\\\\)
+    fn.testAssertStrictEquals({{{\\\abc\\\}}}, \\\\\\abc\\\\\\)
 }
 {
-	fn.testSubUnit(\# in multiline Text)
-	
-	fn.testAssertStrictEquals({{{#}}}, \#\e)
-	fn.testAssertStrictEquals({{{##}}}, \#\#)
-	fn.testAssertStrictEquals({{{\##}}}, \\\#\#)
-	fn.testAssertStrictEquals({{{##\}}}, \#\#\\)
-	fn.testAssertStrictEquals({{{#\#}}}, \#\\\#)
-	fn.testAssertStrictEquals({{{\#\#\}}}, \\\#\\\#\\)
+    fn.testSubUnit(\# in multiline Text)
+    
+    fn.testAssertStrictEquals({{{#}}}, \#\e)
+    fn.testAssertStrictEquals({{{##}}}, \#\#)
+    fn.testAssertStrictEquals({{{\##}}}, \\\#\#)
+    fn.testAssertStrictEquals({{{##\}}}, \#\#\\)
+    fn.testAssertStrictEquals({{{#\#}}}, \#\\\#)
+    fn.testAssertStrictEquals({{{\#\#\}}}, \\\#\\\#\\)
 }
 {
-	fn.testSubUnit(\\{ and \\} in multiline Text)
-	
-	fn.testAssertStrictEquals({{{\{}}}, \\{)
-	fn.testAssertStrictEquals({{{\{\e}}}, \\{\\e)
-	fn.testAssertStrictEquals({{{\{\{\e}}}, \\{\\{\\e)
-	fn.testAssertStrictEquals({{{\e\{\e}}}, \\e\\{\\e)
-	fn.testAssertStrictEquals({{{\{\{}}}, \\{\\{)
-	fn.testAssertStrictEquals({{{\}}}}, \\})
-	fn.testAssertStrictEquals({{{\}\e}}}, \\}\\e)
-	fn.testAssertStrictEquals({{{\}\}\e}}}, \\}\\}\\e)
-	fn.testAssertStrictEquals({{{\e\}\e}}}, \\e\\}\\e)
-	fn.testAssertStrictEquals({{{\}\}}}}, \\}\\})
+    fn.testSubUnit(\\{ and \\} in multiline Text)
+    
+    fn.testAssertStrictEquals({{{\{}}}, \\{)
+    fn.testAssertStrictEquals({{{\{\e}}}, \\{\\e)
+    fn.testAssertStrictEquals({{{\{\{\e}}}, \\{\\{\\e)
+    fn.testAssertStrictEquals({{{\e\{\e}}}, \\e\\{\\e)
+    fn.testAssertStrictEquals({{{\{\{}}}, \\{\\{)
+    fn.testAssertStrictEquals({{{\}}}}, \\})
+    fn.testAssertStrictEquals({{{\}\e}}}, \\}\\e)
+    fn.testAssertStrictEquals({{{\}\}\e}}}, \\}\\}\\e)
+    fn.testAssertStrictEquals({{{\e\}\e}}}, \\e\\}\\e)
+    fn.testAssertStrictEquals({{{\}\}}}}, \\}\\})
 }
 {
-	fn.testSubUnit(Multiple lines in multiline Text)
-	
-	fn.testAssertStrictEquals({{{
+    fn.testSubUnit(Multiple lines in multiline Text)
+    
+    fn.testAssertStrictEquals({{{
 }}}, \n\e)
-	fn.testAssertStrictEquals({{{
+    fn.testAssertStrictEquals({{{
 
 }}}, \n\n)
-	fn.testAssertStrictEquals({{{
+    fn.testAssertStrictEquals({{{
 
 
 }}}, \n\n\n)
-	fn.testAssertStrictEquals({{{
-	
-	
-	}}}, \n\t\n\t\n\t\e)
+    fn.testAssertStrictEquals({{{
+    
+    
+    }}}, \n\t\n\t\n\t\e)
 }
 {
-	fn.testSubUnit(Line continuation sequence in multiline Text)
-	
-	fn.testAssertStrictEquals({{{\
+    fn.testSubUnit(Line continuation sequence in multiline Text)
+    
+    fn.testAssertStrictEquals({{{\
 }}}, \\\n)
-	fn.testAssertStrictEquals({{{\\
+    fn.testAssertStrictEquals({{{\\
 }}}, \\\\\n)
-	fn.testAssertStrictEquals({{{\\\
+    fn.testAssertStrictEquals({{{\\\
 }}}, \\\\\\\n)
-	fn.testAssertStrictEquals({{{\
+    fn.testAssertStrictEquals({{{\
 \}}}, \\\n\\)
-	fn.testAssertStrictEquals({{{abc\
+    fn.testAssertStrictEquals({{{abc\
 def}}}, abc\\\ndef)
 }
 {
-	fn.testSubUnit(No execution in multiline Text)
-	
-	fn.testAssertStrictEquals({{{$a = 1}}}, \$a \= 1)
-	fn.testAssertStrictEquals({{{$a = 1}}}, \$a = 1)
-	fn.testAssertStrictEquals({{{func.testAssertFail(Code was executed inside multiline Text)}}}, func\.testAssertFail(Code was executed inside multiline Text))
-	fn.testAssertStrictEquals({{{con.if(1)
+    fn.testSubUnit(No execution in multiline Text)
+    
+    fn.testAssertStrictEquals({{{$a = 1}}}, \$a \= 1)
+    fn.testAssertStrictEquals({{{$a = 1}}}, \$a = 1)
+    fn.testAssertStrictEquals({{{func.testAssertFail(Code was executed inside multiline Text)}}}, func\.testAssertFail(Code was executed inside multiline Text))
+    fn.testAssertStrictEquals({{{con.if(1)
 func.testAssertFail(Code was executed inside multiline Text)
 con.endif}}}, con\.if(1)\nfunc\.testAssertFail(Code was executed inside multiline Text)\ncon\.endif)
 fn.testAssertStrictEquals({{{fn.testAssertFail(Code was executed inside multiline Text)}}}, fn\.testAssertFail(Code was executed inside multiline Text))
-	fn.testAssertStrictEquals({{{con.if(1)
+    fn.testAssertStrictEquals({{{con.if(1)
 fn.testAssertFail(Code was executed inside multiline Text)
 con.endif}}}, con\.if(1)\nfn\.testAssertFail(Code was executed inside multiline Text)\ncon\.endif)
 }

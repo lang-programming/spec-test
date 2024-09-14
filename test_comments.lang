@@ -6,32 +6,32 @@ lang.test = 1
 # Tests
 fn.testUnit(Comments)
 {
-	fn.testSubUnit(Comment)
-	
-	$v = #
-	fn.testAssertNull($v)
-	
-	$v = \\#
-	fn.testAssertStrictEquals($v, \\)
-	
-	$v = \\\\#
-	fn.testAssertStrictEquals($v, {{{\\}}})
-	
-	$v = \\\\\\#
-	fn.testAssertStrictEquals($v, {{{\\\}}})
+    fn.testSubUnit(Comment)
+    
+    $v = #
+    fn.testAssertNull($v)
+    
+    $v = \\#
+    fn.testAssertStrictEquals($v, \\)
+    
+    $v = \\\\#
+    fn.testAssertStrictEquals($v, {{{\\}}})
+    
+    $v = \\\\\\#
+    fn.testAssertStrictEquals($v, {{{\\\}}})
 }
 {
-	fn.testSubUnit(No Comment)
-	
-	$v = \#
-	fn.testAssertStrictEquals($v, \#)
-	
-	$v = \\\#
-	fn.testAssertStrictEquals($v, {{{\#}}})
-	
-	$v = \\\\\#
-	fn.testAssertStrictEquals($v, {{{\\#}}})
-	
-	$v = \\\\\\\#
-	fn.testAssertStrictEquals($v, {{{\\\#}}})
+    fn.testSubUnit(No Comment)
+    
+    $v = \#
+    fn.testAssertStrictEquals($v, \#)
+    
+    $v = \\\#
+    fn.testAssertStrictEquals($v, {{{\#}}})
+    
+    $v = \\\\\#
+    fn.testAssertStrictEquals($v, {{{\\#}}})
+    
+    $v = \\\\\\\#
+    fn.testAssertStrictEquals($v, {{{\\\#}}})
 }
