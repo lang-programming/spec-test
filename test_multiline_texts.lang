@@ -86,10 +86,8 @@ fn.testUnit(Multiline Texts)
 
 
 }}}, \n\n\n)
-    fn.testAssertStrictEquals({{{
-    
-    
-    }}}, \n\t\n\t\n\t\e)
+	fn.testAssertStrictEquals({{{
+	}}}, \n\t\e)
 }
 {
     fn.testSubUnit(Line continuation sequence in multiline Text)
