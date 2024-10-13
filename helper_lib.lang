@@ -212,6 +212,13 @@ class &TrackedOperations {
 		return parser.op(::tracked($res))
 	}
 
+	+op:slice = ($fromIndex{OBJECT}, $toIndex{OBJECT}) -> {
+		$res $= fn.slice(::$value, $fromIndex::$value, $toIndex::$value)
+		&TrackedOperations::$executionSteps += [SLICE, [::$value, $fromIndex::$value, $toIndex::$value], $res]
+
+		return parser.op(::tracked($res))
+	}
+
 	+op:iter = () -> {
 		$res $= fn.iter(::$value)
 		&TrackedOperations::$executionSteps += [ITER, [::$value], $res]
