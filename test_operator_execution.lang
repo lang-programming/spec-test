@@ -7,6 +7,8 @@ lang.test = 1
 linker.bindLibrary(helper_lib.lang)
 
 # Preparation
+$realVoid $= randChoice()
+
 $null $= tracked(null)
 
 $0 $= tracked(0)
@@ -390,6 +392,30 @@ fn.testUnit(Operator Execution)
         [CONCAT, [fn.combW2(fn.add), fn.argCnt1(fn.inc ** 5)], fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5)],\
         [CONCAT, [fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5), fn.dec], (fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5)) ||| fn.dec],\
         [CALL, [(fn.combW2(fn.add) ||| fn.argCnt1(fn.inc ** 5)) ||| fn.dec, [21]], 46]\
+    ]
+
+    fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
+}
+{
+    fn.testSubUnit(Operator Execution '"Text " ||| "Test with a long text"[5:][:][:-5] ||| " value"[@[1, 2, 3][2:-1]:]')
+
+    fp.resetTracking()
+
+    $result $= tracked("Text ") ||| tracked("Test with a long text")[$5:][:][:-$5] ||| tracked(" value")[@tracked([$1, $2, $3])[$2:-$1]:]
+    $executionSteps $= getTracking()
+
+    $expectedResult = "Text with a long value"
+    $expectedExecutionSteps $= [\
+        [SLICE, ["Test with a long text", 5, $realVoid], "with a long text"],\
+        [SLICE, ["with a long text", $realVoid, $realVoid], "with a long text"],\
+        [INV, [5], -5],\
+        [SLICE, ["with a long text", $realVoid, -5], "with a long"],\
+        [CONCAT, ["Text ", "with a long"], "Text with a long"],\
+        [INV, [1], -1],\
+        [SLICE, [[tracked(1), tracked(2), tracked(3)], 2, -1], []],\
+        [LEN, [[]], 0],\
+        [SLICE, [" value", 0, $realVoid], " value"],\
+        [CONCAT, ["Text with a long", " value"], "Text with a long value"]\
     ]
 
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
