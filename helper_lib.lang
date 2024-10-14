@@ -213,11 +213,8 @@ class &TrackedOperations {
 	}
 
 	+op:slice = ($fromIndex{VOID|OBJECT}, $toIndex{VOID|OBJECT}) -> {
-	    $fromIndexValue $= ($fromIndex ~~ $LANG_TYPE_VOID)?$fromIndex:$fromIndex::$value
-	    $toIndexValue $= ($toIndex ~~ $LANG_TYPE_VOID)?$toIndex:$toIndex::$value
-
-		$res $= fn.slice(::$value, $fromIndexValue, $toIndexValue)
-		&TrackedOperations::$executionSteps += [SLICE, [::$value, $fromIndexValue, $toIndexValue], $res]
+		$res $= fn.slice(::$value, $fromIndex?::$value, $toIndex?::$value)
+		&TrackedOperations::$executionSteps += [SLICE, [::$value, $fromIndex?::$value, $toIndex?::$value], $res]
 
 		return parser.op(::tracked($res))
 	}
