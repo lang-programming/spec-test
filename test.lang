@@ -2,6 +2,7 @@ lang.name = Lang Tests
 lang.version = v1.0.0
 
 lang.test = 1
+lang.nativeStackTraces = 1
 
 lang.errorOutput = 1 # Enable errors and warnings
 
