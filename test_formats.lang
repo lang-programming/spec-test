@@ -92,6 +92,13 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%-4s, $null), {{{null}}})
 }
 {
+    fn.testSubUnit(Text format squences [Size from arguments])
+
+    fn.testAssertStrictEquals(func.format(%*s, 3, abc), {{{abc}}})
+    fn.testAssertStrictEquals(func.format(%*[2]s, def, 3), {{{def}}})
+    fn.testAssertStrictEquals(func.format(%[1]*[2]s, 10, 2), {{{10}}})
+}
+{
     fn.testSubUnit(Translation format squences [No size])
     
     fn.testAssertStrictEquals(func.format(%t, abc), {{{test}}})
