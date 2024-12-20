@@ -4,6 +4,8 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Preparation
+oranges.with.count = [0,2+]{count} oranges;[1]1 orange
+oranges.without.count = [0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges
 abc = test
 def = 20
 10 = txt2
@@ -99,6 +101,55 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%[1]*[2]s, 10, 2), {{{10}}})
 }
 {
+    fn.testSubUnit(Text format sequences [Pluralization templates])
+
+    fn.testAssertStrictEquals(func.format(%.0s, "[0,2+]{count} oranges;[1]1 orange"), {{{0 oranges}}})
+    fn.testAssertStrictEquals(func.format(%.1s, "[0,2+]{count} oranges;[1]1 orange"), {{{1 orange}}})
+    fn.testAssertStrictEquals(func.format(%.2s, "[0,2+]{count} oranges;[1]1 orange"), {{{2 oranges}}})
+
+    fn.testAssertStrictEquals(func.format(%.0s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{no oranges}}})
+    fn.testAssertStrictEquals(func.format(%.1s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{an orange}}})
+    fn.testAssertStrictEquals(func.format(%.2s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.3s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.6s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.9s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.10s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.11s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{many oranges}}})
+    fn.testAssertStrictEquals(func.format(%.12s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{many oranges}}})
+}
+{
+    fn.testSubUnit(Text format sequences [Pluralization templates, Count from arguments])
+    fn.testAssertStrictEquals(func.format(%.*s, 0, "[0,2+]{count} oranges;[1]1 orange"), {{{0 oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 1, "[0,2+]{count} oranges;[1]1 orange"), {{{1 orange}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 2, "[0,2+]{count} oranges;[1]1 orange"), {{{2 oranges}}})
+
+    fn.testAssertStrictEquals(func.format(%.*s, 0, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{no oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 1, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{an orange}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 2, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 3, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 6, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 9, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 10, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 11, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{many oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 12, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges"), {{{many oranges}}})
+}
+{
+    fn.testSubUnit(Text format sequences [Pluralization templates, Count from arguments at index])
+    fn.testAssertStrictEquals(func.format(%.*s, 0, "[0,2+]{count} oranges;[1]1 orange"), {{{0 oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 1, "[0,2+]{count} oranges;[1]1 orange"), {{{1 orange}}})
+    fn.testAssertStrictEquals(func.format(%.*s, 2, "[0,2+]{count} oranges;[1]1 orange"), {{{2 oranges}}})
+
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 0), {{{no oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 1), {{{an orange}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 2), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 3), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 6), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 9), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 10), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 11), {{{many oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]s, "[0]no oranges;[1]an orange;[2-10]few oranges;[11+]many oranges", 12), {{{many oranges}}})
+}
+{
     fn.testSubUnit(Translation format sequences [No size])
     
     fn.testAssertStrictEquals(func.format(%t, abc), {{{test}}})
@@ -160,4 +211,53 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%-4t, 10), {{{txt2}}})
     fn.testAssertStrictEquals(func.format(%-3t, -10), {{{abc}}})
     fn.testAssertStrictEquals(func.format(%-3t, $null), {{{nul}}})
+}
+{
+    fn.testSubUnit(Translation format sequences [Pluralization templates])
+
+    fn.testAssertStrictEquals(func.format(%.0t, oranges.with.count), {{{0 oranges}}})
+    fn.testAssertStrictEquals(func.format(%.1t, oranges.with.count), {{{1 orange}}})
+    fn.testAssertStrictEquals(func.format(%.2t, oranges.with.count), {{{2 oranges}}})
+
+    fn.testAssertStrictEquals(func.format(%.0t, oranges.without.count), {{{no oranges}}})
+    fn.testAssertStrictEquals(func.format(%.1t, oranges.without.count), {{{an orange}}})
+    fn.testAssertStrictEquals(func.format(%.2t, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.3t, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.6t, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.9t, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.10t, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.11t, oranges.without.count), {{{many oranges}}})
+    fn.testAssertStrictEquals(func.format(%.12t, oranges.without.count), {{{many oranges}}})
+}
+{
+    fn.testSubUnit(Translation format sequences [Pluralization templates, Count from arguments])
+    fn.testAssertStrictEquals(func.format(%.*t, 0, oranges.with.count), {{{0 oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 1, oranges.with.count), {{{1 orange}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 2, oranges.with.count), {{{2 oranges}}})
+
+    fn.testAssertStrictEquals(func.format(%.*t, 0, oranges.without.count), {{{no oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 1, oranges.without.count), {{{an orange}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 2, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 3, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 6, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 9, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 10, oranges.without.count), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 11, oranges.without.count), {{{many oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 12, oranges.without.count), {{{many oranges}}})
+}
+{
+    fn.testSubUnit(Translation format sequences [Pluralization templates, Count from arguments at index])
+    fn.testAssertStrictEquals(func.format(%.*t, 0, oranges.with.count), {{{0 oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 1, oranges.with.count), {{{1 orange}}})
+    fn.testAssertStrictEquals(func.format(%.*t, 2, oranges.with.count), {{{2 oranges}}})
+
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 0), {{{no oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 1), {{{an orange}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 2), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 3), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 6), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 9), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 10), {{{few oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 11), {{{many oranges}}})
+    fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 12), {{{many oranges}}})
 }
