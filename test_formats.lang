@@ -96,6 +96,33 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%-4s, $null), {{{null}}})
 }
 {
+    fn.testSubUnit(Text format sequences [Size, Size from arguments, Left justify])
+
+    fn.testAssertStrictEquals(func.format(%-*s, 5, abc), {{{abc  }}})
+    fn.testAssertStrictEquals(func.format(%-*s, 5, def), {{{def  }}})
+    fn.testAssertStrictEquals(func.format(%-*s, 5, 10), {{{10   }}})
+    fn.testAssertStrictEquals(func.format(%-*s, 5, -10), {{{-10  }}})
+    fn.testAssertStrictEquals(func.format(%-*s, 5, $null), {{{null }}})
+}
+{
+    fn.testSubUnit(Text format sequences [Size, Size from arguments, Too long text, Left justify])
+
+    fn.testAssertStrictEquals(func.format(%-*s, 1, abc), {{{abc}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 1, def), {{{def}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 1, 10), {{{10}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 1, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 1, $null), {{{null}}})
+}
+{
+    fn.testSubUnit(Text format sequences [Size, Size from argument, Exact size match, Left justify])
+
+    fn.testAssertStrictEquals(func.format(%-*s, 3, abc), {{{abc}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 3, def), {{{def}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 2, 10), {{{10}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 3, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%-*s, 4, $null), {{{null}}})
+}
+{
     fn.testSubUnit(Text format sequences [Size from arguments])
 
     fn.testAssertStrictEquals(func.format(%*s, 3, abc), {{{abc}}})
@@ -213,6 +240,33 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%-4t, 10), {{{txt2}}})
     fn.testAssertStrictEquals(func.format(%-3t, -10), {{{abc}}})
     fn.testAssertStrictEquals(func.format(%-3t, $null), {{{nul}}})
+}
+{
+    fn.testSubUnit(Translation format sequences [Size, Size from arguments, Left justify])
+
+    fn.testAssertStrictEquals(func.format(%-*t, 5, abc), {{{test }}})
+    fn.testAssertStrictEquals(func.format(%-*t, 5, def), {{{20   }}})
+    fn.testAssertStrictEquals(func.format(%-*t, 5, 10), {{{txt2 }}})
+    fn.testAssertStrictEquals(func.format(%-*t, 5, -10), {{{abc  }}})
+    fn.testAssertStrictEquals(func.format(%-*t, 5, $null), {{{nul  }}})
+}
+{
+    fn.testSubUnit(Translation format sequences [Size, Size from arguments, Too long text, Left justify])
+
+    fn.testAssertStrictEquals(func.format(%-*t, 1, abc), {{{test}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 1, def), {{{20}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 1, 10), {{{txt2}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 1, -10), {{{abc}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 1, $null), {{{nul}}})
+}
+{
+    fn.testSubUnit(Translation format sequences [Size, Size from argument, Exact size match, Left justify])
+
+    fn.testAssertStrictEquals(func.format(%-*t, 4, abc), {{{test}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 2, def), {{{20}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 4, 10), {{{txt2}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 3, -10), {{{abc}}})
+    fn.testAssertStrictEquals(func.format(%-*t, 3, $null), {{{nul}}})
 }
 {
     fn.testSubUnit(Translation format sequences [Pluralization templates])
