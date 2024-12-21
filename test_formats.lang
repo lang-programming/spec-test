@@ -29,6 +29,8 @@ fn.testUnit(Formats)
     
     fn.testAssertEquals(func.format(%%), {{{%}}})
     fn.testAssertEquals(func.format(%%%%), %%)
+
+    fn.testAssertEquals(func.format(%n), $LANG_OS_LINE_SEPARATOR)
 }
 {
     fn.testSubUnit(Text format sequences [No size])
