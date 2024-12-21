@@ -1,0 +1,457 @@
+lang.name = Lang Tests (OOP)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+class &A {
+    +mp.calcA = () -> {
+        return parser.op([[1, "A::calcA()"]])
+    }
+    +mp.calcA = ($a) -> {
+        return parser.op([[1, "A::calcA($a)"]])
+    }
+    +mp.calcA = ($a, $b, $c) -> {
+        return parser.op([[1, "A::calcA($a, $b, $c)"]])
+    }
+
+    +mp.calcB = ($a, $b) -> {
+        return parser.op([[1, "A::calcB($a, $b)"]])
+    }
+
+    +mp.calcC = () -> {
+        return parser.op([[1, "A::calcC()"]])
+    }
+}
+class &B <&A> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "B::calcA($a)"]] ||| $ret)
+    }
+}
+class &C <&B> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "C::calcA($a)"]] ||| $ret)
+    }
+
+    +override:mp.calcA = ($a, $b, $c) -> {
+        $ret1 $= ::calcA($a + $b + $c)
+        $call1 $= [[1, "C::calcA($a, $b, $c)"]]
+
+        $ret2 $= (::mp.calcA)($a + $b + $c)
+        $call2 $= [[2, "C::calcA($a, $b, $c)"]]
+
+        fp.boundMethod $= ::mp.calcA
+        $ret3 $= fp.boundMethod($a + $b + $c)
+        $call3 $= [[3, "C::calcA($a, $b, $c)"]]
+
+        return parser.op($call1 ||| $ret1 ||| $call2 ||| $ret2 ||| $call3 ||| $ret3)
+    }
+}
+class &D <&C> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "D::calcA($a)"]] ||| $ret)
+    }
+
+    +override:mp.calcA = ($a, $b, $c) -> {
+        $ret $= super::calcA($a, $b, $c)
+        return parser.op([[1, "D::calcA($a, $b, $c)"]] ||| $ret)
+    }
+}
+class &E <&D> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "E::calcA($a)"]] ||| $ret)
+    }
+
+    +override:mp.calcA = ($a, $b, $c) -> {
+        $ret $= super::calcA($a, $b, $c)
+        return parser.op([[1, "E::calcA($a, $b, $c)"]] ||| $ret)
+    }
+}
+class &F <&E> {
+    +override:mp.calcA = ($a, $b, $c) -> {
+        $ret $= super::calcA($a, $b, $c)
+        return parser.op([[1, "F::calcA($a, $b, $c)"]] ||| $ret)
+    }
+}
+class &G <&F> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "G::calcA($a)"]] ||| $ret)
+    }
+}
+class &H <&G> {
+    +override:mp.calcA = ($a, $b, $c) -> {
+        $ret $= super::calcA($a, $b, $c)
+        return parser.op([[1, "H::calcA($a, $b, $c)"]] ||| $ret)
+    }
+}
+class &I <&H> {
+}
+class &J <&I> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "J::calcA($a)"]] ||| $ret)
+    }
+}
+class &K <&J> {
+    +override:mp.calcA = ($a) -> {
+        $ret1 $= super::calcA($a)
+        $call1 $= [[1, "K::calcA($a)"]]
+
+        $ret2 $= super::calcA($a)
+        $call2 $= [[2, "K::calcA($a)"]]
+
+        return parser.op($call1 ||| $ret1 ||| $call2 ||| $ret2)
+    }
+}
+class &L <&K> {
+    +override:mp.calcA = ($a) -> {
+        $ret $= super::calcA($a)
+        return parser.op([[1, "L::calcA($a)"]] ||| $ret)
+    }
+}
+
+&a = &A()
+&b = &B()
+&c = &C()
+&d = &D()
+&e = &E()
+&f = &F()
+&g = &G()
+&h = &H()
+&i = &I()
+&j = &J()
+&k = &K()
+&l = &L()
+
+# Tests
+fn.testUnit(OOP)
+{
+    fn.testSubUnit(Super method calls)
+
+    fn.testAssertStrictEquals(parser.op(&a::calcA(10, 30, 2)), parser.op([\
+        [1, "A::calcA($a, $b, $c)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&b::calcA(10, 30, 2)), parser.op([\
+        [1, "A::calcA($a, $b, $c)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&c::calcA(10, 30, 2)), parser.op([\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&d::calcA(10, 30, 2)), parser.op([\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&e::calcA(10, 30, 2)), parser.op([\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&f::calcA(10, 30, 2)), parser.op([\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&g::calcA(10, 30, 2)), parser.op([\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&h::calcA(10, 30, 2)), parser.op([\
+        [1, "H::calcA($a, $b, $c)"],\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&i::calcA(10, 30, 2)), parser.op([\
+        [1, "H::calcA($a, $b, $c)"],\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&j::calcA(10, 30, 2)), parser.op([\
+        [1, "H::calcA($a, $b, $c)"],\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&k::calcA(10, 30, 2)), parser.op([\
+        [1, "H::calcA($a, $b, $c)"],\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+
+    fn.testAssertStrictEquals(parser.op(&l::calcA(10, 30, 2)), parser.op([\
+        [1, "H::calcA($a, $b, $c)"],\
+        [1, "F::calcA($a, $b, $c)"],\
+        [1, "E::calcA($a, $b, $c)"],\
+        [1, "D::calcA($a, $b, $c)"],\
+        [1, "C::calcA($a, $b, $c)"],\
+        [1, "L::calcA($a)"],\
+        [1, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "C::calcA($a, $b, $c)"],\
+        [1, "L::calcA($a)"],\
+        [1, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [3, "C::calcA($a, $b, $c)"],\
+        [1, "L::calcA($a)"],\
+        [1, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"],\
+        [2, "K::calcA($a)"],\
+        [1, "J::calcA($a)"],\
+        [1, "G::calcA($a)"],\
+        [1, "E::calcA($a)"],\
+        [1, "D::calcA($a)"],\
+        [1, "C::calcA($a)"],\
+        [1, "B::calcA($a)"],\
+        [1, "A::calcA($a)"]\
+    ]))
+}
