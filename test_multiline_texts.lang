@@ -117,3 +117,15 @@ fn.testAssertStrictEquals({{{fn.testAssertFail(Code was executed inside multilin
 fn.testAssertFail(Code was executed inside multiline Text)
 con.endif}}}, con\.if(1)\nfn\.testAssertFail(Code was executed inside multiline Text)\ncon\.endif)
 }
+{
+    fn.testSubUnit("Multiline text with }}}, {{{, and \"\"\" inside")
+
+    $v = """text with {{{ and end"""
+    fn.testAssertStrictEquals($v, "text with \{\{\{ and end")
+
+    $v = """text with }}} and end"""
+    fn.testAssertStrictEquals($v, "text with \}\}\} and end")
+
+    $v = {{{text with """ and end}}}
+    fn.testAssertStrictEquals($v, "text with \"\"\" and end")
+}

@@ -41,6 +41,9 @@ fn.testUnit(Comments)
     $v = # """comment with {{{ and end"""
     fn.testAssertNull($v)
 
+    $v = # """comment with }}} and end"""
+    fn.testAssertNull($v)
+
     $v = # {{{comment with """ and end}}}
     fn.testAssertNull($v)
 }
