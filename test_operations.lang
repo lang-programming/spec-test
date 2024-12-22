@@ -6,6 +6,9 @@ lang.test = 1
 # Preparation
 $void = func.randChoice()
 fp.ret = ($a) -> return $a
+$m1 = &Maybe(1)
+$m2 = &Maybe(1)
+$m3 = &Maybe(2)
 $n1 = -1
 $n2 = -2
 $n3 = -3
@@ -21,7 +24,7 @@ fn.testUnit(Operations)
     fn.testAssertStrictEquals(parser.op(\!\!), $void)
 }
 {
-    fn.testSubUnit(Associtivity [POW operator])
+    fn.testSubUnit(Associativity [POW operator])
     
     fn.testAssertStrictEquals(parser.op(4**3**2), 262144)
     fn.testAssertStrictEquals(parser.op(4**(3**2)), 262144)
@@ -169,4 +172,118 @@ fn.testUnit(Operations)
     fn.testAssertStrictEquals(parser.op(1?2+3), {{{1?23}}})
     fn.testAssertStrictEquals(parser.op(1:2?3+4), {{{1:2?34}}})
     fn.testAssertStrictEquals(parser.op(1?~2), {{{1?~2}}})
+}
+{
+    fn.testSubUnit(Equality of partially called combinator functions, bound methods, and higher-order function operators)
+
+    fn.testAssertNotEquals(parser.op(fn.inc ** 3), parser.op(fn.inc ** 4))
+    fn.testAssertNotEquals(parser.op(fn.inc ** 3), parser.op(fn.dec ** 3))
+    fn.testAssertEquals(parser.op(fn.inc ** 3), parser.op(fn.inc ** 3))
+    fn.testAssertEquals(parser.op(fn.inc ** 0), parser.op(fn.inc ** 0))
+    fn.testAssertEquals(parser.op(fn.inc ** 0), parser.op(fn.dec ** 0))
+
+    fn.testAssertStrictNotEquals(parser.op(fn.inc ** 3), parser.op(fn.inc ** 4))
+    fn.testAssertStrictNotEquals(parser.op(fn.inc ** 3), parser.op(fn.dec ** 3))
+    fn.testAssertStrictEquals(parser.op(fn.inc ** 3), parser.op(fn.inc ** 3))
+    fn.testAssertStrictEquals(parser.op(fn.inc ** 0), parser.op(fn.inc ** 0))
+    fn.testAssertStrictEquals(parser.op(fn.inc ** 0), parser.op(fn.dec ** 0))
+
+
+    fn.testAssertEquals(parser.op($m1::mp.isPresent), parser.op($m1::mp.isPresent))
+    fn.testAssertNotEquals(parser.op($m1::mp.isPresent), parser.op($m2::mp.isPresent))
+    fn.testAssertNotEquals(parser.op($m1::mp.isPresent), parser.op($m3::mp.isPresent))
+
+    fn.testAssertStrictEquals(parser.op($m1::mp.isPresent), parser.op($m1::mp.isPresent))
+    fn.testAssertStrictNotEquals(parser.op($m1::mp.isPresent), parser.op($m2::mp.isPresent))
+    fn.testAssertStrictNotEquals(parser.op($m1::mp.isPresent), parser.op($m3::mp.isPresent))
+
+    fn.testAssertEquals(parser.op(fn.inc ||| fn.dec), parser.op(fn.inc ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.inc ||| fn.dec), parser.op(fn.dec ||| fn.inc))
+
+    fn.testAssertStrictEquals(parser.op(fn.inc ||| fn.dec), parser.op(fn.inc ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.inc ||| fn.dec), parser.op(fn.dec ||| fn.inc))
+
+    fn.testAssertEquals(parser.op(fn.combK(fn.inc) ||| fn.dec), parser.op(fn.combK(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.combK(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.combK(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.combK(fn.inc) ||| fn.dec), parser.op(fn.combK(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.combK(fn.inc) ||| fn.dec), parser.op(fn.combK(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.combK(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.combK(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.combK(fn.inc) ||| fn.dec), parser.op(fn.combK(fn.dec) ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(+|fn.inc ||| fn.dec), parser.op(+|fn.inc ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(+|fn.inc ||| fn.dec), parser.op(fn.dec ||| +|fn.inc))
+    fn.testAssertNotEquals(parser.op(+|fn.inc ||| fn.dec), parser.op(+|fn.dec ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(+|fn.inc ||| fn.dec ), parser.op(+|fn.inc ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(+|fn.inc ||| fn.dec ), parser.op(fn.dec ||| +|fn.inc))
+    fn.testAssertStrictNotEquals(parser.op(+|fn.inc ||| fn.dec ), parser.op(+|fn.dec ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(-|fn.inc ||| fn.dec), parser.op(-|fn.inc ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(-|fn.inc ||| fn.dec), parser.op(fn.dec ||| -|fn.inc))
+    fn.testAssertNotEquals(parser.op(-|fn.inc ||| fn.dec), parser.op(-|fn.dec ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(-|fn.inc ||| fn.dec), parser.op(-|fn.inc ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(-|fn.inc ||| fn.dec), parser.op(fn.dec ||| -|fn.inc))
+    fn.testAssertStrictNotEquals(parser.op(-|fn.inc ||| fn.dec), parser.op(-|fn.dec ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.argCnt0(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt0(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.argCnt0(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.argCnt0(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt0(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.argCnt0(fn.dec) ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.argCnt1(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt1(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.argCnt1(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.argCnt1(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt1(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.argCnt1(fn.dec) ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.argCnt2(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt2(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.argCnt2(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.argCnt2(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt2(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.argCnt2(fn.dec) ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.argCnt3(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt3(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.argCnt3(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.argCnt3(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt3(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.argCnt3(fn.dec) ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.argCnt4(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt4(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.argCnt4(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.argCnt4(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt4(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.argCnt4(fn.dec) ||| fn.dec))
+
+    fn.testAssertEquals(parser.op(fn.argCnt5(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt5(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt5(fn.inc)))
+    fn.testAssertNotEquals(parser.op(fn.argCnt5(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.dec) ||| fn.dec))
+
+    fn.testAssertStrictEquals(parser.op(fn.argCnt5(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt5(fn.inc) ||| fn.dec), parser.op(fn.dec ||| fn.argCnt5(fn.inc)))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt5(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.dec) ||| fn.dec))
+
+    fn.testAssertNotEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertNotEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt0(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt1(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt2(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt3(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
+    fn.testAssertStrictNotEquals(parser.op(fn.argCnt4(fn.inc) ||| fn.dec), parser.op(fn.argCnt5(fn.inc) ||| fn.dec))
 }
