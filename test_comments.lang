@@ -35,3 +35,12 @@ fn.testUnit(Comments)
     $v = \\\\\\\#
     fn.testAssertStrictEquals($v, {{{\\\#}}})
 }
+{
+    fn.testSubUnit(Comment with multiline text)
+
+    $v = # """comment with {{{ and end"""
+    fn.testAssertNull($v)
+
+    $v = # {{{comment with """ and end}}}
+    fn.testAssertNull($v)
+}
