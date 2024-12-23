@@ -317,3 +317,123 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 11), {{{many oranges}}})
     fn.testAssertStrictEquals(func.format(%.*[2]t, oranges.without.count, 12), {{{many oranges}}})
 }
+{
+    fn.testSubUnit(Integer number format sequences [No size])
+
+    fn.testAssertStrictEquals(func.format(%d, 0), {{{0}}})
+    fn.testAssertStrictEquals(func.format(%d, 10), {{{10}}})
+    fn.testAssertStrictEquals(func.format(%d, -1), {{{-1}}})
+    fn.testAssertStrictEquals(func.format(%d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%d, 100.5f), {{{100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+d, 0), {{{+0}}})
+    fn.testAssertStrictEquals(func.format(%+d, 10), {{{+10}}})
+    fn.testAssertStrictEquals(func.format(%+d, -1), {{{-1}}})
+    fn.testAssertStrictEquals(func.format(%+d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%+d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%+d, 100.5f), {{{+100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Space sign])
+
+    fn.testAssertStrictEquals(func.format(% d, 0), {{{ 0}}})
+    fn.testAssertStrictEquals(func.format(% d, 10), {{{ 10}}})
+    fn.testAssertStrictEquals(func.format(% d, -1), {{{-1}}})
+    fn.testAssertStrictEquals(func.format(% d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(% d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(% d, 100.5f), {{{ 100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size])
+
+    fn.testAssertStrictEquals(func.format(%3d, 0), {{{  0}}})
+    fn.testAssertStrictEquals(func.format(%3d, 10), {{{ 10}}})
+    fn.testAssertStrictEquals(func.format(%3d, -1), {{{ -1}}})
+    fn.testAssertStrictEquals(func.format(%3d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%3d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%3d, 100.5f), {{{100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Left aligned])
+
+    fn.testAssertStrictEquals(func.format(%-3d, 0), {{{0  }}})
+    fn.testAssertStrictEquals(func.format(%-3d, 10), {{{10 }}})
+    fn.testAssertStrictEquals(func.format(%-3d, -1), {{{-1 }}})
+    fn.testAssertStrictEquals(func.format(%-3d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%-3d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%-3d, 100.5f), {{{100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Zero padded])
+
+    fn.testAssertStrictEquals(func.format(%03d, 0), {{{000}}})
+    fn.testAssertStrictEquals(func.format(%03d, 10), {{{010}}})
+    fn.testAssertStrictEquals(func.format(%03d, -1), {{{-01}}})
+    fn.testAssertStrictEquals(func.format(%03d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%03d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%03d, 100.5f), {{{100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+3d, 0), {{{ +0}}})
+    fn.testAssertStrictEquals(func.format(%+3d, 10), {{{+10}}})
+    fn.testAssertStrictEquals(func.format(%+3d, -1), {{{ -1}}})
+    fn.testAssertStrictEquals(func.format(%+3d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%+3d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%+3d, 100.5f), {{{+100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Space sign])
+
+    fn.testAssertStrictEquals(func.format(% 3d, 0), {{{  0}}})
+    fn.testAssertStrictEquals(func.format(% 3d, 10), {{{ 10}}})
+    fn.testAssertStrictEquals(func.format(% 3d, -1), {{{ -1}}})
+    fn.testAssertStrictEquals(func.format(% 3d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(% 3d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(% 3d, 100.5f), {{{ 100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Zero padded, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+03d, 0), {{{+00}}})
+    fn.testAssertStrictEquals(func.format(%+03d, 10), {{{+10}}})
+    fn.testAssertStrictEquals(func.format(%+03d, -1), {{{-01}}})
+    fn.testAssertStrictEquals(func.format(%+03d, -10), {{{-10}}})
+    fn.testAssertStrictEquals(func.format(%+03d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%+03d, 100.5f), {{{+100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Zero padded, Space sign])
+
+    fn.testAssertStrictEquals(func.format(% 04d, 0), {{{ 000}}})
+    fn.testAssertStrictEquals(func.format(% 04d, 10), {{{ 010}}})
+    fn.testAssertStrictEquals(func.format(% 04d, -1), {{{-001}}})
+    fn.testAssertStrictEquals(func.format(% 04d, -10), {{{-010}}})
+    fn.testAssertStrictEquals(func.format(% 04d, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(% 04d, 100.5f), {{{ 100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Size from var args, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+*d, 4, 0), {{{  +0}}})
+    fn.testAssertStrictEquals(func.format(%+*d, 4, 10), {{{ +10}}})
+    fn.testAssertStrictEquals(func.format(%+*d, 4, -1), {{{  -1}}})
+    fn.testAssertStrictEquals(func.format(%+*d, 4, -10), {{{ -10}}})
+    fn.testAssertStrictEquals(func.format(%+*d, 4, -250L), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%+*d, 4, 100.5f), {{{+100}}})
+}
+{
+    fn.testSubUnit(Integer number format sequences [Size, Size from var args at index, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+*[2]d, 0, 4), {{{  +0}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]d, 10, 4), {{{ +10}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]d, -1, 4), {{{  -1}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]d, -10, 4), {{{ -10}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]d, -250L, 4), {{{-250}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]d, 100.5f, 4), {{{+100}}})
+}
