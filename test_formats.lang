@@ -1093,3 +1093,75 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format("%[1]*[2]c", a, 3), {{{  a}}})
     fn.testAssertStrictEquals(func.format("%[1]*[2]c", 0, 3), "  \0")
 }
+{
+    fn.testSubUnit(Boolean format sequences [No size])
+
+    fn.testAssertStrictEquals(func.format("%?", 65), {{{true}}})
+    fn.testAssertStrictEquals(func.format("%?", "abc"), {{{true}}})
+    fn.testAssertStrictEquals(func.format("%?", \e), {{{false}}})
+    fn.testAssertStrictEquals(func.format("%?", 0), {{{false}}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Size])
+
+    fn.testAssertStrictEquals(func.format("%6?", 65), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%6?", "abc"), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%6?", \e), {{{ false}}})
+    fn.testAssertStrictEquals(func.format("%6?", 0), {{{ false}}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Size, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%-6?", 65), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%-6?", "abc"), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%-6?", \e), {{{false }}})
+    fn.testAssertStrictEquals(func.format("%-6?", 0), {{{false }}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Size, Size from var args])
+
+    fn.testAssertStrictEquals(func.format("%*?", 6, 65), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%*?", 6, "abc"), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%*?", 6, \e), {{{ false}}})
+    fn.testAssertStrictEquals(func.format("%*?", 6, 0), {{{ false}}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Size, Size from var args at index])
+
+    fn.testAssertStrictEquals(func.format("%*[2]?", 65, 6), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%*[2]?", "abc", 6), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%*[2]?", \e, 6), {{{ false}}})
+    fn.testAssertStrictEquals(func.format("%*[2]?", 0, 6), {{{ false}}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Size, Size from var args, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%-*?", 6, 65), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%-*?", 6, "abc"), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%-*?", 6, \e), {{{false }}})
+    fn.testAssertStrictEquals(func.format("%-*?", 6, 0), {{{false }}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Size, Size from var args at index, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%-*[2]?", 65, 6), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%-*[2]?", "abc", 6), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%-*[2]?", \e, 6), {{{false }}})
+    fn.testAssertStrictEquals(func.format("%-*[2]?", 0, 6), {{{false }}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Argument from var args, Size, Size from var args, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%[2]-*?", 6, 65), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%[2]-*?", 6, "abc"), {{{true  }}})
+    fn.testAssertStrictEquals(func.format("%[2]-*?", 6, \e), {{{false }}})
+    fn.testAssertStrictEquals(func.format("%[2]-*?", 6, 0), {{{false }}})
+}
+{
+    fn.testSubUnit(Boolean format sequences [Argument from var args, Size, Size from var args at index])
+
+    fn.testAssertStrictEquals(func.format("%[1]*[2]?", 65, 6), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%[1]*[2]?", "abc", 6), {{{  true}}})
+    fn.testAssertStrictEquals(func.format("%[1]*[2]?", \e, 6), {{{ false}}})
+    fn.testAssertStrictEquals(func.format("%[1]*[2]?", 0, 6), {{{ false}}})
+}
