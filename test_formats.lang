@@ -598,6 +598,146 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format(%+*[2]b, 100.5f, 7), {{{+1100100}}})
 }
 {
+    fn.testSubUnit(Octal Integer number format sequences [No size])
+
+    fn.testAssertStrictEquals(func.format(%o, 0), {{{0}}})
+    fn.testAssertStrictEquals(func.format(%o, 10), {{{12}}})
+    fn.testAssertStrictEquals(func.format(%o, -1), {{{-1}}})
+    fn.testAssertStrictEquals(func.format(%o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%o, 100.5f), {{{144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+o, 0), {{{+0}}})
+    fn.testAssertStrictEquals(func.format(%+o, 10), {{{+12}}})
+    fn.testAssertStrictEquals(func.format(%+o, -1), {{{-1}}})
+    fn.testAssertStrictEquals(func.format(%+o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%+o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%+o, 100.5f), {{{+144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Space sign])
+
+    fn.testAssertStrictEquals(func.format(% o, 0), {{{ 0}}})
+    fn.testAssertStrictEquals(func.format(% o, 10), {{{ 12}}})
+    fn.testAssertStrictEquals(func.format(% o, -1), {{{-1}}})
+    fn.testAssertStrictEquals(func.format(% o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(% o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(% o, 100.5f), {{{ 144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size])
+
+    fn.testAssertStrictEquals(func.format(%3o, 0), {{{  0}}})
+    fn.testAssertStrictEquals(func.format(%3o, 10), {{{ 12}}})
+    fn.testAssertStrictEquals(func.format(%3o, -1), {{{ -1}}})
+    fn.testAssertStrictEquals(func.format(%3o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%3o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%3o, 100.5f), {{{144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Left aligned])
+
+    fn.testAssertStrictEquals(func.format(%-3o, 0), {{{0  }}})
+    fn.testAssertStrictEquals(func.format(%-3o, 10), {{{12 }}})
+    fn.testAssertStrictEquals(func.format(%-3o, -1), {{{-1 }}})
+    fn.testAssertStrictEquals(func.format(%-3o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%-3o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%-3o, 100.5f), {{{144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Zero padded])
+
+    fn.testAssertStrictEquals(func.format(%03o, 0), {{{000}}})
+    fn.testAssertStrictEquals(func.format(%03o, 10), {{{012}}})
+    fn.testAssertStrictEquals(func.format(%03o, -1), {{{-01}}})
+    fn.testAssertStrictEquals(func.format(%03o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%03o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%03o, 100.5f), {{{144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+3o, 0), {{{ +0}}})
+    fn.testAssertStrictEquals(func.format(%+3o, 10), {{{+12}}})
+    fn.testAssertStrictEquals(func.format(%+3o, -1), {{{ -1}}})
+    fn.testAssertStrictEquals(func.format(%+3o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%+3o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%+3o, 100.5f), {{{+144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Space sign])
+
+    fn.testAssertStrictEquals(func.format(% 3o, 0), {{{  0}}})
+    fn.testAssertStrictEquals(func.format(% 3o, 10), {{{ 12}}})
+    fn.testAssertStrictEquals(func.format(% 3o, -1), {{{ -1}}})
+    fn.testAssertStrictEquals(func.format(% 3o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(% 3o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(% 3o, 100.5f), {{{ 144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Left aligneo, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+-4o, 0), {{{+0  }}})
+    fn.testAssertStrictEquals(func.format(%+-4o, 10), {{{+12 }}})
+    fn.testAssertStrictEquals(func.format(%+-4o, -1), {{{-1  }}})
+    fn.testAssertStrictEquals(func.format(%+-4o, -10), {{{-12 }}})
+    fn.testAssertStrictEquals(func.format(%+-4o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%+-4o, 100.5f), {{{+144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Left aligneo, Space sign])
+
+    fn.testAssertStrictEquals(func.format(% -4o, 0), {{{ 0  }}})
+    fn.testAssertStrictEquals(func.format(% -4o, 10), {{{ 12 }}})
+    fn.testAssertStrictEquals(func.format(% -4o, -1), {{{-1  }}})
+    fn.testAssertStrictEquals(func.format(% -4o, -10), {{{-12 }}})
+    fn.testAssertStrictEquals(func.format(% -4o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(% -4o, 100.5f), {{{ 144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Zero paddeo, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+03o, 0), {{{+00}}})
+    fn.testAssertStrictEquals(func.format(%+03o, 10), {{{+12}}})
+    fn.testAssertStrictEquals(func.format(%+03o, -1), {{{-01}}})
+    fn.testAssertStrictEquals(func.format(%+03o, -10), {{{-12}}})
+    fn.testAssertStrictEquals(func.format(%+03o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%+03o, 100.5f), {{{+144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Zero paddeo, Space sign])
+
+    fn.testAssertStrictEquals(func.format(% 04o, 0), {{{ 000}}})
+    fn.testAssertStrictEquals(func.format(% 04o, 10), {{{ 012}}})
+    fn.testAssertStrictEquals(func.format(% 04o, -1), {{{-001}}})
+    fn.testAssertStrictEquals(func.format(% 04o, -10), {{{-012}}})
+    fn.testAssertStrictEquals(func.format(% 04o, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(% 04o, 100.5f), {{{ 144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Size from var args, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+*o, 4, 0), {{{  +0}}})
+    fn.testAssertStrictEquals(func.format(%+*o, 4, 10), {{{ +12}}})
+    fn.testAssertStrictEquals(func.format(%+*o, 4, -1), {{{  -1}}})
+    fn.testAssertStrictEquals(func.format(%+*o, 4, -10), {{{ -12}}})
+    fn.testAssertStrictEquals(func.format(%+*o, 4, -250L), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%+*o, 4, 100.5f), {{{+144}}})
+}
+{
+    fn.testSubUnit(Octal Integer number format sequences [Size, Size from var args at index, Force sign])
+
+    fn.testAssertStrictEquals(func.format(%+*[2]o, 0, 4), {{{  +0}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]o, 10, 4), {{{ +12}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]o, -1, 4), {{{  -1}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]o, -10, 4), {{{ -12}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]o, -250L, 4), {{{-372}}})
+    fn.testAssertStrictEquals(func.format(%+*[2]o, 100.5f, 4), {{{+144}}})
+}
+{
     fn.testSubUnit(Floating point number format sequences [Decimal places])
 
     fn.testAssertStrictEquals(func.format("%.2f", 0), {{{0.00}}})
