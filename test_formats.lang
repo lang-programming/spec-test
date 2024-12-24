@@ -1021,3 +1021,75 @@ fn.testUnit(Formats)
     fn.testAssertStrictEquals(func.format("% 07.2f", 100.5f), {{{ 100.50}}})
     fn.testAssertStrictEquals(func.format("% 07.2f", 2100.21f), {{{ 2100.21}}})
 }
+{
+    fn.testSubUnit(Char format sequences [No size])
+
+    fn.testAssertStrictEquals(func.format("%c", 65), {{{A}}})
+    fn.testAssertStrictEquals(func.format("%c", 67.6), {{{C}}})
+    fn.testAssertStrictEquals(func.format("%c", a), {{{a}}})
+    fn.testAssertStrictEquals(func.format("%c", 0), "\0")
+}
+{
+    fn.testSubUnit(Char format sequences [Size])
+
+    fn.testAssertStrictEquals(func.format("%3c", 65), {{{  A}}})
+    fn.testAssertStrictEquals(func.format("%3c", 67.6), {{{  C}}})
+    fn.testAssertStrictEquals(func.format("%3c", a), {{{  a}}})
+    fn.testAssertStrictEquals(func.format("%3c", 0), "  \0")
+}
+{
+    fn.testSubUnit(Char format sequences [Size, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%-3c", 65), {{{A  }}})
+    fn.testAssertStrictEquals(func.format("%-3c", 67.6), {{{C  }}})
+    fn.testAssertStrictEquals(func.format("%-3c", a), {{{a  }}})
+    fn.testAssertStrictEquals(func.format("%-3c", 0), "\0  ")
+}
+{
+    fn.testSubUnit(Char format sequences [Size, Size from var args])
+
+    fn.testAssertStrictEquals(func.format("%*c", 3, 65), {{{  A}}})
+    fn.testAssertStrictEquals(func.format("%*c", 3, 67.6), {{{  C}}})
+    fn.testAssertStrictEquals(func.format("%*c", 3, a), {{{  a}}})
+    fn.testAssertStrictEquals(func.format("%*c", 3, 0), "  \0")
+}
+{
+    fn.testSubUnit(Char format sequences [Size, Size from var args at index])
+
+    fn.testAssertStrictEquals(func.format("%*[2]c", 65, 3), {{{  A}}})
+    fn.testAssertStrictEquals(func.format("%*[2]c", 67.6, 3), {{{  C}}})
+    fn.testAssertStrictEquals(func.format("%*[2]c", a, 3), {{{  a}}})
+    fn.testAssertStrictEquals(func.format("%*[2]c", 0, 3), "  \0")
+}
+{
+    fn.testSubUnit(Char format sequences [Size, Size from var args, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%-*c", 3, 65), {{{A  }}})
+    fn.testAssertStrictEquals(func.format("%-*c", 3, 67.6), {{{C  }}})
+    fn.testAssertStrictEquals(func.format("%-*c", 3, a), {{{a  }}})
+    fn.testAssertStrictEquals(func.format("%-*c", 3, 0), "\0  ")
+}
+{
+    fn.testSubUnit(Char format sequences [Size, Size from var args at index, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%-*[2]c", 65, 3), {{{A  }}})
+    fn.testAssertStrictEquals(func.format("%-*[2]c", 67.6, 3), {{{C  }}})
+    fn.testAssertStrictEquals(func.format("%-*[2]c", a, 3), {{{a  }}})
+    fn.testAssertStrictEquals(func.format("%-*[2]c", 0, 3), "\0  ")
+}
+{
+    fn.testSubUnit(Char format sequences [Argument from var args, Size, Size from var args, Left aligned])
+
+    fn.testAssertStrictEquals(func.format("%[2]-*c", 3, 65), {{{A  }}})
+    fn.testAssertStrictEquals(func.format("%[2]-*c", 3, 67.6), {{{C  }}})
+    fn.testAssertStrictEquals(func.format("%[2]-*c", 3, a), {{{a  }}})
+    fn.testAssertStrictEquals(func.format("%[2]-*c", 3, 0), "\0  ")
+}
+{
+    fn.testSubUnit(Char format sequences [Argument from var args, Size, Size from var args at index])
+
+    fn.testAssertStrictEquals(func.format("%[1]*[2]c", 65, 3), {{{  A}}})
+    fn.testAssertStrictEquals(func.format("%[1]*[2]c", 67.6, 3), {{{  C}}})
+    fn.testAssertStrictEquals(func.format("%[1]*[2]c", a, 3), {{{  a}}})
+    fn.testAssertStrictEquals(func.format("%[1]*[2]c", 0, 3), "  \0")
+}
