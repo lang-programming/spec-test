@@ -1,0 +1,20 @@
+lang.name = Lang Tests (Self Modifying Assignments [Function - Static value])
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Tests
+{
+    fn.testSubUnit(Self Modifying Assignments [Function - Static value])
+
+    fp.func = () -> {
+        fp.func = fn.combI
+    }
+
+    fp.func = fn.asStatic(fp.func)
+
+    fp.func()
+    fn.testAssertStrictEquals(fp.func, fn.combI)
+
+    fn.testAssertStrictEquals(fp.func(42), 42)
+}

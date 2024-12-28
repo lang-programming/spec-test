@@ -1,0 +1,18 @@
+lang.name = Lang Tests (Self Modifying Assignments [Function - Call by pointer])
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Tests
+{
+    fn.testSubUnit(Self Modifying Assignments [Function - Call by pointer])
+
+    fp.func = ($[func]) -> {
+        $*func = fn.combI
+    }
+
+    fp.func(fp.func)
+    fn.testAssertStrictEquals(fp.func, fn.combI)
+
+    fn.testAssertStrictEquals(fp.func(42), 42)
+}

@@ -7,6 +7,7 @@ lang.nativeStackTraces = 1
 lang.errorOutput = 1 # Enable errors and warnings
 
 # Tests
+linker.link(assignments/test_assignments.lang)
 linker.link(test_comments.lang)
 linker.link(test_conditions.lang)
 linker.link(test_formats.lang)

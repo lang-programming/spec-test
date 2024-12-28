@@ -1,0 +1,11 @@
+lang.name = Lang Tests (Self Modifying Assignments)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+fn.testUnit(Self Modifying Assignments)
+
+# Tests
+linker.link(assignments/test_self_modifying_function_static_value_assignments.lang)
+linker.link(assignments/test_self_modifying_function_call_by_pointer_assignments.lang)
