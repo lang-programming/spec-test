@@ -18,6 +18,7 @@ $testStructVal = $TestStruct(42.f, 8L)
 $EmptyStruct = {
 }
 $emptyStructVal = $EmptyStruct()
+$codePos = &CodePosition(0, 1, 2, 3)
 $i = 2
 $l = 2L
 $f = 2.f
@@ -362,7 +363,20 @@ nontry {
     
     parser.op(fn.testAssertStrictEquals($testStructVal::$x, 42.f))
 
-    
+    fn.testAssertStrictEquals(parser.op(^$codePos), $codePos)
+    fn.testAssertStrictEquals(fn.deepCopy($codePos), $codePos)
+
+    $codePosCopy $= ^$codePos
+    fn.testAssertStrictEquals($codePosCopy, $codePos)
+
+    $codePos::$lineNumberFrom $= 42
+    fn.testAssertStrictEquals(parser.op($codePos::$lineNumberFrom), 42)
+    fn.testAssertStrictEquals(parser.op($codePosCopy::$lineNumberFrom), 0)
+
+    $codePosCopy::$lineNumberFrom $= 43
+    fn.testAssertStrictEquals(parser.op($codePos::$lineNumberFrom), 42)
+    fn.testAssertStrictEquals(parser.op($codePosCopy::$lineNumberFrom), 43)
+
     fn.testAssertStrictEquals(parser.op(^$i), $i)
     fn.testAssertStrictEquals(fn.deepCopy($i), $i)
     fn.testAssertStrictEquals(parser.op(^$i), 2)
