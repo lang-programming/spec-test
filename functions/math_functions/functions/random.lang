@@ -4,12 +4,28 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Preparation
-# ...
+struct &Empty {
+}
+
+struct &Wrapped {
+    $val
+}
+
+struct &Values {
+    $x
+    $y
+    fp.x
+    &arr
+}
+
+&empty = &Empty()
+&wrapped $= &Wrapped(42)
+&values $= &Values(10, 20, fn.rand, [])
 
 # Tests
 nontry {
     fn.testSubUnit(Lang functions [Random - rand] - Invalid argument count)
-    
+
     try {
         lang.errorOutput = 0
         func.rand(x)
@@ -238,4 +254,285 @@ nontry {
 
     fn.testAssertStrictEquals($isInvalidValue, 0)
     fn.testAssertTypeEquals($value, $LANG_TYPE_INT)
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - randRange] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.randRange()
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randRange(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randRange(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - randRange] - Return value)
+
+    fn.testAssertStrictEquals(fn.randRange(1), 0)
+
+    $isInvalidValue = 0
+    $value
+    $i
+    repeat($[i], 1000) {
+        $value $= fn.randRange($i + 1)
+        if($value < 0 || $value >= $i + 1) {
+            $isInvalidValue = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($isInvalidValue, 0)
+    fn.testAssertTypeEquals($value, $LANG_TYPE_INT)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randRange] - Return value - Deterministic)
+
+    fn.testAssertStrictEquals(fn.randRange(1), 0)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Array values)
+
+    $arr $= [abc, test, 1, y]
+    $value = fn.randChoice($arr)
+
+    $matched = 0
+    $ele
+    foreach($[ele], $arr) {
+        if($ele === $value) {
+            $matched = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($matched, 1)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Array values - Deterministic)
+
+    fn.testAssertTypeEquals(parser.op(fn.randChoice([])), $LANG_TYPE_VOID)
+    fn.testAssertStrictEquals(parser.op(fn.randChoice([abc])), abc)
+    fn.testAssertStrictEquals(parser.op(fn.randChoice([123L])), 123L)
+    fn.testAssertStrictEquals(parser.op(fn.randChoice([\e])), \e)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - List values)
+
+    $list = fn.listOf(abc, test, 1, y)
+    $value = fn.randChoice($list)
+
+    $matched = 0
+    $ele
+    foreach($[ele], $arr) {
+        if($ele === $value) {
+            $matched = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($matched, 1)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - List values - Deterministic)
+
+    fn.testAssertTypeEquals(parser.op(fn.randChoice(fn.listOf())), $LANG_TYPE_VOID)
+    fn.testAssertStrictEquals(parser.op(fn.randChoice(fn.listOf(abc))), abc)
+    fn.testAssertStrictEquals(parser.op(fn.randChoice(fn.listOf(123L))), 123L)
+    fn.testAssertStrictEquals(parser.op(fn.randChoice(fn.listOf(\e))), \e)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Struct values (Struct Definition))
+
+    $members $= ["$x", "$y", "fp.x", "&arr"]
+    $value = fn.randChoice(&Values)
+
+    $matched = 0
+    $ele
+    foreach($[ele], $members) {
+        if($ele === $value) {
+            $matched = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($matched, 1)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Struct values (Struct Instance))
+
+    $values $= [10, 20, fn.rand, []]
+    $value = fn.randChoice(&values)
+
+    $matched = 0
+    $ele
+    foreach($[ele], $values) {
+        if($ele === $value) {
+            $matched = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($matched, 1)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Struct values (Struct Definition) - Deterministic)
+
+    fn.testAssertTypeEquals(fn.randChoice(&Empty), $LANG_TYPE_VOID)
+    fn.testAssertStrictEquals(fn.randChoice(&Wrapped), "$val")
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Struct values (Struct Instance) - Deterministic)
+
+    fn.testAssertTypeEquals(fn.randChoice(&empty), $LANG_TYPE_VOID)
+    fn.testAssertStrictEquals(fn.randChoice(&wrapped), 42)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Var args)
+
+    $values $= [[], 10, 20, fn.rand]
+    $value $= fn.randChoice([], 10, 20, fn.rand)
+
+    $matched = 0
+    $ele
+    foreach($[ele], $values) {
+        if($ele === $value) {
+            $matched = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($matched, 1)
+}
+{
+    fn.testSubUnit(Lang functions [Random - randChoice] - Var args - Deterministic)
+
+    fn.testAssertTypeEquals(fn.randChoice(), $LANG_TYPE_VOID)
+    fn.testAssertStrictEquals(fn.randChoice(20), 20)
+    fn.testAssertStrictEquals(fn.randChoice(test), test)
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - setSeed] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.setSeed()
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.setSeed(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.setSeed(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random function values with setSeed] - Deterministic)
+
+    $i
+    repeat($[i], 10) {
+        # First run
+        fn.setSeed($i)
+
+        $retRand1 = fn.rand()
+        $retRand2 = fn.rand()
+        $retRand3 = fn.rand()
+
+        $retRandI1 = fn.randi()
+        $retRandI2 = fn.randi()
+        $retRandI3 = fn.randi()
+
+        $retRandL1 = fn.randl()
+        $retRandL2 = fn.randl()
+        $retRandL3 = fn.randl()
+
+        $retRandF1 = fn.randf()
+        $retRandF2 = fn.randf()
+        $retRandF3 = fn.randf()
+
+        $retRandD1 = fn.randd()
+        $retRandD2 = fn.randd()
+        $retRandD3 = fn.randd()
+
+        $retRandB1 = fn.randb()
+        $retRandB2 = fn.randb()
+        $retRandB3 = fn.randb()
+
+        $retRandRange1 = fn.randRange(42)
+        $retRandRange2 = fn.randRange(10)
+        $retRandRange3 = fn.randRange(12)
+
+        $retRandChoice1 = parser.op(fn.randChoice([42, 10, abc]))
+        $retRandChoice2 = fn.randChoice(&values)
+        $retRandChoice3 = fn.randChoice(&values, 42, test)
+        $retRandChoice4 = fn.randChoice(42, &values, test)
+
+        # Second run must be identical with same seed
+
+        fn.setSeed($i) # Set same seed => Same return values
+
+        $msg = "Random return value after \"func.setSeed()\" must be identical if executed in the same order and with the same parameters"
+
+        fn.testAssertStrictEquals(fn.rand(), $retRand1, $msg)
+        fn.testAssertStrictEquals(fn.rand(), $retRand2, $msg)
+        fn.testAssertStrictEquals(fn.rand(), $retRand3, $msg)
+
+        fn.testAssertStrictEquals(fn.randi(), $retRandI1, $msg)
+        fn.testAssertStrictEquals(fn.randi(), $retRandI2, $msg)
+        fn.testAssertStrictEquals(fn.randi(), $retRandI3, $msg)
+
+        fn.testAssertStrictEquals(fn.randl(), $retRandL1, $msg)
+        fn.testAssertStrictEquals(fn.randl(), $retRandL2, $msg)
+        fn.testAssertStrictEquals(fn.randl(), $retRandL3, $msg)
+
+        fn.testAssertStrictEquals(fn.randf(), $retRandF1, $msg)
+        fn.testAssertStrictEquals(fn.randf(), $retRandF2, $msg)
+        fn.testAssertStrictEquals(fn.randf(), $retRandF3, $msg)
+
+        fn.testAssertStrictEquals(fn.randd(), $retRandD1, $msg)
+        fn.testAssertStrictEquals(fn.randd(), $retRandD2, $msg)
+        fn.testAssertStrictEquals(fn.randd(), $retRandD3, $msg)
+
+        fn.testAssertStrictEquals(fn.randb(), $retRandB1, $msg)
+        fn.testAssertStrictEquals(fn.randb(), $retRandB2, $msg)
+        fn.testAssertStrictEquals(fn.randb(), $retRandB3, $msg)
+
+        fn.testAssertStrictEquals(fn.randRange(42), $retRandRange1, $msg)
+        fn.testAssertStrictEquals(fn.randRange(10), $retRandRange2, $msg)
+        fn.testAssertStrictEquals(fn.randRange(12), $retRandRange3, $msg)
+
+        fn.testAssertStrictEquals(parser.op(fn.randChoice([42, 10, abc])), $retRandChoice1, $msg)
+        fn.testAssertStrictEquals(fn.randChoice(&values), $retRandChoice2, $msg)
+        fn.testAssertStrictEquals(fn.randChoice(&values, 42, test), $retRandChoice3, $msg)
+        fn.testAssertStrictEquals(fn.randChoice(42, &values, test), $retRandChoice4, $msg)
+    }
 }

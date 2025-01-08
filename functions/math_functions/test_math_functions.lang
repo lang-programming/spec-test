@@ -4,7 +4,7 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Preparation
-fn.testUnit(Lang Functions)
+fn.testUnit(Math Functions)
 
 # Tests
 linker.link(functions/random.lang)
