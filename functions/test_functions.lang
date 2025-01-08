@@ -6,4 +6,5 @@ lang.test = 1
 # Tests
 linker.link(array_functions/test_array_functions.lang)
 linker.link(lang_functions/test_lang_functions.lang)
+linker.link(math_functions/test_math_functions.lang)
 linker.link(system_functions/test_system_functions.lang)

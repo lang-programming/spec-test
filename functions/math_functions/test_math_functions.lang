@@ -1,0 +1,10 @@
+lang.name = Lang Tests (Math Functions)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+fn.testUnit(Lang Functions)
+
+# Tests
+linker.link(functions/random.lang)

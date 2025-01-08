@@ -1,0 +1,241 @@
+lang.name = Lang Tests (Math Functions [Random])
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+# ...
+
+# Tests
+nontry {
+    fn.testSubUnit(Lang functions [Random - rand] - Invalid argument count)
+    
+    try {
+        lang.errorOutput = 0
+        func.rand(x)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.rand(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.rand(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - rand] - Return value)
+
+    $isInvalidValue = 0
+    $value
+    repeat(null, 1000) {
+        $value = fn.rand()
+        if($value < 0 || $value > $LANG_RAND_MAX) {
+            $isInvalidValue = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($isInvalidValue, 0)
+    fn.testAssertTypeEquals($value, $LANG_TYPE_INT)
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - randi] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.randi(x)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randi(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randi(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - randi] - Return value)
+
+    repeat(null, 5) {
+        fn.testAssertTypeEquals(fn.randi(), $LANG_TYPE_INT)
+    }
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - randl] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.randl(x)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randl(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randl(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - randl] - Return value)
+
+    repeat(null, 5) {
+        fn.testAssertTypeEquals(fn.randl(), $LANG_TYPE_LONG)
+    }
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - randf] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.randf(x)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randf(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randf(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - randf] - Return value)
+
+    $isInvalidValue = 0
+    $value
+    repeat(null, 1000) {
+        $value = fn.randf()
+        if($value < 0 || $value >= 1) {
+            $isInvalidValue = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($isInvalidValue, 0)
+    fn.testAssertTypeEquals($value, $LANG_TYPE_FLOAT)
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - randd] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.randd(x)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randd(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randd(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - randd] - Return value)
+
+    $isInvalidValue = 0
+    $value
+    repeat(null, 1000) {
+        $value = fn.randd()
+        if($value < 0 || $value >= 1) {
+            $isInvalidValue = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($isInvalidValue, 0)
+    fn.testAssertTypeEquals($value, $LANG_TYPE_DOUBLE)
+}
+nontry {
+    fn.testSubUnit(Lang functions [Random - randb] - Invalid argument count)
+
+    try {
+        lang.errorOutput = 0
+        func.randb(x)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randb(x, y)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+    try {
+        lang.errorOutput = 0
+        func.randb(x, y, z)
+    }finally {
+        lang.errorOutput = 1
+        fn.testAssertError($LANG_ERROR_INVALID_ARG_COUNT)
+    }
+}
+{
+    fn.testSubUnit(Lang functions [Random - randb] - Return value)
+
+    $isInvalidValue = 0
+    $value
+    repeat(null, 1000) {
+        $value = fn.randb()
+        if($value < 0 || $value >= 2) {
+            $isInvalidValue = 1
+
+            con.break
+        }
+    }
+
+    fn.testAssertStrictEquals($isInvalidValue, 0)
+    fn.testAssertTypeEquals($value, $LANG_TYPE_INT)
+}
