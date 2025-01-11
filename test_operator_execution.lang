@@ -397,7 +397,7 @@ fn.testUnit(Operator Execution)
     fp.testAssertOperationExecution($result, $executionSteps, $expectedResult, $expectedExecutionSteps)
 }
 {
-    fn.testSubUnit(Operator Execution '"Text " ||| "Test with a long text"[5:][:][:-5] ||| " value"[@[1, 2, 3][2:-1]:]')
+    fn.testSubUnit(Operator Execution '"Text" ||| "Test with a long text"[5:][:][:-5] ||| "value"[@[1, 2, 3][2:-1]:]')
 
     fp.resetTracking()
 
