@@ -7,12 +7,12 @@ lang.nativeStackTraces = 1
 lang.errorOutput = 1 # Enable errors and warnings
 
 # Tests
-linker.link(assignments/test_assignments.lang)
+linker.link(assignments/test.lang)
 linker.link(test_comments.lang)
 linker.link(test_conditions.lang)
 linker.link(test_formats.lang)
 linker.link(test_function_calls.lang)
-linker.link(functions/test_functions.lang)
+linker.link(functions/test.lang)
 linker.link(test_lang_data_and_execution_flags.lang)
 linker.link(test_multiline_texts.lang)
 linker.link(test_iterators.lang)

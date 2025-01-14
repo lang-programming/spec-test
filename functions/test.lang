@@ -1,0 +1,10 @@
+lang.name = Lang Tests (Functions)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Tests
+linker.link(array_functions/test.lang)
+linker.link(lang_functions/test.lang)
+linker.link(math_functions/test.lang)
+linker.link(system_functions/test.lang)

@@ -4,4 +4,4 @@ lang.version = v1.0.0
 lang.test = 1
 
 # Tests
-linker.link(self_modifying/test_self_modifying_assignments.lang)
+linker.link(self_modifying/test.lang)
