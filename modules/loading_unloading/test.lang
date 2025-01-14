@@ -17,3 +17,13 @@ lang.test = 1
 
     ln.unloadModule(empty)
 }
+{
+    fn.testSubUnit(Module - Loading with fp.load)
+
+    ln.loadModule(load_unload_functions.lm)
+}
+{
+    fn.testSubUnit(Module - Unloading with fp.unload)
+
+    ln.unloadModule(load_unload_functions)
+}
