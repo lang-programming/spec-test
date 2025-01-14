@@ -1,0 +1,10 @@
+lang.name = Lang Tests (Modules)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+fn.testUnit(Module)
+
+# Tests
+linker.link(loading_unloading/test.lang)

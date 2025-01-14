@@ -1,0 +1,19 @@
+lang.name = Lang Tests (Module - Loading/Unloading)
+lang.version = v1.0.0
+
+lang.test = 1
+
+# Preparation
+# ...
+
+# Tests
+{
+    fn.testSubUnit(Module - Loading [Empty module])
+
+    ln.loadModule(empty.lm)
+}
+{
+    fn.testSubUnit(Module - Unloading [Empty module])
+
+    ln.unloadModule(empty)
+}
