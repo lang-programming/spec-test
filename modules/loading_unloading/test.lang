@@ -27,3 +27,13 @@ lang.test = 1
 
     ln.unloadModule(load_unload_functions)
 }
+{
+    fn.testSubUnit(Module - Loading with fp.load with multiple files)
+
+    ln.loadModule(load_unload_with_multiple_files.lm)
+}
+{
+    fn.testSubUnit(Module - Unloading with fp.unload with multiple files)
+
+    ln.unloadModule(load_unload_with_multiple_files)
+}
