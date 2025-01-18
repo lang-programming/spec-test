@@ -47,3 +47,13 @@ lang.test = 1
 
     ln.unloadModule(load_unload_with_multiple_files_linker_inside_fp)
 }
+{
+    fn.testSubUnit(Module - Loading with subfolders)
+
+    ln.loadModule(load_unload_with_subfolders.lm)
+}
+{
+    fn.testSubUnit(Module - Unloading with subfolders)
+
+    ln.unloadModule(load_unload_with_subfolders)
+}
