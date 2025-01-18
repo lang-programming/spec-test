@@ -37,3 +37,13 @@ lang.test = 1
 
     ln.unloadModule(load_unload_with_multiple_files)
 }
+{
+    fn.testSubUnit(Module - Loading with fp.load with multiple files and linker inside functions)
+
+    ln.loadModule(load_unload_with_multiple_files_linker_inside_fp.lm)
+}
+{
+    fn.testSubUnit(Module - Unloading with fp.unload with multiple files and linker inside functions)
+
+    ln.unloadModule(load_unload_with_multiple_files_linker_inside_fp)
+}
