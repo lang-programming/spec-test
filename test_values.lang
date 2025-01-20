@@ -381,6 +381,7 @@ fn.testUnit(Values)
     
     fn.testAssertStrictEquals($LANG_TYPE_INT, fn.typeOf(2))
     fn.testAssertStrictEquals($LANG_TYPE_TYPE, fn.typeOf($LANG_TYPE_LONG))
+    fn.testAssertStrictEquals($LANG_TYPE_TYPE, fn.typeOf(fn.typeOf("abc")))
 }
 {
     fn.testSubUnit(TYPE [Strict not equals])
