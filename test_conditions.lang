@@ -8,7 +8,7 @@ $void = func.randChoice()
 fp.null = null
 fp.empty = () -> {
 }
-fp.anonymGen = () -> return () -> return
+fp.anonymousGen = () -> return () -> return
 fp.ret = ($a) -> return $a
 &null = null
 &empty = func.arrayOf()
@@ -61,7 +61,9 @@ fn.testUnit(Conditions)
     fn.testAssertStrictEquals(parser.con({{{0}}}), 1)
     fn.testAssertStrictEquals(parser.con(text), 1)
     fn.testAssertStrictEquals(parser.con(0.0.0), 1)
+    fn.testAssertStrictEquals(parser.con("0.0.0"), 1)
     fn.testAssertStrictEquals(parser.con(ABCDEF), 1)
+    fn.testAssertStrictEquals(parser.con("ABCDEF"), 1)
 }
 {
     fn.testSubUnit(Data type [True, CHAR])
@@ -137,7 +139,7 @@ fn.testUnit(Conditions)
     fn.testSubUnit(Data type [True, FUNCTION POINTER])
     
     fn.testAssertStrictEquals(parser.con(fp.empty), 1)
-    fn.testAssertStrictEquals(parser.con(fp.anonymGen()), 1)
+    fn.testAssertStrictEquals(parser.con(fp.anonymousGen()), 1)
     fn.testAssertStrictEquals(parser.con(fp.ret(1)), 1)
     fn.testAssertStrictEquals(parser.con(fp.ret(42)), 1)
 }
